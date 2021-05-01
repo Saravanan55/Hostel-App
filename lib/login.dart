@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
   bool validatePassword = false;
   String name, usn, role, mobile, block, room;
   bool _isSelected = false;
-
+  bool _isHidden =true;
   void _radio() {
     setState(() {
       _isSelected = !_isSelected;
@@ -81,7 +81,11 @@ class _LoginState extends State<Login> {
         ) ??
         false;
   }
-
+ void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
   bool _saving = false;
   bool isLoading = true;
   @override
@@ -411,7 +415,7 @@ class _LoginState extends State<Login> {
                         });
                       },
                       controller: passwordController,
-                      obscureText: true,
+                      obscureText: _isHidden,
                       decoration: InputDecoration(
                           errorText: validatePassword
                               ? "Password can\'t be empty"
@@ -419,6 +423,12 @@ class _LoginState extends State<Login> {
                           hintText: "Password",
                           hintStyle:
                               TextStyle(color: Colors.grey, fontSize: 12.0),
+                              suffix: InkWell(
+              onTap: _togglePasswordView,
+              child: Icon(
+                _isHidden ? Icons.visibility : Icons.visibility_off,
+              ),
+            ),
                           border: InputBorder.none,
                           fillColor: Color(0xfff3f3f4),
                           filled: true),

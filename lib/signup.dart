@@ -23,21 +23,19 @@ class _SignUpState extends State<SignUp> {
   bool validateBlock = false;
   bool validateRoom = false;
   bool validateMobile = false;
-
+  bool _isHidden=true;
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
-
   TextEditingController nameController = TextEditingController();
-
   TextEditingController usnController = TextEditingController();
-
   TextEditingController blockController = TextEditingController();
-
   TextEditingController roomController = TextEditingController();
-
   TextEditingController mobileController = TextEditingController();
-
+   void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -59,33 +57,7 @@ class _SignUpState extends State<SignUp> {
           "mobile": "${mobileController.text}",
           "role": "student"
         });
-
         print(user);
-
-        // StreamBuilder<DocumentSnapshot>(
-        //   Stream: Firestore.instance
-        //       .collection('users')
-        //       .document(user.uid)
-        //       .setData(data),
-        //   builder:
-        //       (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        //     if (snapshot.hasError) {
-        //       return Text('Error: ${snapshot.error}');
-        //     }
-        //     switch (snapshot.connectionState) {
-        //       case ConnectionState.waiting:
-        //         return Text('Loading');
-        //       default:
-        //         return Text(snapshot.data['name']);
-        //     }
-        //   },
-        // );
-
-        // final FirebaseUser user = (await FirebaseAuth.instance
-        //         .createUserWithEmailAndPassword(
-        //             email: emailController.text,
-        //             password: passwordController.text))
-        //     .user;
         user.sendEmailVerification();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Login()));
@@ -126,14 +98,6 @@ class _SignUpState extends State<SignUp> {
           // child: ListView(
           //crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Text("SignUp",
-            //     style: TextStyle(
-            //         fontSize: ScreenUtil.getInstance().setSp(45),
-            //         fontFamily: "Poppins-Bold",
-            //         letterSpacing: .6)),
-            // SizedBox(
-            //   height: ScreenUtil.getInstance().setHeight(30),
-            // ),
             Positioned(
               top: -MediaQuery.of(context).size.height * .15,
               right: -MediaQuery.of(context).size.width * .4,
@@ -346,7 +310,7 @@ class _SignUpState extends State<SignUp> {
                               : validatePassword = false;
                         });
                       },
-                      obscureText: true,
+                      obscureText: _isHidden,
                       controller: passwordController,
                       decoration: InputDecoration(
                           errorText: validatePassword
@@ -355,6 +319,12 @@ class _SignUpState extends State<SignUp> {
                           hintText: "Password",
                           hintStyle:
                               TextStyle(color: Colors.grey, fontSize: 12.0),
+                              suffix: InkWell(
+              onTap: _togglePasswordView,
+              child: Icon(
+                _isHidden ? Icons.visibility : Icons.visibility_off,
+              ),
+            ),
                           border: InputBorder.none,
                           fillColor: Color(0xfff3f3f4),
                           filled: true),
