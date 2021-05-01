@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "349291739676",
+    "project_id": "hostel-app2",
+    "storage_bucket": "hostel-app2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349291739676:android:1aebc66b3c7de4d9edfdd9",
+        "android_client_info": {
+          "package_name": "com.example.hostelredressal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349291739676-go3ognn4003v0objf0ibtinio4dergh4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hostelredressal",
+            "certificate_hash": "8cfb368abfd0ea87e98a50516851c018c5170b7d"
+          }
+        },
+        {
+          "client_id": "349291739676-14f7km6abm6ug6hrv52gbc73i4hjqsai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6XsY1SLxddvJOzpZL_hXyItKVNW7cu-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349291739676-14f7km6abm6ug6hrv52gbc73i4hjqsai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
