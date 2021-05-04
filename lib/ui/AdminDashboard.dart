@@ -9,6 +9,9 @@ import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/utils/CommonData.dart';
+import 'add_screen.dart';
+import 'colors.dart';
+import 'item_list.dart';
 import 'outpassDetails.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -37,7 +40,7 @@ class _AdminDashboardState extends State<AdminDashboard>
     databaseReference.onChildAdded.listen(onDataAdded);
 
     tabBarController =
-        new TabController(length: 3, vsync: this, initialIndex: 0);
+        new TabController(length: 4, vsync: this, initialIndex: 0);
   }
 
   Widget shimmers() {
@@ -145,13 +148,6 @@ class _AdminDashboardState extends State<AdminDashboard>
 
   @override
   Widget build(BuildContext context) {
-//    var _fabLocation=kFabCenterDocked;
-//    static const  kFabCenterDocked = _fabLocation<FloatingActionButtonLocation>(
-//      title: 'Attached - Center',
-//      label: 'floating action button is docked at the center of the bottom app bar',
-//      value: FloatingActionButtonLocation.centerDocked,
-//    );
-
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -204,9 +200,9 @@ class _AdminDashboardState extends State<AdminDashboard>
               Tab(
                 child: Text('Outpass'),
               ),
-              // Tab(
-              //   child: Text('Sanitation'),
-              // ),
+              Tab(
+                child: Text('Food'),
+              ),
               // Tab(
               //   child: Text('Food'),
               // ),
@@ -220,6 +216,7 @@ class _AdminDashboardState extends State<AdminDashboard>
               firebaseList('General'),
               cloudstoreList("Students"),
               firebasepass('Civil'),
+              foodfirebase(),
               // firebaseList('Sanitation'),
               // firebaseList('Food'),
             ],
@@ -229,24 +226,40 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-//
-//  Widget callEventCard(String complaintType) {
-//   // return ListView.builder(itemCount: data.length,itemBuilder: (BuildContext context,int index){
-//  for(int i=0;i<data.length;i++) {
-//
-//    if(data['category']==complaintType)
-//    return eventCard(
-//        data["name"],
-//        data["detail"],
-//        data['phone'],
-//        data['url'],
-//        data["status"],
-//        data['id'],
-//        data['category'],
-//        widget.loginTypeFlag);
-//  }
-//   // );
-//  }
+  Widget foodfirebase() {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   title: Text("Food"),
+      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddScreen(),
+            ),
+          );
+        },
+        backgroundColor: CustomColors.firebaseOrange,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 32,
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            bottom: 20.0,
+          ),
+          child: ItemList(),
+        ),
+      ),
+    );
+  }
 
   Widget firebaseList(String complaintType) {
     return FirebaseAnimatedList(

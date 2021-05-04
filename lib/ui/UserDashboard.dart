@@ -199,31 +199,6 @@ class _UserDashboardState extends State<UserDashboard>
             //  children: firebaseList1("General"),
           ),
         ),
-//      bottomNavigationBar: _DemoBottomAppBar(
-//        color: Colors.blue,
-//        fabLocation:FloatingActionButtonLocation.centerDocked,
-//        shape: CircularNotchedRectangle(),
-//      ),
-        // bottomNavigationBar: BottomAppBar(
-        //   shape: CircularNotchedRectangle(),
-        //   child: new Row(
-        //     mainAxisSize: MainAxisSize.max,
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: <Widget>[
-        //       IconButton(
-        //         icon: Icon(Icons.person),
-        //         color: Colors.white,
-        //         onPressed: () {},
-        //       ),
-        //       IconButton(
-        //         icon: Icon(Icons.search),
-        //         color: Colors.white,
-        //         onPressed: () {},
-        //       ),
-        //     ],
-        //   ),
-        //   color: Color(0xff028090),
-        // ),
       ),
     );
   }

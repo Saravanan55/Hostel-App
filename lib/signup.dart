@@ -23,7 +23,7 @@ class _SignUpState extends State<SignUp> {
   bool validateBlock = false;
   bool validateRoom = false;
   bool validateMobile = false;
-  bool _isHidden=true;
+  bool _isHidden = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -31,11 +31,12 @@ class _SignUpState extends State<SignUp> {
   TextEditingController blockController = TextEditingController();
   TextEditingController roomController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
-   void _togglePasswordView() {
+  void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -75,28 +76,8 @@ class _SignUpState extends State<SignUp> {
 
     return Scaffold(
       body: Container(
-        //  inAsyncCall: _saving,
         height: height,
         child: new Stack(
-          //   width: double.infinity,
-          //   height: MediaQuery.of(context).size.height,
-          //   decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       borderRadius: BorderRadius.circular(8.0),
-          //       boxShadow: [
-          //         BoxShadow(
-          //             color: Colors.black12,
-          //             offset: Offset(0.0, 15.0),
-          //             blurRadius: 15.0),
-          //         BoxShadow(
-          //             color: Colors.black12,
-          //             offset: Offset(0.0, -10.0),
-          //             blurRadius: 10.0),
-          //       ]),
-          // child: Padding(
-          //   padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
-          // child: ListView(
-          //crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Positioned(
               top: -MediaQuery.of(context).size.height * .15,
@@ -319,12 +300,14 @@ class _SignUpState extends State<SignUp> {
                           hintText: "Password",
                           hintStyle:
                               TextStyle(color: Colors.grey, fontSize: 12.0),
-                              suffix: InkWell(
-              onTap: _togglePasswordView,
-              child: Icon(
-                _isHidden ? Icons.visibility : Icons.visibility_off,
-              ),
-            ),
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
                           border: InputBorder.none,
                           fillColor: Color(0xfff3f3f4),
                           filled: true),
@@ -339,17 +322,6 @@ class _SignUpState extends State<SignUp> {
                           padding: EdgeInsets.symmetric(vertical: 15),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              // gradient: LinearGradient(colors: [
-                              //   Color(0xFF17ead9),
-                              //   Color(0xFF6078ea)
-                              // ]),
-                              // borderRadius: BorderRadius.circular(6.0),
-                              // boxShadow: [
-                              //   BoxShadow(
-                              //       color: Color(0xFF6078ea).withOpacity(.3),
-                              //       offset: Offset(0.0, 8.0),
-                              //       blurRadius: 8.0)
-                              // ]
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5)),
                               boxShadow: <BoxShadow>[

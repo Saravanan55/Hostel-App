@@ -11,7 +11,6 @@ import 'package:hostel/ui/AdminDashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hostel/ui/UserDashboard.dart';
 import 'package:hostel/utils/Constants.dart';
-// import 'package:toast/toast.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hostel/utils/bezierContainer.dart';
 
@@ -25,7 +24,7 @@ class _LoginState extends State<Login> {
   bool validatePassword = false;
   String name, usn, role, mobile, block, room;
   bool _isSelected = false;
-  bool _isHidden =true;
+  bool _isHidden = true;
   void _radio() {
     setState(() {
       _isSelected = !_isSelected;
@@ -81,11 +80,13 @@ class _LoginState extends State<Login> {
         ) ??
         false;
   }
- void _togglePasswordView() {
+
+  void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
+
   bool _saving = false;
   bool isLoading = true;
   @override
@@ -93,7 +94,6 @@ class _LoginState extends State<Login> {
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
-    // final height = MediaQuery.of(context).size.height;
     return ModalProgressHUD(
       inAsyncCall: _saving,
       child: WillPopScope(
@@ -109,7 +109,6 @@ class _LoginState extends State<Login> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(right: 45.0, top: 10.0),
-                    // child: Center(child: Image.asset()),
                   ),
                   Expanded(
                     child: Container(),
@@ -118,97 +117,10 @@ class _LoginState extends State<Login> {
                 ],
               ),
               SingleChildScrollView(
-                // child: Padding(
-                //   padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 40.0),
                 child: Column(
                   children: <Widget>[
-                    // SizedBox(
-                    //   height: ScreenUtil.getInstance().setHeight(250),
-                    // ),
                     formCard(),
                     SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
-                    // Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //  children: <Widget>[
-                    // Row(
-                    //   children: <Widget>[
-                    //     SizedBox(height: 20),
-                    //     GestureDetector(
-                    //       onTap: _radio,
-                    //       child: radioButton(_isSelected),
-                    //     ),
-                    //     SizedBox(
-                    //       width: 8.0,
-                    //     ),
-                    //     Text("Remember me",
-                    //         style: TextStyle(
-                    //             fontSize: 12, fontFamily: "Poppins-Medium"))
-                    //   ],
-                    // ),
-                    // InkWell(
-                    //   child: Container(
-                    //     width: MediaQuery.of(context).size.width,
-                    //     padding: EdgeInsets.symmetric(vertical: 15),
-                    //     alignment: Alignment.center,
-                    //     decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.all(Radius.circular(5)),
-                    //         boxShadow: <BoxShadow>[
-                    //           BoxShadow(
-                    //               color: Colors.grey.shade200,
-                    //               offset: Offset(2, 4),
-                    //               blurRadius: 5,
-                    //               spreadRadius: 2)
-                    //         ],
-                    //         gradient: LinearGradient(
-                    //             begin: Alignment.centerLeft,
-                    //             end: Alignment.centerRight,
-                    //             colors: [
-                    //               Color(0xfffbb448),
-                    //               Color(0xfff7892b)
-                    //             ])),
-                    //     // decoration: BoxDecoration(
-                    //     //     gradient: LinearGradient(colors: [
-                    //     //       Color(0xFF17ead9),
-                    //     //       Color(0xFF6078ea)
-                    //     //     ]),
-                    //     //     borderRadius: BorderRadius.circular(6.0),
-                    //     //     boxShadow: [
-                    //     //       BoxShadow(
-                    //     //           color: Color(0xFF6078ea).withOpacity(.3),
-                    //     //           offset: Offset(0.0, 8.0),
-                    //     //           blurRadius: 8.0)
-                    //     //     ]),
-                    //     child: Material(
-                    //       color: Colors.transparent,
-                    //       child: InkWell(
-                    //         onTap: () {
-                    //           setState(() {
-                    //             emailController.text.isEmpty
-                    //                 ? validateEmail = true
-                    //                 : validateEmail = false;
-                    //             passwordController.text.isEmpty
-                    //                 ? validatePassword = true
-                    //                 : validatePassword = false;
-                    //           });
-                    //           if (!validateEmail && !validatePassword) {
-                    //             //isLoading==false? CircularProgressIndicator(),signIn():
-                    //             _saving = true;
-                    //             signIn();
-                    //           }
-                    //         },
-                    //         child: Center(
-                    //           child: Text(
-                    //             "LOGIN",
-                    //             style: TextStyle(
-                    //                 fontSize: 20, color: Colors.white),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    //    ],
-                    //  ),
                     SizedBox(
                       height: ScreenUtil.getInstance().setHeight(40),
                     ),
@@ -254,10 +166,7 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> signIn() async {
-    //final forState = formKey.currentState;
-
     try {
-      //Center(child: CircularProgressIndicator(backgroundColor: Colors.black,strokeWidth: 50,));
       final FirebaseUser user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(
                   email: emailController.text,
@@ -298,8 +207,6 @@ class _LoginState extends State<Login> {
       print(e.message);
       _saving = false;
       setState(() {});
-      // Toast.show(e.message, context,
-      //     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       Fluttertoast.showToast(
         msg: e.message,
         toastLength: Toast.LENGTH_SHORT,
@@ -311,25 +218,7 @@ class _LoginState extends State<Login> {
   formCard() {
     final height = MediaQuery.of(context).size.height;
     return Container(
-      //width: double.infinity,
-      // height: height,
-      // decoration: BoxDecoration(
-      //     color: Colors.white,
-      //     borderRadius: BorderRadius.circular(8.0),
-      //     boxShadow: [
-      //       BoxShadow(
-      //           color: Colors.black12,
-      //           offset: Offset(0.0, 15.0),
-      //           blurRadius: 15.0),
-      //       BoxShadow(
-      //           color: Colors.black12,
-      //           offset: Offset(0.0, -10.0),
-      //           blurRadius: 10.0),
-      //     ]),
       child: Stack(
-        //padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0),
-        //child: ListView(
-        //  crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Positioned(
               top: -height * .15,
@@ -340,7 +229,6 @@ class _LoginState extends State<Login> {
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                //  mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: height * .2),
                   RichText(
@@ -368,14 +256,6 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     height: 50,
                   ),
-                  // Text("Login",
-                  //     style: TextStyle(
-                  //         fontSize: ScreenUtil.getInstance().setSp(45),
-                  //         fontFamily: "Poppins-Bold",
-                  //         letterSpacing: .6)),
-                  // SizedBox(
-                  //   height: ScreenUtil.getInstance().setHeight(30),
-                  // ),
                   Text("Email",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
@@ -423,20 +303,19 @@ class _LoginState extends State<Login> {
                           hintText: "Password",
                           hintStyle:
                               TextStyle(color: Colors.grey, fontSize: 12.0),
-                              suffix: InkWell(
-              onTap: _togglePasswordView,
-              child: Icon(
-                _isHidden ? Icons.visibility : Icons.visibility_off,
-              ),
-            ),
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
                           border: InputBorder.none,
                           fillColor: Color(0xfff3f3f4),
                           filled: true),
                     ),
                   ),
-                  // SizedBox(
-                  //   height: ScreenUtil.getInstance().setHeight(40),
-                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -483,7 +362,6 @@ class _LoginState extends State<Login> {
                                   : validatePassword = false;
                             });
                             if (!validateEmail && !validatePassword) {
-                              //isLoading==false? CircularProgressIndicator(),signIn():
                               _saving = true;
                               signIn();
                             }
