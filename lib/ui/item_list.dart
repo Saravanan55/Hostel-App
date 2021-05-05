@@ -79,44 +79,45 @@ class ItemList extends StatelessWidget {
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      // elevation: 6.0,
+                      elevation: 6.0,
                       // child: Padding(
                       //   padding: const EdgeInsets.all(10.0),
                       //   child: Row(
 
                       // children: <Widget>[
-                      //   Padding(
-                      //     padding: const EdgeInsets.only(left: 12.0),
-                      child: ListTile(
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        title: Text(
-                          'Date : $date',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                        subtitle: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Break fast : $breakfast',
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                            Text(
-                              'Lunch : $lunch',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                            Text(
-                              'Dinner : $dinner',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                          ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: ListTile(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          title: Text(
+                            'Date : $date',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                          subtitle: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Break fast : $breakfast',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                              Text(
+                                'Lunch : $lunch',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                              Text(
+                                'Dinner : $dinner',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

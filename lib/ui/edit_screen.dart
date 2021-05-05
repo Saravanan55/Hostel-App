@@ -43,8 +43,8 @@ class _EditScreenState extends State<EditScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
-          title: Text("Food"),
+          backgroundColor: Color(0xff028090),
+          title: Text("Food", style: TextStyle(color: Colors.white)),
           actions: [
             _isDeleting
                 ? Padding(

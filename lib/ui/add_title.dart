@@ -10,19 +10,19 @@ class AppBarTitle extends StatelessWidget {
       children: [
         SizedBox(width: 8),
         Text(
-          'FlutterFire',
+          'Food Details',
           style: TextStyle(
-            color: CustomColors.firebaseYellow,
+            color: Colors.white,
             fontSize: 18,
           ),
-        ),
-        Text(
-          ' CRUD',
-          style: TextStyle(
-            color: CustomColors.firebaseOrange,
-            fontSize: 18,
-          ),
-        ),
+        )
+        // Text(
+        //   ' CRUD',
+        //   style: TextStyle(
+        //     color: CustomColors.firebaseOrange,
+        //     fontSize: 18,
+        //   ),
+        // ),
       ],
     );
   }

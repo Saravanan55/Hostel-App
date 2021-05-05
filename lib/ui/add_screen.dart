@@ -22,7 +22,7 @@ class AddScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xff028090),
           title: AppBarTitle(),
         ),
         body: SafeArea(

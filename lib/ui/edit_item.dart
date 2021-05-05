@@ -76,7 +76,7 @@ class _EditItemFormState extends State<EditItemForm> {
               children: [
                 SizedBox(height: 24.0),
                 Text(
-                  'Title',
+                  'Date',
                   style: TextStyle(
                     color: Color(0xFF2C384A),
                     fontSize: 22.0,
