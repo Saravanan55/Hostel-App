@@ -10,6 +10,7 @@ import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/ui/product_fab.dart';
 import 'package:hostel/utils/CommonData.dart';
+import 'food_list.dart';
 
 class UserDashboard extends StatefulWidget {
   @override
@@ -59,7 +60,7 @@ class _UserDashboardState extends State<UserDashboard>
     databaseReference.onChildAdded.listen(onDataAdded);
 
     tabBarController =
-        new TabController(length: 1, vsync: this, initialIndex: 0);
+        new TabController(length: 2, vsync: this, initialIndex: 0);
     //  tabBarViews = [firebaseList("general"), firebaseList1("Student")];
   }
 
@@ -172,9 +173,9 @@ class _UserDashboardState extends State<UserDashboard>
               Tab(
                 child: Text('Complaint'),
               ),
-              // Tab(
-              //   child: Text('Students'),
-              // ),
+              Tab(
+                child: Text('Food'),
+              ),
               // Tab(
               //   child: Text('Civil'),
               // ),
@@ -192,7 +193,7 @@ class _UserDashboardState extends State<UserDashboard>
             controller: tabBarController,
             children: <Widget>[
               firebaseList('Electrical'),
-              //   // firebaseList('Civil'),
+              firebasefood(),
               //   // firebaseList('Sanitation'),
               //   // firebaseList('Food'),
             ],
@@ -203,44 +204,15 @@ class _UserDashboardState extends State<UserDashboard>
     );
   }
 
-//
-//  Widget callEventCard(String complaintType) {
-//   // return ListView.builder(itemCount: data.length,itemBuilder: (BuildContext context,int index){
-//  for(int i=0;i<data.length;i++) {
-//
-//    if(data['category']==complaintType)
-//    return eventCard(
-//        data["name"],
-//        data["detail"],
-//        data['phone'],
-//        data['url'],
-//        data["status"],
-//        data['id'],
-//        data['category'],
-//        widget.loginTypeFlag);
-//  }
-//   // );
-//  }
-// final DBRef = FirebaseDatabase.instance.reference().child('Users');
-//  void writeData() async{
-  // final FirebaseUser user = await _auth.currentUser();
-  // final uid = user.uid;
-  // DBRef.child(uid).set({
-  //   'id':'ID1',
-  //   'Name':'Mehul Jain',
-  //   'Phone':'8856061841'
-  // });
-
   Widget firebaseList(String complaintType) {
     return FirebaseAnimatedList(
-        defaultChild: shimmers(), //Center(child: CircularProgressIndicator()),
+        defaultChild: shimmers(),
         query: databaseReference.child('hostel'),
         itemBuilder: (BuildContext context, DataSnapshot snapshot,
             Animation<double> animation, int index) {
           data = snapshot.value;
           data['key'] = snapshot.key;
           print('${data['name']}');
-          //  if (complaintType == data['category'])
           return eventCard(
               data["name"],
               data["detail"],
@@ -257,6 +229,22 @@ class _UserDashboardState extends State<UserDashboard>
         });
   }
 
+  Widget firebasefood() {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            bottom: 20.0,
+          ),
+          child: FoodItemList(),
+        ),
+      ),
+    );
+  }
+
   Widget eventCard(
       String name,
       String detail,
@@ -268,8 +256,6 @@ class _UserDashboardState extends State<UserDashboard>
       String complaintType,
       int flag,
       String key) {
-//    print('$name $category $complaintType');
-    //  if(category==complaintType)
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -552,249 +538,3 @@ class _DemoBottomAppBar extends StatelessWidget {
     );
   }
 }
-
-// class FirebaseList1 extends StatefulWidget {
-//   @override
-//   _FirebaseList1State createState() => _FirebaseList1State();
-// }
-
-// class _FirebaseList1State extends State<FirebaseList1> {
-//   Map<dynamic, dynamic> data;
-//   String userId = '';
-//   Complaints complaint;
-//   List<Complaints> complaintList = List();
-//   DatabaseReference databaseReference;
-//   final FirebaseDatabase database = FirebaseDatabase.instance;
-//   final FirebaseAuth auth = FirebaseAuth.instance;
-//   @override
-//   void initState() {
-//     super.initState();
-//     complaint = Complaints("", "", "", "");
-//     databaseReference = database.reference();
-//     databaseReference.onChildAdded.listen(onDataAdded);
-//   }
-
-//   // @override
-//   // void dispose() {
-//   //   super.dispose();
-//   // }
-
-//   Widget build(BuildContext context) {
-//     return new Scaffold(
-//       body: firebaseList1("student"),
-//       // builder: (BuildContext context, AsyncSnapshot<String> text) {
-//       //   return new Text(text.data);
-//       // }),
-//     );
-//   }
-
-//   Future<Widget> firebaseList1(String complaintType) async {
-//     final FirebaseUser user = await auth.currentUser();
-//     final uid = user.uid;
-//     return FirebaseAnimatedList(
-//         defaultChild: shimmers(), //Center(child: CircularProgressIndicator()),
-//         query: databaseReference.child('hostel').child(uid),
-//         itemBuilder: (BuildContext context, DataSnapshot snapshot,
-//             Animation<double> animation, int index) {
-//           data = snapshot.value;
-//           data['key'] = snapshot.key;
-//           print('${data['name']}');
-//           //  if (complaintType == data['category'])
-//           return eventCard1(
-//               data["name"],
-//               data["detail"],
-//               data['phone'],
-//               data['url'],
-//               data["status"],
-//               data['id'],
-//               data['category'],
-//               complaintType,
-//               0,
-//               data['key']);
-//           // else
-//           //   return Container();
-//         });
-//   }
-
-//   Widget eventCard1(
-//       String name,
-//       String detail,
-//       String phone,
-//       String url,
-//       String status,
-//       String id,
-//       String category,
-//       String complaintType,
-//       int flag,
-//       String key) {
-// //    print('$name $category $complaintType');
-//     //  if(category==complaintType)
-//     return InkWell(
-//       onTap: () {
-//         Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//                 builder: (context) => ComplaintDetails(name, detail, phone, url,
-//                     status, id, category, flag, key)));
-//       },
-//       child: Padding(
-//         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
-//         child: Container(
-//           child: Card(
-//             shape:
-//                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-//             elevation: 6.0,
-//             child: Padding(
-//               padding: const EdgeInsets.all(10.0),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: <Widget>[
-//                   Container(
-//                     decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
-//                     width: 100,
-//                     height: 100,
-//                     child: Image.network(
-//                       url,
-//                       height: 150,
-//                       width: 150,
-//                     ),
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.only(left: 12.0),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: <Widget>[
-//                         Text(
-//                           'Name : $name',
-//                           style: textStyle,
-//                         ),
-//                         Text(
-//                           'ID : $id',
-//                           style: textStyle,
-//                         ),
-//                         Text(
-//                           'Number : $phone',
-//                           style: textStyle,
-//                         ),
-//                         Text(
-//                           'Category : $category',
-//                           style: textStyle,
-//                         ),
-//                         Container(
-//                           constraints: BoxConstraints(maxWidth: 200),
-//                           child: Text(
-//                             'Detail : $detail',
-//                             overflow: TextOverflow.ellipsis,
-//                             style: textStyle,
-//                           ),
-//                         ),
-//                         Text(
-//                           'Status : $status',
-//                           style: TextStyle(
-//                               color: status == "Pending"
-//                                   ? Colors.red
-//                                   : Colors.green),
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget shimmers() {
-//     return ListView(
-//       children: <Widget>[
-//         shimmerCard(),
-//         shimmerCard(),
-//         shimmerCard(),
-//         shimmerCard(),
-//         shimmerCard(),
-//         shimmerCard()
-//       ],
-//     );
-//   }
-
-//   Widget shimmerCard() {
-//     return Shimmer.fromColors(
-//       baseColor: Colors.grey[300],
-//       highlightColor: Colors.grey[100],
-//       child: Padding(
-//         padding: EdgeInsets.all(16.0),
-//         child: Column(
-//           children: <Widget>[
-//             Row(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               children: <Widget>[
-//                 Padding(
-//                   padding: const EdgeInsets.only(right: 8.0),
-//                   child: Container(
-//                     width: 70.0,
-//                     height: 70.0,
-//                     child: Container(
-//                       height: 40,
-//                       width: 40,
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Padding(
-//                         padding: const EdgeInsets.symmetric(vertical: 3.0),
-//                       ),
-//                       Container(
-//                         width: double.infinity,
-//                         height: 10.0,
-//                         color: Colors.white,
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.symmetric(vertical: 7.0),
-//                       ),
-//                       Container(
-//                         width: double.infinity,
-//                         height: 10.0,
-//                         color: Colors.white,
-//                       ),
-//                       Padding(
-//                         padding: const EdgeInsets.symmetric(vertical: 7.0),
-//                       ),
-//                       Container(
-//                         width: double.infinity,
-//                         height: 10.0,
-//                         color: Colors.white,
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   static const textStyle = TextStyle(
-//     fontSize: 16,
-//   );
-//   void onDataAdded(Event event) {
-//     setState(() {
-//       complaintList.add(Complaints.fromSnapshot(event.snapshot));
-//     });
-//   }
-
-//   noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-// }

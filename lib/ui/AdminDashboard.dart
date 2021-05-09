@@ -9,9 +9,9 @@ import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/utils/CommonData.dart';
-import 'add_screen.dart';
-import 'colors.dart';
-import 'item_list.dart';
+import 'food/add_screen.dart';
+import 'food/colors.dart';
+import 'food/item_list.dart';
 import 'outpassDetails.dart';
 
 class AdminDashboard extends StatefulWidget {

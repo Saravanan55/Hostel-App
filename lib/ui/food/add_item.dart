@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
-import 'database.dart';
-import 'validate.dart';
+import '../food/colors.dart';
+import '../food/database.dart';
+import '../food/validate.dart';
 import 'customform_field.dart';
 
 class AddItemForm extends StatefulWidget {
