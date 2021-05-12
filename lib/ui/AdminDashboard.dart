@@ -205,9 +205,9 @@ class _AdminDashboardState extends State<AdminDashboard>
           child: TabBarView(
             controller: tabBarController,
             children: <Widget>[
-              issuesList('General'),
+              issuesList('isuues'),
               studentList("Students"),
-              outpassfirebase('Civil'),
+              outpassfirebase('outpass'),
               foodfirebase(),
             ],
           ),
@@ -219,10 +219,6 @@ class _AdminDashboardState extends State<AdminDashboard>
   Widget foodfirebase() {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   title: Text("Food"),
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
@@ -240,11 +236,12 @@ class _AdminDashboardState extends State<AdminDashboard>
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-            bottom: 20.0,
-          ),
+          padding: const EdgeInsets.all(10.0),
+          // padding: const EdgeInsets.only(
+          //   left: 16.0,
+          //   right: 16.0,
+          //   bottom: 12.0,
+          // ),
           child: ItemList(),
         ),
       ),
