@@ -176,15 +176,6 @@ class _UserDashboardState extends State<UserDashboard>
               Tab(
                 child: Text('Food'),
               ),
-              // Tab(
-              //   child: Text('Civil'),
-              // ),
-              // Tab(
-              //   child: Text('Sanitation'),
-              // ),
-              // Tab(
-              //   child: Text('Food'),
-              // ),
             ],
           ),
         ),
@@ -192,12 +183,9 @@ class _UserDashboardState extends State<UserDashboard>
           child: TabBarView(
             controller: tabBarController,
             children: <Widget>[
-              firebaseList('Electrical'),
+              firebaseList('issues'),
               firebasefood(),
-              //   // firebaseList('Sanitation'),
-              //   // firebaseList('Food'),
             ],
-            //  children: firebaseList1("General"),
           ),
         ),
       ),
@@ -233,14 +221,7 @@ class _UserDashboardState extends State<UserDashboard>
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-            bottom: 20.0,
-          ),
-          child: FoodItemList(),
-        ),
+        child: FoodItemList(),
       ),
     );
   }

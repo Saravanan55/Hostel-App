@@ -18,7 +18,6 @@ class ItemList extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(height: 16.0),
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
-              //var noteInfo = snapshot.data.documents[index].data;
               String docID = snapshot.data.documents[index].documentID;
               String date = snapshot.data.documents[index].data['Date'];
               String breakfast =
@@ -46,32 +45,6 @@ class ItemList extends StatelessWidget {
                     ),
                   ),
                 ),
-                // title: Text(
-                //   'Date : $date',
-                //   maxLines: 1,
-                //   overflow: TextOverflow.ellipsis,
-                //   style: TextStyle(fontSize: 20.0),
-                // ),
-                // subtitle: Column(
-                //   children: <Widget>[
-                //     Text(
-                //       'Break fast : $breakfast',
-                //       overflow: TextOverflow.ellipsis,
-                //       style: TextStyle(fontSize: 20.0),
-                //     ),
-                //     Text(
-                //       'Lunch : $lunch',
-                //       maxLines: 1,
-                //       overflow: TextOverflow.ellipsis,
-                //       style: TextStyle(fontSize: 20.0),
-                //     ),
-                //     Text(
-                //       'Dinner : $dinner',
-                //       maxLines: 1,
-                //       overflow: TextOverflow.ellipsis,
-                //       style: TextStyle(fontSize: 20.0),
-                //     ),
-                //   ],
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),

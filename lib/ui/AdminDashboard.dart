@@ -235,15 +235,11 @@ class _AdminDashboardState extends State<AdminDashboard>
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          // padding: const EdgeInsets.only(
-          //   left: 16.0,
-          //   right: 16.0,
-          //   bottom: 12.0,
-          // ),
-          child: ItemList(),
-        ),
+        child: ItemList(),
+        // child: Padding(
+        //   padding: const EdgeInsets.all(10.0),
+        //   child: ItemList(),
+        // ),
       ),
     );
   }
@@ -282,8 +278,6 @@ class _AdminDashboardState extends State<AdminDashboard>
       String complaintType,
       int flag,
       String key) {
-//    print('$name $category $complaintType');
-    //  if(category==complaintType)
     return InkWell(
       onTap: () {
         Navigator.push(
