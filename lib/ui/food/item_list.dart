@@ -80,15 +80,9 @@ class ItemList extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       elevation: 6.0,
-                      // child: Padding(
-                      //   padding: const EdgeInsets.all(10.0),
-                      //   child: Row(
-
-                      // children: <Widget>[
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: ListTile(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
                           title: Text(
                             'Date : $date',
                             maxLines: 1,

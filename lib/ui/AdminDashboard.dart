@@ -10,7 +10,6 @@ import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/utils/CommonData.dart';
 import 'food/add_screen.dart';
-import 'food/colors.dart';
 import 'food/item_list.dart';
 import 'outpassDetails.dart';
 
@@ -174,7 +173,6 @@ class _AdminDashboardState extends State<AdminDashboard>
                 insets: EdgeInsets.symmetric(horizontal: 0.0)),
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorWeight: 15,
-
             unselectedLabelStyle: TextStyle(
                 color: Colors.black26,
                 fontSize: 15.0,
@@ -187,9 +185,6 @@ class _AdminDashboardState extends State<AdminDashboard>
                 fontSize: 15.0,
                 letterSpacing: 1.2,
                 fontWeight: FontWeight.w700),
-//          indicatorColor: Colors.blue,
-//          labelColor: Colors.white,
-//          unselectedLabelColor: Colors.white,
             tabs: <Widget>[
               Tab(
                 child: Text('Issues'),
@@ -203,9 +198,6 @@ class _AdminDashboardState extends State<AdminDashboard>
               Tab(
                 child: Text('Food'),
               ),
-              // Tab(
-              //   child: Text('Food'),
-              // ),
             ],
           ),
         ),
@@ -213,12 +205,10 @@ class _AdminDashboardState extends State<AdminDashboard>
           child: TabBarView(
             controller: tabBarController,
             children: <Widget>[
-              firebaseList('General'),
-              cloudstoreList("Students"),
-              firebasepass('Civil'),
+              issuesList('General'),
+              studentList("Students"),
+              outpassfirebase('Civil'),
               foodfirebase(),
-              // firebaseList('Sanitation'),
-              // firebaseList('Food'),
             ],
           ),
         ),
@@ -241,7 +231,7 @@ class _AdminDashboardState extends State<AdminDashboard>
             ),
           );
         },
-        backgroundColor: CustomColors.firebaseOrange,
+        backgroundColor: Color(0xff028090),
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -261,7 +251,7 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  Widget firebaseList(String complaintType) {
+  Widget issuesList(String complaintType) {
     return FirebaseAnimatedList(
         defaultChild: Center(child: shimmers()),
         query: databaseReference.child('hostel'),
@@ -270,7 +260,6 @@ class _AdminDashboardState extends State<AdminDashboard>
           data = snapshot.value;
           data['key'] = snapshot.key;
           print('${data['name']}');
-          // if (complaintType == data['category'])
           return eventCard(
               data["name"],
               data["detail"],
@@ -282,8 +271,6 @@ class _AdminDashboardState extends State<AdminDashboard>
               complaintType,
               1,
               data['key']);
-          // else
-          //   return Container();
         });
   }
 
@@ -377,37 +364,9 @@ class _AdminDashboardState extends State<AdminDashboard>
         ),
       ),
     );
-//    else
-//      return Container();
   }
 
-// ------------------------------------------------------
-  // Widget cloudstoreList(String complaintType) {
-  //   return FirebaseAnimatedList(
-  //       defaultChild: Center(child: shimmers()),
-  //       query: databaseReference.child('hostel'),
-  //       itemBuilder: (BuildContext context, DataSnapshot snapshot,
-  //           Animation<double> animation, int index) {
-  //         data = snapshot.value;
-  //         data['key'] = snapshot.key;
-  //         print('${data['name']}');
-  //         // if (complaintType == data['category'])
-  //         return studentCard(
-  //             data["name"],
-  //             data["detail"],
-  //             data['phone'],
-  //             data['url'],
-  //             data["status"],
-  //             data['id'],
-  //             data['category'],
-  //             complaintType,
-  //             1,
-  //             data['key']);
-  //         // else
-  //         //   return Container();
-  //       });
-  // }
-  Widget cloudstoreList(String students) {
+  Widget studentList(String students) {
     return new StreamBuilder(
       stream: Firestore.instance.collection("users").snapshots(),
       builder: (context, snapshot) {
@@ -424,11 +383,6 @@ class _AdminDashboardState extends State<AdminDashboard>
                     data["mobile"],
                     data['block'],
                     data['room'],
-                    // data['id'],
-                    // data['category'],
-                    // students,
-                    // 1,
-                    // data['key']
                   );
                 },
               );
@@ -443,21 +397,8 @@ class _AdminDashboardState extends State<AdminDashboard>
     String mobile,
     String block,
     String room,
-    // String id,
-    // String category,
-    // String complaintType,
-    // int flag,
-    // String key)
   ) {
-//    print('$name $category $complaintType');
-    //  if(category==complaintType)
     return InkWell(
-      // onTap: () {
-      //   Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //           builder: (context) => ComplaintDetails(name,usn,mobile,block,room)));
-      // },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
         child: Container(
@@ -470,17 +411,6 @@ class _AdminDashboardState extends State<AdminDashboard>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  //   width: 100,
-                  //   height: 100,
-                  // child: Image.network(
-                  //   url,
-                  //   height: 150,
-                  //   width: 150,
-                  // ),
-                  //  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Column(
@@ -510,21 +440,6 @@ class _AdminDashboardState extends State<AdminDashboard>
                           'Room : $room',
                           style: textStyle,
                         ),
-                        // Container(
-                        //   constraints: BoxConstraints(maxWidth: 200),
-                        //   child: Text(
-                        //     'Detail : $detail',
-                        //     overflow: TextOverflow.ellipsis,
-                        //     style: textStyle,
-                        //   ),
-                        // ),
-                        // Text(
-                        //   'Status : $status',
-                        //   style: TextStyle(
-                        //       color: status == "Pending"
-                        //           ? Colors.red
-                        //           : Colors.green),
-                        // )
                       ],
                     ),
                   ),
@@ -537,7 +452,7 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  Widget firebasepass(String complaintType) {
+  Widget outpassfirebase(String complaintType) {
     return FirebaseAnimatedList(
         defaultChild: shimmers(), //Center(child: CircularProgressIndicator()),
         query: databaseReference.child('outpass'),

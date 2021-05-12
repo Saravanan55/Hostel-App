@@ -182,9 +182,8 @@ class _EditItemFormState extends State<EditItemForm> {
                   width: double.maxFinite,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        CustomColors.firebaseOrange,
-                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all(Color(0xff028090)),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
