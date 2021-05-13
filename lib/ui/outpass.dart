@@ -120,7 +120,6 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
             ],
           ),
         ),
-        // body:Container(child: firebasePass1()) ,
 
         body: Container(
             child: TabBarView(
@@ -389,14 +388,6 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
                           'Room No : $room',
                           style: textStyle,
                         ),
-                        // Container(
-                        //   constraints: BoxConstraints(maxWidth: 200),
-                        //   child: Text(
-                        //     'Detail : $detail',
-                        //     overflow: TextOverflow.ellipsis,
-                        //     style: textStyle,
-                        //   ),
-                        // ),
                         Text(
                           'Status : $status',
                           style: TextStyle(
