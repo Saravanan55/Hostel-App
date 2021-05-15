@@ -252,6 +252,7 @@ class _OutpassFormState extends State<OutpassForm> {
 
                   Map data = {
                     "Name": "$_name",
+                    "Email":"${currentUser.email}",
                     "Phone": "$_mobile",
                     "Out Date": "${outpassOutDate.text.trim()}",
                     "In Date": "${outpassOutDate.text.trim()}",

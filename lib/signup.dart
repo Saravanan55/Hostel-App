@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,6 +59,15 @@ class _SignUpState extends State<SignUp> {
           "mobile": "${mobileController.text}",
           "role": "student"
         });
+        //  FirebaseDatabase.instance.reference().child("users").push().set({
+        //   "name": "${nameController.text}",
+        //   "usn": "${usnController.text}",
+        //   "block": "${blockController.text}",
+        //   "room": "${roomController.text}",
+        //   "mobile": "${mobileController.text}",
+        //   "role": "student",
+        //   "email":"${emailController.text}"
+        // });
         print(user);
         user.sendEmailVerification();
         Navigator.push(
@@ -122,9 +132,6 @@ class _SignUpState extends State<SignUp> {
                       "Name",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      // style: TextStyle(
-                      //     fontFamily: "Poppins-Medium",
-                      //     fontSize: ScreenUtil.getInstance().setSp(26))
                     ),
                     TextField(
                       onChanged: (value) {

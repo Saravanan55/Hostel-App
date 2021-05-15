@@ -165,10 +165,10 @@ class _AdminDashboardState extends State<AdminDashboard>
               },
             )
           ],
-          leading: IconButton(icon: Icon(Icons.account_circle),onPressed:(){
-            Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Profile()));
-             },),
+          // leading: IconButton(icon: Icon(Icons.account_circle),onPressed:(){
+          //   Navigator.push(
+          //           context, MaterialPageRoute(builder: (context) => Profile()));
+          //    },),
           backgroundColor: Color(0xff028090),
           title: Text('Admin Dashboard'),
           bottom: TabBar(

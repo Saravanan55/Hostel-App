@@ -1,14 +1,57 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel/ui/ComplaintDetails.dart';
+import '../login.dart';
 import 'infocard.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
-const url = 'admin.com';
-const email = 'admin@gmail.com';
-const phone = '+91 987 654 32 10';
-const location = 'coimbatore, TamilNadu';
+class Profile extends StatefulWidget {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
 
-class Profile extends StatelessWidget {
+class _ProfileState extends State<Profile>{
+final url = 'admin.com';
+final email = 'admin@gmail.com';
+final phone = '+91 987 654 32 10';
+final location = 'coimbatore, TamilNadu';
+FirebaseUser currentUser;
+//final Firestore _firestore = Firestore.instance;
+DatabaseReference databaseReference;
+Map<dynamic, dynamic> data;
+ Future<bool> _onWillPop() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit the App'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text('No'),
+              ),
+              new FlatButton(
+                onPressed: () => exit(0),
+                child: new Text('Yes'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
 
+void initState() {
+    super.initState();
+    this.getCurrentUser();
+    databaseReference = database.reference();
+}
+ Future getCurrentUser() async {
+    currentUser = await FirebaseAuth.instance.currentUser();
+  }
   void _showDialog(BuildContext context, {String title, String msg}) {
     final Dialog = AlertDialog(
       title: Text(title),
@@ -33,10 +76,45 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+          return WillPopScope(
+          onWillPop: _onWillPop,
+         child: Scaffold(
+         appBar: AppBar(
+          actions: <Widget>[
+            GestureDetector(
+              child: Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              onTap: () {
+               // CommonData.clearLoggedInUserData();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Login()));
+              },
+            )
+          ],
+        ),
 
-    return Scaffold(
-      backgroundColor: Colors.blueGrey[800],
-      body: SafeArea(
+         body:Container(
+            child: new FirebaseAnimatedList(
+                query: databaseReference
+                    .child('users')
+                    .orderByChild("email")
+                    .equalTo(currentUser.email),
+                itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                    Animation<double> animation, int index) {
+                  data = snapshot.value;
+                  data['key'] = snapshot.key;
+                  return ProfileCard(
+                    data['mobile'],
+                    data['name']
+                  );                
+                }),
+          
+        )));
+  }
+   Widget ProfileCard(String number,String name){
+    return Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -70,13 +148,10 @@ class Profile extends StatelessWidget {
               ),
             ),
             InfoCard(
-              text: phone,
+              text: number!=null? number : 'null',
               icon: Icons.phone,
               onPressed: () async {
-                String removeSpaceFromPhoneNumber =
-                    phone.replaceAll(new RegExp(r"\s+\b|\b\s"), "");
-                final phoneCall = 'tel:$removeSpaceFromPhoneNumber';
-
+                  final phoneCall = number;
                 if (await launcher.canLaunch(phoneCall)) {
                   await launcher.launch(phoneCall);
                 } else {
@@ -105,7 +180,7 @@ class Profile extends StatelessWidget {
               },
             ),
             InfoCard(
-              text: url,
+              text: name!=null ? name : 'null',
               icon: Icons.web,
               onPressed: () async {
                 if (await launcher.canLaunch(url)) {
@@ -128,7 +203,8 @@ class Profile extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      
     );
+    }
   }
-}
+
