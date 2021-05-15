@@ -59,15 +59,15 @@ class _SignUpState extends State<SignUp> {
           "mobile": "${mobileController.text}",
           "role": "student"
         });
-        //  FirebaseDatabase.instance.reference().child("users").push().set({
-        //   "name": "${nameController.text}",
-        //   "usn": "${usnController.text}",
-        //   "block": "${blockController.text}",
-        //   "room": "${roomController.text}",
-        //   "mobile": "${mobileController.text}",
-        //   "role": "student",
-        //   "email":"${emailController.text}"
-        // });
+         FirebaseDatabase.instance.reference().child("users").push().set({
+          "name": "${nameController.text}",
+          "usn": "${usnController.text}",
+          "block": "${blockController.text}",
+          "room": "${roomController.text}",
+          "mobile": "${mobileController.text}",
+          "role": "student",
+          "email":"${emailController.text}"
+        });
         print(user);
         user.sendEmailVerification();
         Navigator.push(

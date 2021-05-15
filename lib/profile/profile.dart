@@ -100,12 +100,12 @@ void initState() {
 
           body: new Column(
         children: <Widget>[
-          new Container(
+          new Flexible(
             child: new FirebaseAnimatedList(
                 query: databaseReference
-                    .child('outpass')
-                    .orderByChild("uid")
-                    .equalTo(currentUser.uid),
+                    .child('users')
+                    .orderByChild("email")
+                    .equalTo(currentUser.email),
                 itemBuilder: (BuildContext context, DataSnapshot snapshot,
                     Animation<double> animation, int index) {
                   data = snapshot.value;
