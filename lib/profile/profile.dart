@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
 import '../login.dart';
 import 'infocard.dart';
@@ -20,6 +21,7 @@ final email = 'admin@gmail.com';
 final phone = '+91 987 654 32 10';
 final location = 'coimbatore, TamilNadu';
 FirebaseUser currentUser;
+List<Complaints> complaintList = List();
 //final Firestore _firestore = Firestore.instance;
 DatabaseReference databaseReference;
 Map<dynamic, dynamic> data;
@@ -48,8 +50,9 @@ void initState() {
     super.initState();
     this.getCurrentUser();
     databaseReference = database.reference();
+    databaseReference.onChildAdded.listen(onDataAdded);
 }
- Future getCurrentUser() async {
+ void getCurrentUser() async {
     currentUser = await FirebaseAuth.instance.currentUser();
   }
   void _showDialog(BuildContext context, {String title, String msg}) {
@@ -95,23 +98,26 @@ void initState() {
           ],
         ),
 
-         body:Container(
+          body: new Column(
+        children: <Widget>[
+          new Container(
             child: new FirebaseAnimatedList(
                 query: databaseReference
-                    .child('users')
-                    .orderByChild("email")
-                    .equalTo(currentUser.email),
+                    .child('outpass')
+                    .orderByChild("uid")
+                    .equalTo(currentUser.uid),
                 itemBuilder: (BuildContext context, DataSnapshot snapshot,
                     Animation<double> animation, int index) {
                   data = snapshot.value;
                   data['key'] = snapshot.key;
                   return ProfileCard(
-                    data['mobile'],
-                    data['name']
+                    data['Phone'],
+                    data['Name']
                   );                
-                }),
-          
-        )));
+                }),),
+        ],
+          ),
+        ));
   }
    Widget ProfileCard(String number,String name){
     return Container(
@@ -206,5 +212,10 @@ void initState() {
       
     );
     }
+    void onDataAdded(Event event) {
+    setState(() {
+      complaintList.add(Complaints.fromSnapshot(event.snapshot));
+    });
+  }
   }
 

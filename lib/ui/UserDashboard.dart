@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel/profile/profile.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
@@ -55,7 +56,7 @@ class _UserDashboardState extends State<UserDashboard>
   void initState() {
     super.initState();
 
-    complaint = Complaints("", "", "", "");
+    complaint = Complaints("", "", "", "","");
     databaseReference = database.reference();
     databaseReference.onChildAdded.listen(onDataAdded);
 
@@ -144,6 +145,10 @@ class _UserDashboardState extends State<UserDashboard>
               },
             )
           ],
+          leading: IconButton(icon: Icon(Icons.account_circle),onPressed:(){
+            Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Profile()));
+             },),
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(' Dashboard'),
           bottom: TabBar(

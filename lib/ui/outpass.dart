@@ -56,7 +56,7 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     this.getCurrentUser();
-    complaint = Complaints("", "", "", "");
+    complaint = Complaints("", "", "", "","");
     databaseReference = database.reference();
     databaseReference.onChildAdded.listen(onDataAdded);
 

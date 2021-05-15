@@ -19,7 +19,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   @override
   void initState() {
     super.initState();
-    complaint = Complaints("", "", "", "");
+    complaint = Complaints("", "", "", "","");
     databaseReference = database.reference().child("hostel");
     databaseReference.onChildAdded.listen(onDataAdded);
   }
