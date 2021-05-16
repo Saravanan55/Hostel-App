@@ -16,13 +16,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile>{
-//final url = 'admin.com';
-// final email = 'admin@gmail.com';
-//final phone = '+91 987 654 32 10';
-final location = 'coimbatore, TamilNadu';
 FirebaseUser currentUser;
 List<Complaints> complaintList = List();
-//final Firestore _firestore = Firestore.instance;
 DatabaseReference databaseReference;
 Map<dynamic, dynamic> data;
  Future<bool> _onWillPop() {
@@ -168,9 +163,24 @@ void initState() {
                 }
               },
             ),
+             InfoCard(
+              text: number!=null ? number : 'loading...',
+              icon: Icons.call,
+              onPressed: () async {
+                if (await launcher.canLaunch(name)) {
+                  await launcher.launch(name);
+                } else {
+                  _showDialog(
+                    context,
+                    title: 'Sorry',
+                    msg: 'please try again ',
+                  );
+                }
+              },
+            ),
             InfoCard(
-              text: number!=null? number : 'loading...',
-              icon: Icons.phone,
+              text: block!=null? block : 'loading...',
+              icon: Icons.apartment,
               onPressed: () async {
                   final phoneCall = number;
                 if (await launcher.canLaunch(phoneCall)) {
@@ -185,8 +195,8 @@ void initState() {
               },
             ),
             InfoCard(
-              text: name!=null ? name : 'loading...',
-              icon: Icons.web,
+              text: room!=null ? room : 'loading...',
+              icon: Icons.room,
               onPressed: () async {
                 if (await launcher.canLaunch(name)) {
                   await launcher.launch(name);
@@ -199,13 +209,13 @@ void initState() {
                 }
               },
             ),
-            InfoCard(
-              text: location,
-              icon: Icons.location_city,
-              onPressed: () {
-                print('location');
-              },
-            ),
+            // InfoCard(
+            //   text: location,
+            //   icon: Icons.location_city,
+            //   onPressed: () {
+            //     print('location');
+            //   },
+            // ),
           ],
         ),
       

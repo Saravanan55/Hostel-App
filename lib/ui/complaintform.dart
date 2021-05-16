@@ -10,7 +10,6 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hostel/utils/Constants.dart';
 
-//test
 final FirebaseDatabase database = FirebaseDatabase.instance;
 
 class MyForm extends StatefulWidget {
