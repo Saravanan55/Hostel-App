@@ -1,11 +1,10 @@
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
+import 'package:hostel/utils/CommonData.dart';
 import '../login.dart';
 import 'infocard.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -20,26 +19,6 @@ FirebaseUser currentUser;
 List<Complaints> complaintList = List();
 DatabaseReference databaseReference;
 Map<dynamic, dynamic> data;
- Future<bool> _onWillPop() {
-    return showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Do you want to exit the App'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('No'),
-              ),
-              new FlatButton(
-                onPressed: () => exit(0),
-                child: new Text('Yes'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-  }
 
 void initState() {
     super.initState();
@@ -74,10 +53,10 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
-          return WillPopScope(
-          onWillPop: _onWillPop,
-         child: Scaffold(
+         return Scaffold(
          appBar: AppBar(
+            backgroundColor: Color(0xff028090),
+            title: Text('Profile Page'),
           actions: <Widget>[
             GestureDetector(
               child: Icon(
@@ -85,7 +64,7 @@ void initState() {
                 color: Colors.white,
               ),
               onTap: () {
-               // CommonData.clearLoggedInUserData();
+               CommonData.clearLoggedInUserData();
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Login()));
               },
@@ -116,7 +95,7 @@ void initState() {
                 }),),
         ],
           ),
-        ));
+        );
   }
    Widget ProfileCard(String email,String number,String name,String usn,String block,String room){
     return Container(
@@ -129,7 +108,7 @@ void initState() {
             ),
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/dp.jpg'),
+              backgroundImage: AssetImage('assets/image.png'),
             ),
             Text(
               '$name',
@@ -154,6 +133,21 @@ void initState() {
                 final emailAddress = 'mailto:$email';
                 if (await launcher.canLaunch(emailAddress)) {
                   await launcher.launch(emailAddress);
+                } else {
+                  _showDialog(
+                    context,
+                    title: 'Sorry',
+                    msg: 'please try again ',
+                  );
+                }
+              },
+            ),
+            InfoCard(
+              text: usn!=null ? usn : 'loading...',
+              icon: Icons.format_list_numbered,
+              onPressed: () async {
+                if (await launcher.canLaunch(name)) {
+                  await launcher.launch(name);
                 } else {
                   _showDialog(
                     context,
@@ -209,13 +203,6 @@ void initState() {
                 }
               },
             ),
-            // InfoCard(
-            //   text: location,
-            //   icon: Icons.location_city,
-            //   onPressed: () {
-            //     print('location');
-            //   },
-            // ),
           ],
         ),
       
