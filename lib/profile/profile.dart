@@ -16,9 +16,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile>{
-final url = 'admin.com';
-final email = 'admin@gmail.com';
-final phone = '+91 987 654 32 10';
+//final url = 'admin.com';
+// final email = 'admin@gmail.com';
+//final phone = '+91 987 654 32 10';
 final location = 'coimbatore, TamilNadu';
 FirebaseUser currentUser;
 List<Complaints> complaintList = List();
@@ -111,40 +111,39 @@ void initState() {
                   data = snapshot.value;
                   data['key'] = snapshot.key;
                   return ProfileCard(
-                    data['Phone'],
-                    data['Name']
+                    data['email'],
+                    data['mobile'],
+                    data['name'],
+                    data['usn'],
+                    data['block'],
+                    data['room']
                   );                
                 }),),
         ],
           ),
         ));
   }
-   Widget ProfileCard(String number,String name){
+   Widget ProfileCard(String email,String number,String name,String usn,String block,String room){
     return Container(
+    
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(
+                height: 10,
+            ),
             CircleAvatar(
               radius: 50,
               backgroundImage: AssetImage('assets/dp.jpg'),
             ),
             Text(
-              'Admin',
+              '$name',
               style: TextStyle(
                 fontSize: 40.0,
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Pacifico',
               ),
-            ),
-            Text(
-              'Passionate Learner',
-              style: TextStyle(
-                  fontSize: 30.0,
-                  color: Colors.blueGrey[200],
-                  letterSpacing: 2.5,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Source Sans Pro'),
             ),
             SizedBox(
               height: 20,
@@ -153,24 +152,8 @@ void initState() {
                 color: Colors.white,
               ),
             ),
-            InfoCard(
-              text: number!=null? number : 'null',
-              icon: Icons.phone,
-              onPressed: () async {
-                  final phoneCall = number;
-                if (await launcher.canLaunch(phoneCall)) {
-                  await launcher.launch(phoneCall);
-                } else {
-                  _showDialog(
-                    context,
-                    title: 'Sorry',
-                    msg: 'please try again ',
-                  );
-                }
-              },
-            ),
-            InfoCard(
-              text: email,
+             InfoCard(
+              text:  email!=null? email : 'loading...',
               icon: Icons.email,
               onPressed: () async {
                 final emailAddress = 'mailto:$email';
@@ -186,11 +169,27 @@ void initState() {
               },
             ),
             InfoCard(
-              text: name!=null ? name : 'null',
+              text: number!=null? number : 'loading...',
+              icon: Icons.phone,
+              onPressed: () async {
+                  final phoneCall = number;
+                if (await launcher.canLaunch(phoneCall)) {
+                  await launcher.launch(phoneCall);
+                } else {
+                  _showDialog(
+                    context,
+                    title: 'Sorry',
+                    msg: 'please try again ',
+                  );
+                }
+              },
+            ),
+            InfoCard(
+              text: name!=null ? name : 'loading...',
               icon: Icons.web,
               onPressed: () async {
-                if (await launcher.canLaunch(url)) {
-                  await launcher.launch(url);
+                if (await launcher.canLaunch(name)) {
+                  await launcher.launch(name);
                 } else {
                   _showDialog(
                     context,
