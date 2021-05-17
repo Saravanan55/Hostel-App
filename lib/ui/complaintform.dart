@@ -246,7 +246,6 @@ class _MyFormState extends State<MyForm> {
     final StorageUploadTask task = firebaseStorageRef.putFile(sampleImage);
     var downUrl = await (await task.onComplete).ref.getDownloadURL();
     url = downUrl.toString();
-    //print('Download Url $url');
     return url;
   }
 }

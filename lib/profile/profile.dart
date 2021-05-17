@@ -3,12 +3,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel/model/complaints.dart';
+import 'package:hostel/profile/profile_pic.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/utils/CommonData.dart';
-import '../login.dart';
 import 'infocard.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
-
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -57,19 +56,6 @@ void initState() {
          appBar: AppBar(
             backgroundColor: Color(0xff028090),
             title: Text('Profile Page'),
-          actions: <Widget>[
-            GestureDetector(
-              child: Icon(
-                Icons.logout,
-                color: Colors.white,
-              ),
-              onTap: () {
-               CommonData.clearLoggedInUserData();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
-              },
-            )
-          ],
         ),
 
           body: new Column(
@@ -106,10 +92,7 @@ void initState() {
             SizedBox(
                 height: 10,
             ),
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/image.png'),
-            ),
+            ProfilePic(),
             Text(
               '$name',
               style: TextStyle(
