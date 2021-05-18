@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hostel/model/complaints.dart';
 import 'package:hostel/profile/profile_pic.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
+import 'package:hostel/ui/food/database.dart';
 import 'package:hostel/utils/CommonData.dart';
 import 'infocard.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -25,6 +27,18 @@ void initState() {
     databaseReference = database.reference();
     databaseReference.onChildAdded.listen(onDataAdded);
 }
+// void updateItem({String docID,String url}) async {
+//     final CollectionReference _mainCollection = Firestore.instance.collection('users');
+//      DocumentReference documentReferencer = _mainCollection.document(docID);
+
+//     Map<String, dynamic> data = <String, dynamic>{
+//       "url": url,
+//     };
+//     await documentReferencer
+//         .updateData(data)
+//         .whenComplete(() => print("Note item updated in the database"))
+//         .catchError((e) => print(e));
+//   }
  void getCurrentUser() async {
     currentUser = await FirebaseAuth.instance.currentUser();
   }
@@ -61,6 +75,28 @@ void initState() {
           body: new Column(
         children: <Widget>[
           new Flexible(
+      //        new StreamBuilder<QuerySnapshot>(
+      // stream: Database.readItems(),
+      // builder: (context, snapshot) {
+      //   if (snapshot.hasError) {
+      //     return Text('Something went wrong');
+      //   }
+      //    else if (snapshot.hasData || snapshot.data != null) {
+      //     return ListView.separated(
+      //       separatorBuilder: (context, index) => SizedBox(height: 16.0),
+      //       itemCount: snapshot.data.documents.length,
+      //       itemBuilder: (context, index) {
+      //         String docID = snapshot.data.documents[index].documentID;
+      //         String email=snapshot.data.documents[index].documentID;
+      //         String mobile=snapshot.data.documents[index].data['mobile'];
+      //         String name=snapshot.data.documents[index].data['name'];
+      //         String usn=snapshot.data.documents[index].data['usn'];
+      //         String block=snapshot.data.documents[index].data['block'];
+      //         String room=snapshot.data.documents[index].data['room'];
+      //         String url=snapshot.data.documents[index].data['url'];
+      //         return ProfileCard(docID,email, mobile, name, usn, block, room,url);
+
+              
             child: new FirebaseAnimatedList(
                 query: databaseReference
                     .child('users')
@@ -78,7 +114,8 @@ void initState() {
                     data['block'],
                     data['room']
                   );                
-                }),),
+                }),
+               ),
         ],
           ),
         );

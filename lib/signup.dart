@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +10,7 @@ import 'package:hostel/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hostel/utils/bezierContainer.dart';
+import 'package:random_string/random_string.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -16,6 +19,10 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool _saving = false;
+  File sampleImage;
+  String filename;
+  String random;
+  var url;
   Map data;
   bool validateName = false;
   bool validateEmail = false;
@@ -57,7 +64,8 @@ class _SignUpState extends State<SignUp> {
           "block": "${blockController.text}",
           "room": "${roomController.text}",
           "mobile": "${mobileController.text}",
-          "role": "student"
+          "role": "student",
+          "url":"https://firebasestorage.googleapis.com/v0/b/hostel-app2.appspot.com/o/image.png?alt=media&token=43c74df4-06c1-4d3c-90ea-38abfc8409e3"
         });
          FirebaseDatabase.instance.reference().child("users").push().set({
           "name": "${nameController.text}",
@@ -66,7 +74,8 @@ class _SignUpState extends State<SignUp> {
           "room": "${roomController.text}",
           "mobile": "${mobileController.text}",
           "role": "student",
-          "email":"${emailController.text}"
+          "email":"${emailController.text}",
+          "url":"https://firebasestorage.googleapis.com/v0/b/hostel-app2.appspot.com/o/image.png?alt=media&token=43c74df4-06c1-4d3c-90ea-38abfc8409e3"
         });
         print(user);
         user.sendEmailVerification();
@@ -348,7 +357,7 @@ class _SignUpState extends State<SignUp> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 setState(() {
                                   emailController.text.isEmpty
                                       ? validateEmail = true
@@ -372,14 +381,14 @@ class _SignUpState extends State<SignUp> {
                                       ? validateName = true
                                       : validateName = false;
                                 });
-
+                              
                                 data = {
                                   "name": "${nameController.text}",
                                   "usn": "${usnController.text}",
                                   "block": "${blockController.text}",
                                   "room": "${roomController.text}",
                                   "mobile": "${mobileController.text}",
-                                  "role": "student"
+                                  "role": "student",
                                 };
                                 if (!(validateMobile &&
                                     validateRoom &&
