@@ -202,7 +202,7 @@ class _ProfileState extends State<Profile> {
             },
           ),
           InfoCard(
-            text: usn != null ? url : 'loading...',
+            text: usn != null ? usn : 'loading...',
             icon: Icons.format_list_numbered,
             onPressed: () async {
               if (await launcher.canLaunch(name)) {
