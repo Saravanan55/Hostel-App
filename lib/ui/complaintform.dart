@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:random_string/random_string.dart';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -44,21 +42,6 @@ class _MyFormState extends State<MyForm> {
 
   bool validateName = true;
   bool validateNumber = true;
-
-  // static const typeItems = <String>[
-  //   'General',
-  //   'Electrical',
-  //   'Sanitation',
-  //   'Civil',
-  //   'Food'
-  // ];
-  // final List<DropdownMenuItem<String>> _dropDownMenuItems = typeItems
-  //     .map((String value) => DropdownMenuItem<String>(
-  //           value: value,
-  //           child: Text(value),
-  //         ))
-  //     .toList();
-  // String dropDownValue = "General";
 
   Future getImage() async {
     File tempImage = await ImagePicker.pickImage(
@@ -116,30 +99,6 @@ class _MyFormState extends State<MyForm> {
                 ),
                 controller: infoController,
               ),
-//            Padding(
-//              padding: const EdgeInsets.only(top: 14.0, bottom: 6),
-//              child: Text('Enter phone',style:textStyle),
-//            ),
-//            TextField(maxLength: 10,
-//              controller: phoneController,
-//              keyboardType: TextInputType.number,
-//              decoration: InputDecoration(prefixText: '+91-',),
-//            ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 14.0, bottom: 6),
-              //   child: Text('Select Category', style: textStyle),
-              // ),
-              // DropdownButton(
-              //   isExpanded: true,
-              //   items: this._dropDownMenuItems,
-              //   onChanged: (String newValue) {
-              //     setState(() {
-              //       dropDownValue = newValue;
-              //     });
-              //   },
-              //   value: dropDownValue,
-              // ),
-
               Padding(
                 padding: const EdgeInsets.only(top: 14.0, bottom: 6),
                 child: Text('Enter Category', style: textStyle),
@@ -206,11 +165,6 @@ class _MyFormState extends State<MyForm> {
                   if (!validateDetail)
                     database.reference().child("hostel").push().set(data);
                   Navigator.pop(context);
-                  //   Firestore.instance
-                  //       .collection("hostel")
-                  //       .document((_name))
-                  //       .setData(data);
-                  // Navigator.pop(context);
                 },
               ),
             ],

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hostel/ui/profile_user/body.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
@@ -34,7 +35,7 @@ class _AdminDashboardState extends State<AdminDashboard>
   @override
   void initState() {
     super.initState();
-    complaint = Complaints("", "", "", "","");
+    complaint = Complaints("", "", "", "", "");
     databaseReference = database.reference();
     databaseReference.onChildAdded.listen(onDataAdded);
 
@@ -236,10 +237,6 @@ class _AdminDashboardState extends State<AdminDashboard>
       ),
       body: SafeArea(
         child: ItemList(),
-        // child: Padding(
-        //   padding: const EdgeInsets.all(10.0),
-        //   child: ItemList(),
-        // ),
       ),
     );
   }
@@ -357,39 +354,50 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  Widget studentList(String students) {
-    return new StreamBuilder(
-      stream: Firestore.instance.collection("users").snapshots(),
-      builder: (context, snapshot) {
-        return !snapshot.hasData
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot data = snapshot.data.documents[index];
-                  return studentCard(
-                    data.documentID,
-                    data["name"],
-                    data["usn"],
-                    data["mobile"],
-                    data['block'],
-                    data['room'],
-                  );
-                },
-              );
+  // Widget studentList(String students) {
+  //   return new StreamBuilder(
+  //     stream: Firestore.instance.collection("users").snapshots(),
+  //     builder: (context, snapshot) {
+  //       return !snapshot.hasData
+  //           ? Center(child: CircularProgressIndicator())
+  //           : ListView.builder(
+  //               itemCount: snapshot.data.documents.length,
+  //               itemBuilder: (context, index) {
+  //                 DocumentSnapshot data = snapshot.data.documents[index];
+  Widget studentList(String complaintType) {
+    return FirebaseAnimatedList(
+      defaultChild: Center(child: shimmers()),
+      query: databaseReference.child('users'),
+      itemBuilder: (BuildContext context, DataSnapshot snapshot,
+          Animation<double> animation, int index) {
+        data = snapshot.value;
+        data['key'] = snapshot.key;
+        print('${data['name']}');
+        return studentCard(
+            data['key'],
+            data['email'],
+            data["name"],
+            data["usn"],
+            data["mobile"],
+            data['block'],
+            data['room'],
+            data['url']);
       },
     );
+    //   },
+    // );
   }
 
-  Widget studentCard(
-    String documentSnapshot,
-    String name,
-    String usn,
-    String mobile,
-    String block,
-    String room,
-  ) {
+  Widget studentCard(String documentId, String email, String name, String usn,
+      String mobile, String block, String room, String url) {
     return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Body(
+                    documentId, email, name, usn, mobile, block, room, url)));
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
         child: Container(
@@ -408,7 +416,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Email : $documentSnapshot',
+                          'Email : $email',
                           style: textStyle,
                         ),
                         Text(
