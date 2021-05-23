@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hostel/ui/profile_user/body.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/login.dart';
@@ -158,6 +159,10 @@ class _AdminDashboardState extends State<AdminDashboard>
                 Icons.logout,
                 color: Colors.white,
               ),
+              // child: Container(
+              //   child: SvgPicture.asset("assets/Log out.svg"),
+              //   color: Colors.white,
+              // ),
               onTap: () {
                 CommonData.clearLoggedInUserData();
                 Navigator.push(

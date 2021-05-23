@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'profile_menu.dart';
-import 'profile_pic.dart';
 
 class Body extends StatefulWidget {
   String docId, email, name, usn, phone, block, room, url;
@@ -22,31 +21,55 @@ class _BodyState extends State<Body> {
         padding: EdgeInsets.symmetric(vertical: 20),
         child: Column(
           children: [
-            ProfilePic(),
+            SizedBox(
+              height: 115,
+              width: 115,
+              child: Stack(
+                fit: StackFit.expand,
+                overflow: Overflow.visible,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    child: new Container(
+                        decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                                fit: BoxFit.cover,
+                                image: new NetworkImage('${widget.url}')))),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 20),
             ProfileMenu(
-              text: "My Account",
-              icon: "assets/icons/User Icon.svg",
+              text: "Email : ${widget.email}",
+              // icon: "assets/icons/User Icon.svg",y
               press: () => {},
             ),
             ProfileMenu(
-              text: "Notifications",
-              icon: "assets/icons/Bell.svg",
+              text: "Name : ${widget.name}",
+              // icon: "assets/icons/Bell.svg",
+              icon: Icon(Icons.arrow_forward_ios),
               press: () {},
             ),
             ProfileMenu(
-              text: "Settings",
-              icon: "assets/icons/Settings.svg",
+              text: "Roll No :${widget.usn}",
+              // icon: "assets/icons/Settings.svg",
               press: () {},
             ),
             ProfileMenu(
-              text: "Help Center",
-              icon: "assets/icons/Question mark.svg",
+              text: "Mobile : ${widget.phone}",
+              // icon: "assets/icons/Question mark.svg",
               press: () {},
             ),
             ProfileMenu(
-              text: "Log Out",
-              icon: "assets/icons/Log out.svg",
+              text: "Block : ${widget.block}",
+              // icon: "assets/icons/Log out.svg",
+              press: () {},
+            ),
+            ProfileMenu(
+              text: "Room No :${widget.room}",
+              // icon: "assets/icons/Log out.svg",
               press: () {},
             ),
           ],
