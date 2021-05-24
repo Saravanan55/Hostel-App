@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'profile_menu.dart';
 
@@ -11,11 +13,49 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool _isDeleting = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: [
+          _isDeleting
+              ? Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 10.0,
+                    right: 16.0,
+                  ),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.redAccent,
+                    ),
+                    strokeWidth: 3,
+                  ),
+                )
+              : IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.redAccent,
+                    size: 32,
+                  ),
+                  onPressed: () async {
+                    setState(() {
+                      _isDeleting = true;
+                    });
+
+                    deleteUser('${widget.docId}');
+
+                    setState(() {
+                      _isDeleting = false;
+                    });
+
+                    Navigator.of(context).pop();
+                  },
+                ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -76,5 +116,10 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  Future deleteUser(String docId) async {
+    FirebaseDatabase.instance.reference().child("users").child(docId).remove();
+    Firestore.instance.collection('users').document('${widget.email}').delete();
   }
 }

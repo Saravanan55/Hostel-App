@@ -155,14 +155,14 @@ class _AdminDashboardState extends State<AdminDashboard>
         appBar: AppBar(
           actions: <Widget>[
             GestureDetector(
-              child: Icon(
-                Icons.logout,
-                color: Colors.white,
-              ),
-              // child: Container(
-              //   child: SvgPicture.asset("assets/Log out.svg"),
+              // child: Icon(
+              //   Icons.logout,
               //   color: Colors.white,
               // ),
+              child: Container(
+                child: SvgPicture.asset("assets/Log out.svg"),
+                // color: Colors.white,
+              ),
               onTap: () {
                 CommonData.clearLoggedInUserData();
                 Navigator.push(
