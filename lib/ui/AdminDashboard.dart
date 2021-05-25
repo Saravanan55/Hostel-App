@@ -9,12 +9,18 @@ import 'package:hostel/food/add_screen.dart';
 import 'package:hostel/food/item_list.dart';
 import 'package:hostel/issues/issuespending.dart';
 import 'package:hostel/issues/issuessolved.dart';
+import 'package:hostel/outpass/approved.dart';
+import 'package:hostel/outpass/pending.dart';
 import 'package:hostel/profile_user/body.dart';
+import 'package:hostel/users/civil.dart';
+import 'package:hostel/users/cse.dart';
+import 'package:hostel/users/ece.dart';
+import 'package:hostel/users/it.dart';
+import 'package:hostel/users/mech.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
 import 'package:hostel/utils/CommonData.dart';
-import 'outpassDetails.dart';
 
 class AdminDashboard extends StatefulWidget {
   int loginTypeFlag;
@@ -42,7 +48,7 @@ class _AdminDashboardState extends State<AdminDashboard>
     databaseReference.onChildAdded.listen(onDataAdded);
 
     tabBarController =
-        new TabController(length: 4, vsync: this, initialIndex: 0);
+        new TabController(length: 5, vsync: this, initialIndex: 0);
   }
 
   Widget shimmers() {
@@ -201,6 +207,9 @@ class _AdminDashboardState extends State<AdminDashboard>
               Tab(
                 child: Text('Food'),
               ),
+              Tab(
+                child: Text("Text"),
+              )
             ],
           ),
         ),
@@ -208,13 +217,150 @@ class _AdminDashboardState extends State<AdminDashboard>
           child: TabBarView(
             controller: tabBarController,
             children: <Widget>[
-              testing(),
+              issues(),
               studentList("Students"),
-              outpassfirebase('outpass'),
+              outpassfirebase(),
               foodfirebase(),
+              testing(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget testing() {
+    return Card(
+      child: GridView.count(
+        scrollDirection: Axis.vertical,
+        crossAxisCount: 2,
+        children: <Widget>[
+          Card(
+            color: Color(0xff0ff24b),
+            elevation: 6,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Csedept()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'CSE Student',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Card(
+            color: Color(0xff0ff24b),
+            elevation: 6,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Itdept()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'IT Student',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Card(
+            color: Color(0xff0ff24b),
+            elevation: 6,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Ecedept()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'ECE Student',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Card(
+            color: Color(0xff0ff24b),
+            elevation: 6,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Mechdept()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'MECH Student',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Card(
+            color: Color(0xff0ff24b),
+            elevation: 6,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Civildept()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'CIVIL Student',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -243,129 +389,6 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  // Widget issuesList(String complaintType) {
-  //   return FirebaseAnimatedList(
-  //       defaultChild: Center(child: shimmers()),
-  //       query: databaseReference.child('hostel'),
-  //       itemBuilder: (BuildContext context, DataSnapshot snapshot,
-  //           Animation<double> animation, int index) {
-  //         data = snapshot.value;
-  //         data['key'] = snapshot.key;
-  //         print('${data['name']}');
-  //         return eventCard(
-  //             data["name"],
-  //             data["detail"],
-  //             data['phone'],
-  //             data['url'],
-  //             data["status"],
-  //             data['id'],
-  //             data['category'],
-  //             complaintType,
-  //             1,
-  //             data['key']);
-  //       });
-  // }
-
-  // Widget eventCard(
-  //     String name,
-  //     String detail,
-  //     String phone,
-  //     String url,
-  //     String status,
-  //     String id,
-  //     String category,
-  //     String complaintType,
-  //     int flag,
-  //     String key) {
-  //   return InkWell(
-  //     onTap: () {
-  //       Navigator.push(
-  //           context,
-  //           MaterialPageRoute(
-  //               builder: (context) => ComplaintDetails(name, detail, phone, url,
-  //                   status, id, category, flag, key)));
-  //     },
-  //     child: Padding(
-  //       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
-  //       child: Container(
-  //         child: Card(
-  //           shape:
-  //               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-  //           elevation: 6.0,
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(10.0),
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.start,
-  //               children: <Widget>[
-  //                 Container(
-  //                   decoration: BoxDecoration(
-  //                       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-  //                   width: 100,
-  //                   height: 100,
-  //                   child: Image.network(
-  //                     url,
-  //                     height: 150,
-  //                     width: 150,
-  //                   ),
-  //                 ),
-  //                 Padding(
-  //                   padding: const EdgeInsets.only(left: 12.0),
-  //                   child: Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: <Widget>[
-  //                       Text(
-  //                         'Name : $name',
-  //                         style: textStyle,
-  //                       ),
-  //                       Text(
-  //                         'ID : $id',
-  //                         style: textStyle,
-  //                       ),
-  //                       Text(
-  //                         'Number : $phone',
-  //                         style: textStyle,
-  //                       ),
-  //                       Text(
-  //                         'Category : $category',
-  //                         style: textStyle,
-  //                       ),
-  //                       Container(
-  //                         constraints: BoxConstraints(maxWidth: 200),
-  //                         child: Text(
-  //                           'Detail : $detail',
-  //                           overflow: TextOverflow.ellipsis,
-  //                           style: textStyle,
-  //                         ),
-  //                       ),
-  //                       Text(
-  //                         'Status : $status',
-  //                         style: TextStyle(
-  //                             color: status == "Pending"
-  //                                 ? Colors.red
-  //                                 : Colors.green),
-  //                       )
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget studentList(String students) {
-  //   return new StreamBuilder(
-  //     stream: Firestore.instance.collection("users").snapshots(),
-  //     builder: (context, snapshot) {
-  //       return !snapshot.hasData
-  //           ? Center(child: CircularProgressIndicator())
-  //           : ListView.builder(
-  //               itemCount: snapshot.data.documents.length,
-  //               itemBuilder: (context, index) {
-  //                 DocumentSnapshot data = snapshot.data.documents[index];
   Widget studentList(String complaintType) {
     return FirebaseAnimatedList(
       defaultChild: Center(child: shimmers()),
@@ -386,8 +409,6 @@ class _AdminDashboardState extends State<AdminDashboard>
             data['url']);
       },
     );
-    //   },
-    // );
   }
 
   Widget studentCard(String documentId, String email, String name, String usn,
@@ -453,146 +474,68 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  Widget outpassfirebase(String complaintType) {
-    return FirebaseAnimatedList(
-        defaultChild: shimmers(), //Center(child: CircularProgressIndicator()),
-        query: databaseReference.child('outpass'),
-        itemBuilder: (BuildContext context, DataSnapshot snapshot,
-            Animation<double> animation, int index) {
-          data = snapshot.value;
-          data['key'] = snapshot.key;
-          print('${data['name']}');
-          return eventCardpass(
-              data["Name"],
-              data["Phone"],
-              data["Out Date"],
-              data["In Date"],
-              data["Departure Time"],
-              data["In Time"],
-              data["Address"],
-              data["Reason"],
-              data["id"],
-              data['block'],
-              data["room"],
-              data["status"],
-              1,
-              data['key']);
-        });
-  }
-
-  Widget eventCardpass(
-      String name,
-      String phone,
-      String outdate,
-      String indate,
-      String deptime,
-      String intime,
-      String address,
-      String reason,
-      String id,
-      String block,
-      String room,
-      String status,
-      int flag,
-      String key) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => OutpassDetails(
-                    name,
-                    phone,
-                    outdate,
-                    indate,
-                    deptime,
-                    intime,
-                    address,
-                    reason,
-                    id,
-                    block,
-                    room,
-                    status,
-                    flag,
-                    key)));
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
-        child: Container(
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 6.0,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Name : $name',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Mobile : $phone',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Date : $outdate',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Date : $indate',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Departure Time : $deptime',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'In Time : $intime',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Address : $address',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Reason : $reason',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Block : $block',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Room No : $room',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Status : $status',
-                          style: TextStyle(
-                              color: status == "Pending"
-                                  ? Colors.red
-                                  : Colors.green),
-                        )
-                      ],
+  Widget outpassfirebase() {
+    return Card(
+      child: GridView.count(
+        scrollDirection: Axis.vertical,
+        crossAxisCount: 2,
+        children: <Widget>[
+          Card(
+            color: Color(0xfffa3434),
+            elevation: 6,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OutpassPending()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'Outpass \n Pending',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+          Card(
+            elevation: 6,
+            color: Color(0xff0ff24b),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OutpassApproved()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'Outpass \n Approved',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget testing() {
+  Widget issues() {
     return Card(
       child: GridView.count(
         scrollDirection: Axis.vertical,

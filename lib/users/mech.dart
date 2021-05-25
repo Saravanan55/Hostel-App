@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hostel/ui/ComplaintDetails.dart';
+import 'package:hostel/profile_user/body.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/model/complaints.dart';
 
-class Solved extends StatefulWidget {
+class Mechdept extends StatefulWidget {
   @override
-  _SolvedState createState() => _SolvedState();
+  _MechdeptState createState() => _MechdeptState();
 }
 
-class _SolvedState extends State<Solved> with TickerProviderStateMixin {
+class _MechdeptState extends State<Mechdept> with TickerProviderStateMixin {
   List<Complaints> complaintList = List();
+  List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;
   Complaints complaint;
   final FirebaseDatabase database = FirebaseDatabase.instance;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   DatabaseReference databaseReference;
 
   @override
@@ -115,42 +115,42 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text('Issues Solved'),
+          title: Text('Mech students'),
         ),
         body: Container(
-            child: new FirebaseAnimatedList(
-                defaultChild: Center(child: shimmers()),
-                query: databaseReference
-                    .child('hostel')
-                    .orderByChild("status")
-                    .equalTo("Done"),
-                itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                    Animation<double> animation, int index) {
-                  data = snapshot.value;
-                  data['key'] = snapshot.key;
-                  print('${data['name']}');
-                  return eventCard(
-                      data["name"],
-                      data["detail"],
-                      data['phone'],
-                      data['url'],
-                      data["status"],
-                      data['id'],
-                      data['category'],
-                      1,
-                      data['key']);
-                })));
+            child: FirebaseAnimatedList(
+          defaultChild: Center(child: shimmers()),
+          query: databaseReference
+              .child('users')
+              .orderByChild("dept")
+              .equalTo("MECH"),
+          itemBuilder: (BuildContext context, DataSnapshot snapshot,
+              Animation<double> animation, int index) {
+            data = snapshot.value;
+            data['key'] = snapshot.key;
+            print('${data['name']}');
+            return studentCard(
+                data['key'],
+                data['email'],
+                data["name"],
+                data["usn"],
+                data["mobile"],
+                data['block'],
+                data['room'],
+                data['url']);
+          },
+        )));
   }
 
-  Widget eventCard(String name, String detail, String phone, String url,
-      String status, String id, String category, int flag, String key) {
+  Widget studentCard(String documentId, String email, String name, String usn,
+      String mobile, String block, String room, String url) {
     return InkWell(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ComplaintDetails(name, detail, phone, url,
-                    status, id, category, flag, key)));
+                builder: (context) => Body(
+                    documentId, email, name, usn, mobile, block, room, url)));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
@@ -164,53 +164,35 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    width: 100,
-                    height: 100,
-                    child: Image.network(
-                      url,
-                      height: 150,
-                      width: 150,
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
+                          'Email : $email',
+                          style: textStyle,
+                        ),
+                        Text(
                           'Name : $name',
                           style: textStyle,
                         ),
                         Text(
-                          'ID : $id',
+                          'Roll No : $usn',
                           style: textStyle,
                         ),
                         Text(
-                          'Number : $phone',
+                          'Mobile : $mobile',
                           style: textStyle,
                         ),
                         Text(
-                          'Category : $category',
+                          'Block : $block',
                           style: textStyle,
                         ),
-                        Container(
-                          constraints: BoxConstraints(maxWidth: 200),
-                          child: Text(
-                            'Detail : $detail',
-                            overflow: TextOverflow.ellipsis,
-                            style: textStyle,
-                          ),
-                        ),
                         Text(
-                          'Status : $status',
-                          style: TextStyle(
-                              color: status == "Pending"
-                                  ? Colors.red
-                                  : Colors.green),
-                        )
+                          'Room : $room',
+                          style: textStyle,
+                        ),
                       ],
                     ),
                   ),
@@ -227,45 +209,5 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
     setState(() {
       complaintList.add(Complaints.fromSnapshot(event.snapshot));
     });
-  }
-}
-
-class _DemoBottomAppBar extends StatelessWidget {
-  const _DemoBottomAppBar({
-    this.color,
-    this.fabLocation,
-    this.shape,
-  });
-
-  final Color color;
-  final FloatingActionButtonLocation fabLocation;
-  final NotchedShape shape;
-
-  static final List<FloatingActionButtonLocation> kCenterLocations =
-      <FloatingActionButtonLocation>[
-    FloatingActionButtonLocation.centerDocked,
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: color,
-      shape: shape,
-      child: Row(children: <Widget>[
-        if (kCenterLocations.contains(fabLocation))
-          const Expanded(child: SizedBox()),
-        IconButton(
-          icon: const Icon(
-            Icons.search,
-            semanticLabel: 'show search action',
-          ),
-          onPressed: () {
-            Scaffold.of(context).showSnackBar(
-              const SnackBar(content: Text('This is a dummy search action.')),
-            );
-          },
-        ),
-      ]),
-    );
   }
 }

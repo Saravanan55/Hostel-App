@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hostel/ui/ComplaintDetails.dart';
+import 'package:hostel/ui/outpassDetails.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/model/complaints.dart';
 
-class Solved extends StatefulWidget {
+class OutpassPending extends StatefulWidget {
   @override
-  _SolvedState createState() => _SolvedState();
+  _OutpassPendingState createState() => _OutpassPendingState();
 }
 
-class _SolvedState extends State<Solved> with TickerProviderStateMixin {
+class _OutpassPendingState extends State<OutpassPending>
+    with TickerProviderStateMixin {
   List<Complaints> complaintList = List();
+  List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;
   Complaints complaint;
   final FirebaseDatabase database = FirebaseDatabase.instance;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   DatabaseReference databaseReference;
 
   @override
@@ -115,42 +116,74 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text('Issues Solved'),
+          title: Text('Outpass Pending'),
         ),
         body: Container(
             child: new FirebaseAnimatedList(
-                defaultChild: Center(child: shimmers()),
+                defaultChild:
+                    shimmers(), //Center(child: CircularProgressIndicator()),
                 query: databaseReference
-                    .child('hostel')
-                    .orderByChild("status")
-                    .equalTo("Done"),
+                    .child('outpass')
+                    .orderByChild('status')
+                    .equalTo('Pending'),
                 itemBuilder: (BuildContext context, DataSnapshot snapshot,
                     Animation<double> animation, int index) {
                   data = snapshot.value;
                   data['key'] = snapshot.key;
                   print('${data['name']}');
-                  return eventCard(
-                      data["name"],
-                      data["detail"],
-                      data['phone'],
-                      data['url'],
+                  return eventCardpass(
+                      data["Name"],
+                      data["Phone"],
+                      data["Out Date"],
+                      data["In Date"],
+                      data["Departure Time"],
+                      data["In Time"],
+                      data["Address"],
+                      data["Reason"],
+                      data["id"],
+                      data['block'],
+                      data["room"],
                       data["status"],
-                      data['id'],
-                      data['category'],
                       1,
                       data['key']);
                 })));
   }
 
-  Widget eventCard(String name, String detail, String phone, String url,
-      String status, String id, String category, int flag, String key) {
+  Widget eventCardpass(
+      String name,
+      String phone,
+      String outdate,
+      String indate,
+      String deptime,
+      String intime,
+      String address,
+      String reason,
+      String id,
+      String block,
+      String room,
+      String status,
+      int flag,
+      String key) {
     return InkWell(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ComplaintDetails(name, detail, phone, url,
-                    status, id, category, flag, key)));
+                builder: (context) => OutpassDetails(
+                    name,
+                    phone,
+                    outdate,
+                    indate,
+                    deptime,
+                    intime,
+                    address,
+                    reason,
+                    id,
+                    block,
+                    room,
+                    status,
+                    flag,
+                    key)));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
@@ -164,17 +197,6 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    width: 100,
-                    height: 100,
-                    child: Image.network(
-                      url,
-                      height: 150,
-                      width: 150,
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Column(
@@ -185,24 +207,40 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
                           style: textStyle,
                         ),
                         Text(
-                          'ID : $id',
+                          'Mobile : $phone',
                           style: textStyle,
                         ),
                         Text(
-                          'Number : $phone',
+                          'Date : $outdate',
                           style: textStyle,
                         ),
                         Text(
-                          'Category : $category',
+                          'Date : $indate',
                           style: textStyle,
                         ),
-                        Container(
-                          constraints: BoxConstraints(maxWidth: 200),
-                          child: Text(
-                            'Detail : $detail',
-                            overflow: TextOverflow.ellipsis,
-                            style: textStyle,
-                          ),
+                        Text(
+                          'Departure Time : $deptime',
+                          style: textStyle,
+                        ),
+                        Text(
+                          'In Time : $intime',
+                          style: textStyle,
+                        ),
+                        Text(
+                          'Address : $address',
+                          style: textStyle,
+                        ),
+                        Text(
+                          'Reason : $reason',
+                          style: textStyle,
+                        ),
+                        Text(
+                          'Block : $block',
+                          style: textStyle,
+                        ),
+                        Text(
+                          'Room No : $room',
+                          style: textStyle,
                         ),
                         Text(
                           'Status : $status',
@@ -227,45 +265,5 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
     setState(() {
       complaintList.add(Complaints.fromSnapshot(event.snapshot));
     });
-  }
-}
-
-class _DemoBottomAppBar extends StatelessWidget {
-  const _DemoBottomAppBar({
-    this.color,
-    this.fabLocation,
-    this.shape,
-  });
-
-  final Color color;
-  final FloatingActionButtonLocation fabLocation;
-  final NotchedShape shape;
-
-  static final List<FloatingActionButtonLocation> kCenterLocations =
-      <FloatingActionButtonLocation>[
-    FloatingActionButtonLocation.centerDocked,
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: color,
-      shape: shape,
-      child: Row(children: <Widget>[
-        if (kCenterLocations.contains(fabLocation))
-          const Expanded(child: SizedBox()),
-        IconButton(
-          icon: const Icon(
-            Icons.search,
-            semanticLabel: 'show search action',
-          ),
-          onPressed: () {
-            Scaffold.of(context).showSnackBar(
-              const SnackBar(content: Text('This is a dummy search action.')),
-            );
-          },
-        ),
-      ]),
-    );
   }
 }
