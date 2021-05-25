@@ -13,6 +13,7 @@ import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/utils/CommonData.dart';
 import 'food/add_screen.dart';
 import 'food/item_list.dart';
+import 'issues/issuespending.dart';
 import 'outpassDetails.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -41,7 +42,7 @@ class _AdminDashboardState extends State<AdminDashboard>
     databaseReference.onChildAdded.listen(onDataAdded);
 
     tabBarController =
-        new TabController(length: 4, vsync: this, initialIndex: 0);
+        new TabController(length: 5, vsync: this, initialIndex: 0);
   }
 
   Widget shimmers() {
@@ -155,10 +156,6 @@ class _AdminDashboardState extends State<AdminDashboard>
         appBar: AppBar(
           actions: <Widget>[
             GestureDetector(
-              // child: Icon(
-              //   Icons.logout,
-              //   color: Colors.white,
-              // ),
               child: Container(
                 child: SvgPicture.asset("assets/Log out.svg"),
                 // color: Colors.white,
@@ -204,6 +201,9 @@ class _AdminDashboardState extends State<AdminDashboard>
               Tab(
                 child: Text('Food'),
               ),
+              Tab(
+                child: Text('Issues'),
+              )
             ],
           ),
         ),
@@ -215,6 +215,7 @@ class _AdminDashboardState extends State<AdminDashboard>
               studentList("Students"),
               outpassfirebase('outpass'),
               foodfirebase(),
+              testing(),
             ],
           ),
         ),
@@ -591,6 +592,64 @@ class _AdminDashboardState extends State<AdminDashboard>
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget testing() {
+    return Card(
+      child: GridView.count(
+        scrollDirection: Axis.vertical,
+        crossAxisCount: 2,
+        children: <Widget>[
+          Card(
+            color: Color(0xfffa3434),
+            elevation: 6,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Pending()));
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'Issues \n Pending',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Card(
+            elevation: 6,
+            color: Color(0xff0ff24b),
+            child: InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 18.0),
+                    Text(
+                      'Issues \n Solved',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

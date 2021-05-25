@@ -63,7 +63,7 @@ class _EditItemFormState extends State<EditItemForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _editItemFormKey,
-      child: Column(
+      child: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.only(
