@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/model/complaints.dart';
-import '../ComplaintDetails.dart';
 
 class Solved extends StatefulWidget {
   @override

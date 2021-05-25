@@ -4,10 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/model/complaints.dart';
-
-import '../ComplaintDetails.dart';
 
 class Pending extends StatefulWidget {
   @override

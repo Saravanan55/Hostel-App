@@ -5,16 +5,15 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hostel/ui/issues/issuessolved.dart';
-import 'package:hostel/ui/profile_user/body.dart';
+import 'package:hostel/food/add_screen.dart';
+import 'package:hostel/food/item_list.dart';
+import 'package:hostel/issues/issuespending.dart';
+import 'package:hostel/issues/issuessolved.dart';
+import 'package:hostel/profile_user/body.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
-import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/utils/CommonData.dart';
-import 'food/add_screen.dart';
-import 'food/item_list.dart';
-import 'issues/issuespending.dart';
 import 'outpassDetails.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -43,7 +42,7 @@ class _AdminDashboardState extends State<AdminDashboard>
     databaseReference.onChildAdded.listen(onDataAdded);
 
     tabBarController =
-        new TabController(length: 5, vsync: this, initialIndex: 0);
+        new TabController(length: 4, vsync: this, initialIndex: 0);
   }
 
   Widget shimmers() {
@@ -202,9 +201,6 @@ class _AdminDashboardState extends State<AdminDashboard>
               Tab(
                 child: Text('Food'),
               ),
-              Tab(
-                child: Text('Issues'),
-              )
             ],
           ),
         ),
@@ -212,11 +208,10 @@ class _AdminDashboardState extends State<AdminDashboard>
           child: TabBarView(
             controller: tabBarController,
             children: <Widget>[
-              issuesList('isuues'),
+              testing(),
               studentList("Students"),
               outpassfirebase('outpass'),
               foodfirebase(),
-              testing(),
             ],
           ),
         ),
@@ -248,118 +243,118 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  Widget issuesList(String complaintType) {
-    return FirebaseAnimatedList(
-        defaultChild: Center(child: shimmers()),
-        query: databaseReference.child('hostel'),
-        itemBuilder: (BuildContext context, DataSnapshot snapshot,
-            Animation<double> animation, int index) {
-          data = snapshot.value;
-          data['key'] = snapshot.key;
-          print('${data['name']}');
-          return eventCard(
-              data["name"],
-              data["detail"],
-              data['phone'],
-              data['url'],
-              data["status"],
-              data['id'],
-              data['category'],
-              complaintType,
-              1,
-              data['key']);
-        });
-  }
+  // Widget issuesList(String complaintType) {
+  //   return FirebaseAnimatedList(
+  //       defaultChild: Center(child: shimmers()),
+  //       query: databaseReference.child('hostel'),
+  //       itemBuilder: (BuildContext context, DataSnapshot snapshot,
+  //           Animation<double> animation, int index) {
+  //         data = snapshot.value;
+  //         data['key'] = snapshot.key;
+  //         print('${data['name']}');
+  //         return eventCard(
+  //             data["name"],
+  //             data["detail"],
+  //             data['phone'],
+  //             data['url'],
+  //             data["status"],
+  //             data['id'],
+  //             data['category'],
+  //             complaintType,
+  //             1,
+  //             data['key']);
+  //       });
+  // }
 
-  Widget eventCard(
-      String name,
-      String detail,
-      String phone,
-      String url,
-      String status,
-      String id,
-      String category,
-      String complaintType,
-      int flag,
-      String key) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ComplaintDetails(name, detail, phone, url,
-                    status, id, category, flag, key)));
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
-        child: Container(
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 6.0,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    width: 100,
-                    height: 100,
-                    child: Image.network(
-                      url,
-                      height: 150,
-                      width: 150,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Name : $name',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'ID : $id',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Number : $phone',
-                          style: textStyle,
-                        ),
-                        Text(
-                          'Category : $category',
-                          style: textStyle,
-                        ),
-                        Container(
-                          constraints: BoxConstraints(maxWidth: 200),
-                          child: Text(
-                            'Detail : $detail',
-                            overflow: TextOverflow.ellipsis,
-                            style: textStyle,
-                          ),
-                        ),
-                        Text(
-                          'Status : $status',
-                          style: TextStyle(
-                              color: status == "Pending"
-                                  ? Colors.red
-                                  : Colors.green),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget eventCard(
+  //     String name,
+  //     String detail,
+  //     String phone,
+  //     String url,
+  //     String status,
+  //     String id,
+  //     String category,
+  //     String complaintType,
+  //     int flag,
+  //     String key) {
+  //   return InkWell(
+  //     onTap: () {
+  //       Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //               builder: (context) => ComplaintDetails(name, detail, phone, url,
+  //                   status, id, category, flag, key)));
+  //     },
+  //     child: Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
+  //       child: Container(
+  //         child: Card(
+  //           shape:
+  //               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  //           elevation: 6.0,
+  //           child: Padding(
+  //             padding: const EdgeInsets.all(10.0),
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.start,
+  //               children: <Widget>[
+  //                 Container(
+  //                   decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.all(Radius.circular(10.0))),
+  //                   width: 100,
+  //                   height: 100,
+  //                   child: Image.network(
+  //                     url,
+  //                     height: 150,
+  //                     width: 150,
+  //                   ),
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.only(left: 12.0),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: <Widget>[
+  //                       Text(
+  //                         'Name : $name',
+  //                         style: textStyle,
+  //                       ),
+  //                       Text(
+  //                         'ID : $id',
+  //                         style: textStyle,
+  //                       ),
+  //                       Text(
+  //                         'Number : $phone',
+  //                         style: textStyle,
+  //                       ),
+  //                       Text(
+  //                         'Category : $category',
+  //                         style: textStyle,
+  //                       ),
+  //                       Container(
+  //                         constraints: BoxConstraints(maxWidth: 200),
+  //                         child: Text(
+  //                           'Detail : $detail',
+  //                           overflow: TextOverflow.ellipsis,
+  //                           style: textStyle,
+  //                         ),
+  //                       ),
+  //                       Text(
+  //                         'Status : $status',
+  //                         style: TextStyle(
+  //                             color: status == "Pending"
+  //                                 ? Colors.red
+  //                                 : Colors.green),
+  //                       )
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // Widget studentList(String students) {
   //   return new StreamBuilder(

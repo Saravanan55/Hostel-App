@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'food/colors.dart';
-import 'food/database.dart';
+import 'package:hostel/food/colors.dart';
+import 'package:hostel/food/database.dart';
 
 class FoodItemList extends StatelessWidget {
   @override
