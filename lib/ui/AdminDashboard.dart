@@ -5,6 +5,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hostel/ui/issues/issuessolved.dart';
 import 'package:hostel/ui/profile_user/body.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/login.dart';
@@ -631,7 +632,10 @@ class _AdminDashboardState extends State<AdminDashboard>
             elevation: 6,
             color: Color(0xff0ff24b),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Solved()));
+              },
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
                 child: Column(
