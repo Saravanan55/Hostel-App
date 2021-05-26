@@ -135,88 +135,96 @@ class _BodyState extends State<Body> {
     );
   }
 
-  void userEditBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return Container(
-          height: MediaQuery.of(context).size.height * .60,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 15.0),
-            child: ListView(
-              children: <Widget>[
-                Row(
+  userEditBottomSheet(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Material(
+              type: MaterialType.transparency,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                padding: EdgeInsets.all(15),
+                height: 320,
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: ListView(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text("Update Profile"),
-                    Spacer(),
-                    IconButton(
-                      icon: Icon(Icons.cancel),
-                      color: Colors.orange,
-                      iconSize: 25,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+                    Row(
+                      children: <Widget>[
+                        Text("Update Profile"),
+                        Spacer(),
+                        IconButton(
+                          icon: Icon(Icons.cancel),
+                          color: Colors.orange,
+                          iconSize: 25,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: TextField(
+                              controller: blockController,
+                              decoration: InputDecoration(
+                                helperText: "Block No",
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: TextField(
+                              controller: roomController,
+                              decoration: InputDecoration(
+                                helperText: "Room No",
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text('Update'),
+                          color: Colors.green,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            Map<String, dynamic> data = <String, dynamic>{
+                              "block": blockController.text,
+                              "room": roomController.text
+                            };
+                            FirebaseDatabase.instance
+                                .reference()
+                                .child("users")
+                                .child('${widget.docId}')
+                                .update(data);
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      ],
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15.0),
-                        child: TextField(
-                          controller: blockController,
-                          decoration: InputDecoration(
-                            helperText: "Block No",
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15.0),
-                        child: TextField(
-                          controller: roomController,
-                          decoration: InputDecoration(
-                            helperText: "Room No",
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text('Update'),
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        Map<String, dynamic> data = <String, dynamic>{
-                          "block": blockController.text,
-                          "room": roomController.text
-                        };
-                        FirebaseDatabase.instance
-                            .reference()
-                            .child("users")
-                            .child('${widget.docId}')
-                            .update(data);
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        });
   }
 
   Future deleteUser(String docId) async {
