@@ -137,20 +137,21 @@ class _ItdeptState extends State<Itdept> with TickerProviderStateMixin {
                 data["mobile"],
                 data['block'],
                 data['room'],
+                data['dept'],
                 data['url']);
           },
         )));
   }
 
   Widget studentCard(String documentId, String email, String name, String usn,
-      String mobile, String block, String room, String url) {
+      String mobile, String block, String room, String dept, String url) {
     return InkWell(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Body(
-                    documentId, email, name, usn, mobile, block, room, url)));
+                builder: (context) => Body(documentId, email, name, usn, mobile,
+                    block, room, dept, url)));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6),
@@ -179,6 +180,10 @@ class _ItdeptState extends State<Itdept> with TickerProviderStateMixin {
                         ),
                         Text(
                           'Roll No : $usn',
+                          style: textStyle,
+                        ),
+                        Text(
+                          'Dept : $dept',
                           style: textStyle,
                         ),
                         Text(

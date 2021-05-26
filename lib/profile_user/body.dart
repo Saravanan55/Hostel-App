@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'profile_menu.dart';
 
 class Body extends StatefulWidget {
-  String docId, email, name, usn, phone, block, room, url;
+  String docId, email, name, usn, phone, block, room, dept, url;
   Body(this.docId, this.email, this.name, this.usn, this.phone, this.block,
-      this.room, this.url);
+      this.room, this.dept, this.url);
 
   @override
   _BodyState createState() => _BodyState();
@@ -14,6 +14,9 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool _isDeleting = false;
+  bool _isEdit = false;
+  TextEditingController blockController = TextEditingController();
+  TextEditingController roomController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,22 @@ class _BodyState extends State<Body> {
       appBar: AppBar(
         title: Text("Profile"),
         actions: [
+          IconButton(
+            icon: Icon(
+              Icons.edit,
+              color: Colors.redAccent,
+              size: 32,
+            ),
+            onPressed: () {
+              setState(() {
+                _isEdit = true;
+              });
+              userEditBottomSheet(context);
+              setState(() {
+                _isEdit = false;
+              });
+            },
+          ),
           _isDeleting
               ? Padding(
                   padding: const EdgeInsets.only(
@@ -83,38 +102,120 @@ class _BodyState extends State<Body> {
             SizedBox(height: 20),
             ProfileMenu(
               text: "Email : ${widget.email}",
-              // icon: "assets/icons/User Icon.svg",y
               press: () => {},
             ),
             ProfileMenu(
               text: "Name : ${widget.name}",
-              // icon: "assets/icons/Bell.svg",
               icon: Icon(Icons.arrow_forward_ios),
               press: () {},
             ),
             ProfileMenu(
               text: "Roll No :${widget.usn}",
-              // icon: "assets/icons/Settings.svg",
+              press: () {},
+            ),
+            ProfileMenu(
+              text: "Dept:${widget.dept}",
               press: () {},
             ),
             ProfileMenu(
               text: "Mobile : ${widget.phone}",
-              // icon: "assets/icons/Question mark.svg",
               press: () {},
             ),
             ProfileMenu(
               text: "Block : ${widget.block}",
-              // icon: "assets/icons/Log out.svg",
               press: () {},
             ),
             ProfileMenu(
               text: "Room No :${widget.room}",
-              // icon: "assets/icons/Log out.svg",
               press: () {},
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void userEditBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return Container(
+          height: MediaQuery.of(context).size.height * .60,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15.0, top: 15.0),
+            child: ListView(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text("Update Profile"),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(Icons.cancel),
+                      color: Colors.orange,
+                      iconSize: 25,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: TextField(
+                          controller: blockController,
+                          decoration: InputDecoration(
+                            helperText: "Block No",
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: TextField(
+                          controller: roomController,
+                          decoration: InputDecoration(
+                            helperText: "Room No",
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text('Update'),
+                      color: Colors.green,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        Map<String, dynamic> data = <String, dynamic>{
+                          "block": blockController.text,
+                          "room": roomController.text
+                        };
+                        FirebaseDatabase.instance
+                            .reference()
+                            .child("users")
+                            .child('${widget.docId}')
+                            .update(data);
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
