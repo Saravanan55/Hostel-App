@@ -1,16 +1,13 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:hostel/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hostel/utils/bezierContainer.dart';
-import 'package:random_string/random_string.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -28,6 +25,7 @@ class _SignUpState extends State<SignUp> {
   bool validateEmail = false;
   bool validatePassword = false;
   bool validateUSN = false;
+  bool validatedept = false;
   bool validateBlock = false;
   bool validateRoom = false;
   bool validateMobile = false;
@@ -36,6 +34,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController usnController = TextEditingController();
+  TextEditingController deptController = TextEditingController();
   TextEditingController blockController = TextEditingController();
   TextEditingController roomController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -61,21 +60,25 @@ class _SignUpState extends State<SignUp> {
             .setData({
           "name": "${nameController.text}",
           "usn": "${usnController.text}",
+          "dept": "${deptController.text}",
           "block": "${blockController.text}",
           "room": "${roomController.text}",
           "mobile": "${mobileController.text}",
           "role": "student",
-          "url":"https://firebasestorage.googleapis.com/v0/b/hostel-app2.appspot.com/o/image.png?alt=media&token=43c74df4-06c1-4d3c-90ea-38abfc8409e3"
+          "url":
+              "https://firebasestorage.googleapis.com/v0/b/hostel-app2.appspot.com/o/image.png?alt=media&token=43c74df4-06c1-4d3c-90ea-38abfc8409e3"
         });
-         FirebaseDatabase.instance.reference().child("users").push().set({
+        FirebaseDatabase.instance.reference().child("users").push().set({
           "name": "${nameController.text}",
           "usn": "${usnController.text}",
+          "dept": "${deptController.text}",
           "block": "${blockController.text}",
           "room": "${roomController.text}",
           "mobile": "${mobileController.text}",
           "role": "student",
-          "email":"${emailController.text}",
-          "url":"https://firebasestorage.googleapis.com/v0/b/hostel-app2.appspot.com/o/image.png?alt=media&token=43c74df4-06c1-4d3c-90ea-38abfc8409e3"
+          "email": "${emailController.text}",
+          "url":
+              "https://firebasestorage.googleapis.com/v0/b/hostel-app2.appspot.com/o/image.png?alt=media&token=43c74df4-06c1-4d3c-90ea-38abfc8409e3"
         });
         print(user);
         user.sendEmailVerification();
@@ -182,6 +185,33 @@ class _SignUpState extends State<SignUp> {
                           errorText:
                               validateUSN ? "Roll no can\'t be empty" : null,
                           hintText: "Roll No",
+                          hintStyle:
+                              TextStyle(color: Colors.grey, fontSize: 12.0),
+                          border: InputBorder.none,
+                          fillColor: Color(0xfff3f3f4),
+                          filled: true),
+                    ),
+                    SizedBox(
+                      height: ScreenUtil.getInstance().setHeight(30),
+                    ),
+                    Text(
+                      "Department",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          value.isEmpty
+                              ? validatedept = true
+                              : validatedept = false;
+                        });
+                      },
+                      controller: deptController,
+                      decoration: InputDecoration(
+                          errorText:
+                              validatedept ? "dept can\'t be empty" : null,
+                          hintText: "Must All caps Eg.CSE",
                           hintStyle:
                               TextStyle(color: Colors.grey, fontSize: 12.0),
                           border: InputBorder.none,
@@ -368,6 +398,9 @@ class _SignUpState extends State<SignUp> {
                                   usnController.text.isEmpty
                                       ? validateUSN = true
                                       : validateUSN = false;
+                                  deptController.text.isEmpty
+                                      ? validatedept = true
+                                      : validatedept = false;
                                   blockController.text.isEmpty
                                       ? validateBlock = true
                                       : validateBlock = false;
@@ -381,10 +414,11 @@ class _SignUpState extends State<SignUp> {
                                       ? validateName = true
                                       : validateName = false;
                                 });
-                              
+
                                 data = {
                                   "name": "${nameController.text}",
                                   "usn": "${usnController.text}",
+                                  "dept": "${deptController.text}",
                                   "block": "${blockController.text}",
                                   "room": "${roomController.text}",
                                   "mobile": "${mobileController.text}",
@@ -395,6 +429,7 @@ class _SignUpState extends State<SignUp> {
                                     validateBlock &&
                                     validateName &&
                                     validatePassword &&
+                                    validatedept &&
                                     validateEmail &&
                                     validateUSN)) {
                                   _saving = true;
