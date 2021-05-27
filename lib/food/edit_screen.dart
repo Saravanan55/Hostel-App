@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 import 'database.dart';
 import 'edit_item.dart';
 

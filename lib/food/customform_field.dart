@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 class CustomFormField extends StatelessWidget {
   const CustomFormField({
@@ -48,11 +47,11 @@ class CustomFormField extends StatelessWidget {
       textCapitalization:
           isCapitalized ? TextCapitalization.words : TextCapitalization.none,
       textInputAction: _inputAction,
-      cursorColor: CustomColors.firebaseYellow,
+      cursorColor: Color(0xFFFFCA28),
       validator: (value) => _validator(value),
       decoration: InputDecoration(
         labelText: isLabelEnabled ? _label : null,
-        labelStyle: TextStyle(color: CustomColors.firebaseYellow),
+        labelStyle: TextStyle(color: Color(0xFFFFCA28)),
         hintText: _hint,
         hintStyle: TextStyle(
           color: Colors.grey.withOpacity(0.5),
@@ -64,14 +63,14 @@ class CustomFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(
-            color: CustomColors.firebaseAmber,
+            color: Color(0xFFFFA000),
             width: 2,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(
-            color: CustomColors.firebaseGrey.withOpacity(0.5),
+            color: Color(0xFFECEFF1).withOpacity(0.5),
           ),
         ),
         errorBorder: OutlineInputBorder(

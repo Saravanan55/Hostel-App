@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 class AppBarTitle extends StatelessWidget {
   @override
@@ -16,13 +15,6 @@ class AppBarTitle extends StatelessWidget {
             fontSize: 18,
           ),
         )
-        // Text(
-        //   ' CRUD',
-        //   style: TextStyle(
-        //     color: CustomColors.firebaseOrange,
-        //     fontSize: 18,
-        //   ),
-        // ),
       ],
     );
   }

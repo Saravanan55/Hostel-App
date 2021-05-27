@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'add_item.dart';
-import 'colors.dart';
-//import 'package:flutterfire_samples/widgets/add_item_form.dart';
 import 'add_title.dart';
 
 class AddScreen extends StatelessWidget {

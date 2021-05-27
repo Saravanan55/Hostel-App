@@ -49,8 +49,6 @@ class _MyFormState extends State<MyForm> {
       imageQuality: 40,
     );
     setState(() {
-//        if(sampleImage==null)
-//           sampleImage= File("assets/image_02.png");
       sampleImage = tempImage;
       filename = sampleImage.toString();
     });
@@ -75,10 +73,6 @@ class _MyFormState extends State<MyForm> {
           padding: const EdgeInsets.all(14.0),
           child: ListView(
             children: <Widget>[
-//            Text('Enter your Name',style:textStyle),
-//            TextField(
-//              controller: nameController,
-//            ),
               Padding(
                 padding: const EdgeInsets.only(top: 14.0, bottom: 6),
                 child: Text('Enter details', style: textStyle),
@@ -194,7 +188,6 @@ class _MyFormState extends State<MyForm> {
   }
 
   Future<String> uploadImage() async {
-    // print('\n\n$filename\n\n');
     final StorageReference firebaseStorageRef =
         FirebaseStorage.instance.ref().child('$random');
     final StorageUploadTask task = firebaseStorageRef.putFile(sampleImage);

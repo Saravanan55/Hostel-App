@@ -56,7 +56,7 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     this.getCurrentUser();
-    complaint = Complaints("", "", "", "","");
+    complaint = Complaints("", "", "", "", "");
     databaseReference = database.reference();
     databaseReference.onChildAdded.listen(onDataAdded);
 
@@ -120,14 +120,12 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
             ],
           ),
         ),
-
         body: Container(
             child: TabBarView(
           controller: tabBarController,
           children: [
             new FirebaseAnimatedList(
-                defaultChild:
-                    shimmers(), //Center(child: CircularProgressIndicator()),
+                defaultChild: shimmers(),
                 query: databaseReference
                     .child('outpass')
                     .orderByChild("uid")
@@ -158,52 +156,6 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
       ),
     );
   }
-
-// final DBRef = FirebaseDatabase.instance.reference().child('Users');
-//  void writeData() async{
-//
-  // final FirebaseUser user = await _auth.currentUser();
-  // final uid = user.uid;
-  // DBRef.child(uid).set({
-  //   'id':'ID1',
-  //   'Name':'Mehul Jain',
-  //   'Phone':'8856061841'
-  // });
-
-  // Future<Widget> firebasePass1() async {
-  //   //final User user = FirebaseAuth.instance.currentUser();
-  //   return new Flexible(
-  //     child: new StreamBuilder<QuerySnapshot>(
-  //       stream:
-  //           store.document(currentUser.uid).collection('outpass').snapshots(),
-  //       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-  //         return new AnimatedList(
-  //             reverse: true,
-  //             padding: const EdgeInsets.all(8.0),
-  //             itemBuilder: (BuildContext context, int index,
-  //                 Animation<double> animation) {
-  //               return eventCard(
-  //                   // context: context,
-  //                   // index: index,
-  //                   // animation: animation,
-  //                   // reference: snapshot,
-  //                   data["Name"],
-  //                   data["Phone"],
-  //                   data["Date"],
-  //                   data["Departure Time"],
-  //                   data["In Time"],
-  //                   data["Address"],
-  //                   data["id"],
-  //                   data['block'],
-  //                   data["room"],
-  //                   data["status"],
-  //                   0,
-  //                   data['key']);
-  //             });
-  //       },
-  //     ),
-  //   );
-  // }
 
   Widget shimmers() {
     return ListView(
@@ -332,17 +284,6 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  //   width: 100,
-                  //   height: 100,
-                  //   child: Image.network(
-                  //     url,
-                  //     height: 150,
-                  //     width: 150,
-                  //   ),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Column(
@@ -411,45 +352,5 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
     setState(() {
       complaintList.add(Complaints.fromSnapshot(event.snapshot));
     });
-  }
-}
-
-class _DemoBottomAppBar extends StatelessWidget {
-  const _DemoBottomAppBar({
-    this.color,
-    this.fabLocation,
-    this.shape,
-  });
-
-  final Color color;
-  final FloatingActionButtonLocation fabLocation;
-  final NotchedShape shape;
-
-  static final List<FloatingActionButtonLocation> kCenterLocations =
-      <FloatingActionButtonLocation>[
-    FloatingActionButtonLocation.centerDocked,
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: color,
-      shape: shape,
-      child: Row(children: <Widget>[
-        if (kCenterLocations.contains(fabLocation))
-          const Expanded(child: SizedBox()),
-        IconButton(
-          icon: const Icon(
-            Icons.search,
-            semanticLabel: 'show search action',
-          ),
-          onPressed: () {
-            Scaffold.of(context).showSnackBar(
-              const SnackBar(content: Text('This is a dummy search action.')),
-            );
-          },
-        ),
-      ]),
-    );
   }
 }

@@ -72,9 +72,6 @@ class _ComplaintDetailsState extends State<ComplaintDetails> {
                           widget.url,
                         ),
                       ),
-// Image.asset(
-//                      'assets/dp.jpg',
-//                    )),
                       Text(
                         'Name : ${widget.name}',
                         style: textStyle,
@@ -100,7 +97,6 @@ class _ComplaintDetailsState extends State<ComplaintDetails> {
                                 ? Colors.red
                                 : Colors.green),
                       ),
-
                       widget.flag == 0
                           ? Container()
                           : Row(
@@ -138,14 +134,6 @@ class _ComplaintDetailsState extends State<ComplaintDetails> {
                                         "status": "$message",
                                         "category": "${widget.category}"
                                       });
-
-                                      // database
-                                      //     .reference()
-                                      //     .child("hostel")
-                                      //     .update(data)
-                                      //     .then((data) {
-                                      //   print('data');
-                                      // });
                                     });
                                   },
                                 ),

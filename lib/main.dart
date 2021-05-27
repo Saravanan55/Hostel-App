@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hostel/login.dart';
 import 'package:hostel/ui/UserDashboard.dart';
 import 'package:hostel/ui/AdminDashboard.dart';
-import 'package:hostel/utils/CommonData.dart';
 import 'package:hostel/utils/Constants.dart';
 
 void main() => runApp(MyApp());

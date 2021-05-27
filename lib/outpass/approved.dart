@@ -120,8 +120,7 @@ class _OutpassApprovedState extends State<OutpassApproved>
         ),
         body: Container(
             child: new FirebaseAnimatedList(
-                defaultChild:
-                    shimmers(), //Center(child: CircularProgressIndicator()),
+                defaultChild: shimmers(),
                 query: databaseReference
                     .child('outpass')
                     .orderByChild('status')

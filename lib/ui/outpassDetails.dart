@@ -83,13 +83,6 @@ class _OutpassDetailsState extends State<OutpassDetails> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      // Container(
-                      //   height: 400,
-                      //   width: 400,
-                      //   child: Image.network(
-                      //     widget.url,
-                      //   ),
-                      // ),
                       Text(
                         'Name : ${widget.name}',
                         style: textStyle,
@@ -151,15 +144,7 @@ class _OutpassDetailsState extends State<OutpassDetails> {
                                       else
                                         message = "Pending";
                                       statusChange = message;
-                                      // data = {
-                                      //   "name": "${widget.name}",
-                                      //   "detail": "${widget.detail}",
-                                      //   "phone": "${widget.phone}",
-                                      //   "url": "${widget.url}",
-                                      //   "id": "${widget.id}",
-                                      //   "status": "$message",
-                                      //   "category": "${widget.category}"
-                                      // };
+
                                       database
                                           .reference()
                                           .child('outpass')

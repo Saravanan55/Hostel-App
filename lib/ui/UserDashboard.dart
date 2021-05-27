@@ -62,7 +62,6 @@ class _UserDashboardState extends State<UserDashboard>
 
     tabBarController =
         new TabController(length: 2, vsync: this, initialIndex: 0);
-    //  tabBarViews = [firebaseList("general"), firebaseList1("Student")];
   }
 
   static const textStyle = TextStyle(
@@ -74,63 +73,7 @@ class _UserDashboardState extends State<UserDashboard>
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        // floatingActionButton: Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: <Widget>[
-        //     FloatingActionButton(
-        //       tooltip: 'Add a Complaint',
-        //       backgroundColor: Color(0xff028090),
-        //       onPressed: () {
-        //         Navigator.push(
-        //             context, MaterialPageRoute(builder: (context) => MyForm()));
-        //       },
-        //       child: Icon(
-        //         Icons.edit,
-        //         color: Colors.white,
-        //       ),
-        //     ),
-
-        //     // floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-        //     FloatingActionButton(
-        //       tooltip: 'Add a Complaint',
-        //       backgroundColor: Color(0xff028090),
-        //       onPressed: () {
-        //         Navigator.push(
-        //             context, MaterialPageRoute(builder: (context) => MyForm()));
-        //       },
-        //       child: Icon(
-        //         Icons.article,
-        //         color: Colors.white,
-        //       ),
-        //     ),
-        //   ],
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: ProductFAB(),
-        // floatingActionButton: FloatingActionButton(
-        //   tooltip: 'Add a Complaint',
-        //   backgroundColor: Color(0xff028090),
-        //   onPressed: () {
-        //     Navigator.push(
-        //         context, MaterialPageRoute(builder: (context) => ProductFAB()));
-        //   },
-        //   child: Icon(
-        //     Icons.edit,
-        //     color: Colors.white,
-        //   ),
-        // ),
-        // floatingActionButton: FloatingActionButton(
-        //   tooltip: 'Add a Complaint',
-        //   backgroundColor: Color(0xff028090),
-        //   onPressed: () {
-        //     Navigator.push(
-        //         context, MaterialPageRoute(builder: (context) => MyForm()));
-        //   },
-        //   child: Icon(
-        //     Icons.edit,
-        //     color: Colors.white,
-        //   ),
-        // ),
-        //),
         appBar: AppBar(
           actions: <Widget>[
             GestureDetector(
@@ -160,7 +103,6 @@ class _UserDashboardState extends State<UserDashboard>
             indicator: UnderlineTabIndicator(
                 borderSide: BorderSide(width: 2.0, color: Colors.white),
                 insets: EdgeInsets.symmetric(horizontal: 0.0)),
-            //indicatorSize: TabBarIndicatorSize.tab,
             indicatorWeight: 15,
             unselectedLabelStyle: TextStyle(
                 color: Colors.black26,
@@ -174,9 +116,6 @@ class _UserDashboardState extends State<UserDashboard>
                 fontSize: 15.0,
                 letterSpacing: 1.2,
                 fontWeight: FontWeight.w700),
-//          indicatorColor: Colors.blue,
-//          labelColor: Colors.white,
-//          unselectedLabelColor: Colors.white,
             tabs: <Widget>[
               Tab(
                 child: Text('Complaint'),
@@ -220,8 +159,6 @@ class _UserDashboardState extends State<UserDashboard>
               complaintType,
               0,
               data['key']);
-          // else
-          //   return Container();
         });
   }
 
@@ -322,37 +259,7 @@ class _UserDashboardState extends State<UserDashboard>
         ),
       ),
     );
-//    else
-//      return Container();
   }
-// -------------------------------------------------
-  // Future<Widget> firebaseList1(String complaintType) async {
-  //   final FirebaseUser user = await auth.currentUser();
-  //   final uid = user.uid;
-  //   return FirebaseAnimatedList(
-  //       defaultChild: shimmers(), //Center(child: CircularProgressIndicator()),
-  //       query: databaseReference.child('hostel'),
-  //       itemBuilder: (BuildContext context, DataSnapshot snapshot,
-  //           Animation<double> animation, int index) {
-  //         data = snapshot.value;
-  //         data['key'] = snapshot.key;
-  //         print('${data['name']}');
-  //         //  if (complaintType == data['category'])
-  //         return eventCard(
-  //             data["name"],
-  //             data["detail"],
-  //             data['phone'],
-  //             data['url'],
-  //             data["status"],
-  //             data['id'],
-  //             data['category'],
-  //             complaintType,
-  //             0,
-  //             data['key']);
-  //         // else
-  //         //   return Container();
-  //       });
-  // }
 
   Widget shimmers() {
     return ListView(
@@ -371,54 +278,6 @@ class _UserDashboardState extends State<UserDashboard>
     return Shimmer.fromColors(
       baseColor: Colors.grey[300],
       highlightColor: Colors.grey[100],
-//        child: Column(
-//          children: <Widget>[
-//            Padding(
-//              padding: const EdgeInsets.only(bottom: 8.0),
-//              child: Row(
-//                crossAxisAlignment: CrossAxisAlignment.start,
-//                children: [
-//                  Container(
-//                    width: 48.0,
-//                    height: 48.0,
-//                    color: Colors.white,
-//                  ),
-//                  Padding(
-//                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-//                  ),
-//                  Expanded(
-//                    child: Column(
-//                      crossAxisAlignment: CrossAxisAlignment.start,
-//                      children: [
-//                        Container(
-//                          width: double.infinity,
-//                          height: 8.0,
-//                          color: Colors.white,
-//                        ),
-//                        Padding(
-//                          padding: const EdgeInsets.symmetric(vertical: 2.0),
-//                        ),
-//                        Container(
-//                          width: double.infinity,
-//                          height: 8.0,
-//                          color: Colors.white,
-//                        ),
-//                        Padding(
-//                          padding: const EdgeInsets.symmetric(vertical: 2.0),
-//                        ),
-//                        Container(
-//                          width: 40.0,
-//                          height: 8.0,
-//                          color: Colors.white,
-//                        ),
-//                      ],
-//                    ),
-//                  ),
-//                ],
-//              ),
-//            ),
-//          ],
-//        ),
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -485,45 +344,5 @@ class _UserDashboardState extends State<UserDashboard>
     setState(() {
       complaintList.add(Complaints.fromSnapshot(event.snapshot));
     });
-  }
-}
-
-class _DemoBottomAppBar extends StatelessWidget {
-  const _DemoBottomAppBar({
-    this.color,
-    this.fabLocation,
-    this.shape,
-  });
-
-  final Color color;
-  final FloatingActionButtonLocation fabLocation;
-  final NotchedShape shape;
-
-  static final List<FloatingActionButtonLocation> kCenterLocations =
-      <FloatingActionButtonLocation>[
-    FloatingActionButtonLocation.centerDocked,
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: color,
-      shape: shape,
-      child: Row(children: <Widget>[
-        if (kCenterLocations.contains(fabLocation))
-          const Expanded(child: SizedBox()),
-        IconButton(
-          icon: const Icon(
-            Icons.search,
-            semanticLabel: 'show search action',
-          ),
-          onPressed: () {
-            Scaffold.of(context).showSnackBar(
-              const SnackBar(content: Text('This is a dummy search action.')),
-            );
-          },
-        ),
-      ]),
-    );
   }
 }

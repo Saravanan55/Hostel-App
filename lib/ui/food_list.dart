@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hostel/food/colors.dart';
 import 'package:hostel/food/database.dart';
 
 class FoodItemList extends StatelessWidget {
@@ -77,7 +76,7 @@ class FoodItemList extends StatelessWidget {
         return Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
-              CustomColors.firebaseOrange,
+              Color(0xFFF57C00),
             ),
           ),
         );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../food/colors.dart';
 import '../food/database.dart';
 import '../food/validate.dart';
 import 'customform_field.dart';
@@ -145,7 +144,7 @@ class _AddItemFormState extends State<AddItemForm> {
                   padding: const EdgeInsets.all(16.0),
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      CustomColors.firebaseOrange,
+                      Color(0xFFF57C00),
                     ),
                   ),
                 )
@@ -154,7 +153,7 @@ class _AddItemFormState extends State<AddItemForm> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        CustomColors.firebaseOrange,
+                        Color(0xFFF57C00),
                       ),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
@@ -194,7 +193,7 @@ class _AddItemFormState extends State<AddItemForm> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: CustomColors.firebaseGrey,
+                          color: Color(0xFFECEFF1),
                           letterSpacing: 2,
                         ),
                       ),

@@ -24,17 +24,6 @@ class _BodyState extends State<Body> {
       "block": blockController.text,
       "room": roomController.text
     };
-    // Firestore.instance
-    //     .collection("users")
-    //     .document(('${widget.email}'))
-    //     .setData({
-    //   "block": "${blockController.text}",
-    //   "room": "${roomController.text}",
-    //   });
-    // FirebaseDatabase.instance.reference().child("users").push().set({
-    //   "block": "${blockController.text}",
-    //   "room": "${roomController.text}",
-    //  });
     FirebaseDatabase.instance
         .reference()
         .child("users")
@@ -176,7 +165,6 @@ class _BodyState extends State<Body> {
                 height: 300,
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: ListView(
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Row(
                       children: <Widget>[

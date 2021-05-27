@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'edit_item.dart';
-import 'colors.dart';
 import 'database.dart';
 import 'edit_screen.dart';
 
@@ -26,14 +24,6 @@ class ItemList extends StatelessWidget {
               String dinner = snapshot.data.documents[index].data['Dinner'];
 
               return InkWell(
-                // decoration: BoxDecoration(
-                //   color: CustomColors.firebaseGrey.withOpacity(0.1),
-                //   borderRadius: BorderRadius.circular(8.0),
-                // ),
-                // child: ListTile(
-                //   shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.circular(8.0),
-                //   ),
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => EditScreen(
@@ -98,7 +88,7 @@ class ItemList extends StatelessWidget {
         return Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(
-              CustomColors.firebaseOrange,
+              Color(0xFFF57C00),
             ),
           ),
         );

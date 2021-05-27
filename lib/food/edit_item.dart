@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 import 'database.dart';
 import 'validate.dart';
 import 'customform_field.dart';
@@ -174,7 +173,7 @@ class _EditItemFormState extends State<EditItemForm> {
                   padding: const EdgeInsets.all(16.0),
                   child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      CustomColors.firebaseOrange,
+                      Color(0xFFF57C00),
                     ),
                   ),
                 )
@@ -223,7 +222,7 @@ class _EditItemFormState extends State<EditItemForm> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: CustomColors.firebaseGrey,
+                          color: Color(0xFFECEFF1),
                           letterSpacing: 2,
                         ),
                       ),

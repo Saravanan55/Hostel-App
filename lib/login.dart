@@ -193,7 +193,6 @@ class _LoginState extends State<Login> {
         prefs.setString(Constants.loggedInUserMobile, mobile);
         prefs.setString(Constants.loggedInUserName, name);
         prefs.setString(Constants.isLoggedIn, 'true');
-        //  print("Constants name : ${Constants.loggedInUserMobile}");
         print(DocumentSnapshot.data.toString());
       });
       _saving = false;

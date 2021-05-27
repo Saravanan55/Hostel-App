@@ -24,7 +24,6 @@ class ProfileMenu extends StatelessWidget {
           children: [
             SizedBox(width: 20),
             Expanded(child: Text(text)),
-            // Icon(Icons.arrow_forward_ios),
           ],
         ),
       ),

@@ -111,7 +111,6 @@ class _SignUpState extends State<SignUp> {
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  //  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(height: height * .2),
                     RichText(
