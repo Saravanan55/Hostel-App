@@ -49,7 +49,7 @@ class _ProductFABLeaveState extends State<ProductFABLeave>
               },
               child: Icon(
                 Icons.home,
-                color: Theme.of(context).primaryColor,
+                color: Color(0xff8096ed),
               ),
             ),
           ),
@@ -71,7 +71,7 @@ class _ProductFABLeaveState extends State<ProductFABLeave>
                 Navigator.of(context).push(new MaterialPageRoute(
                     builder: (BuildContext context) => new OutpassForm()));
               },
-              child: Icon(Icons.create, color: Colors.blue),
+              child: Icon(Icons.create, color: Color(0xff8096ed)),
             ),
           ),
         ),

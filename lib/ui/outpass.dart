@@ -92,7 +92,7 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
               },
             )
           ],
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Color(0xff8096ed),
           title: Text('Outpass'),
           bottom: TabBar(
             indicatorSize: TabBarIndicatorSize.label,

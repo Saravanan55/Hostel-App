@@ -48,7 +48,7 @@ class _ProductFABState extends State<ProductFAB> with TickerProviderStateMixin {
               },
               child: Icon(
                 Icons.article,
-                color: Theme.of(context).primaryColor,
+                color: Color(0xff8096ed),
               ),
             ),
           ),
@@ -70,7 +70,7 @@ class _ProductFABState extends State<ProductFAB> with TickerProviderStateMixin {
                 Navigator.of(context).push(new MaterialPageRoute(
                     builder: (BuildContext context) => new MyForm()));
               },
-              child: Icon(Icons.edit, color: Colors.blue),
+              child: Icon(Icons.edit, color: Color(0xff8096ed)),
             ),
           ),
         ),

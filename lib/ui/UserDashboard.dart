@@ -95,7 +95,7 @@ class _UserDashboardState extends State<UserDashboard>
                   context, MaterialPageRoute(builder: (context) => Profile()));
             },
           ),
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Color(0xff8096ed),
           title: Text(' Dashboard'),
           bottom: TabBar(
             indicatorSize: TabBarIndicatorSize.label,

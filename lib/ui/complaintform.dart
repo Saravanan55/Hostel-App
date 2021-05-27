@@ -64,7 +64,7 @@ class _MyFormState extends State<MyForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff028090),
+        backgroundColor: Color(0xff7f84fa),
         title: Text('Create Complaint'),
       ),
       body: ModalProgressHUD(
@@ -127,7 +127,7 @@ class _MyFormState extends State<MyForm> {
                 height: 50,
               ),
               RaisedButton(
-                color: Color(0xff028090),
+                color: Color(0xff7f84fa),
                 child: Text(
                   'Submit',
                   style: TextStyle(color: Colors.white, fontSize: 17),

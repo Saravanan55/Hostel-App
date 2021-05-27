@@ -90,7 +90,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff028090),
+        backgroundColor: Color(0xff7f84fa),
         title: Text('Profile Page'),
       ),
       body: new Column(
@@ -143,6 +143,7 @@ class _ProfileState extends State<Profile> {
                   child: new Container(
                       decoration: new BoxDecoration(
                           shape: BoxShape.circle,
+                          color: Color(0xff7f84fa),
                           image: new DecorationImage(
                               fit: BoxFit.cover,
                               image: new NetworkImage('$url')))),
