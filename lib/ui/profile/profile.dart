@@ -9,7 +9,6 @@ import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:image_picker/image_picker.dart';
 import 'infocard.dart';
-import 'package:url_launcher/url_launcher.dart' as launcher;
 
 class Profile extends StatefulWidget {
   @override
@@ -26,6 +25,8 @@ class _ProfileState extends State<Profile> {
   String random;
   DataSnapshot snapshot;
   String key;
+  bool validatenumber = false;
+  TextEditingController numberController = TextEditingController();
   void initState() {
     super.initState();
     this.getCurrentUser();
@@ -188,79 +189,124 @@ class _ProfileState extends State<Profile> {
           InfoCard(
             text: email != null ? email : 'loading...',
             icon: Icons.email,
-            onPressed: () async {
-              final emailAddress = 'mailto:$email';
-              if (await launcher.canLaunch(emailAddress)) {
-                await launcher.launch(emailAddress);
-              } else {
-                _showDialog(
-                  context,
-                  title: 'Sorry',
-                  msg: 'please try again ',
-                );
-              }
-            },
+            onPressed: () async {},
           ),
           InfoCard(
             text: usn != null ? usn : 'loading...',
             icon: Icons.format_list_numbered,
-            onPressed: () async {
-              if (await launcher.canLaunch(name)) {
-                await launcher.launch(name);
-              } else {
-                _showDialog(
-                  context,
-                  title: 'Sorry',
-                  msg: 'please try again ',
-                );
-              }
-            },
+            onPressed: () async {},
           ),
           InfoCard(
             text: number != null ? number : 'loading...',
             icon: Icons.call,
             onPressed: () async {
-              if (await launcher.canLaunch(name)) {
-                await launcher.launch(name);
-              } else {
-                _showDialog(
-                  context,
-                  title: 'Sorry',
-                  msg: 'please try again ',
-                );
-              }
+              return showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Center(
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          padding: EdgeInsets.all(15),
+                          height: 300,
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: ListView(
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "Change Number",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Spacer(),
+                                  IconButton(
+                                    icon: Icon(Icons.cancel),
+                                    color: Colors.orange,
+                                    iconSize: 25,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: TextField(
+                                        onChanged: (value) {
+                                          setState(() {
+                                            value.isEmpty
+                                                ? validatenumber = true
+                                                : validatenumber = false;
+                                          });
+                                        },
+                                        maxLength: 10,
+                                        controller: numberController,
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          errorText: validatenumber
+                                              ? "Number no can\'t be empty"
+                                              : null,
+                                          border: OutlineInputBorder(),
+                                          labelText: 'Number',
+                                          hintText: 'Enter your Number',
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  RaisedButton(
+                                    child: Text('Update'),
+                                    color: Colors.green,
+                                    textColor: Colors.white,
+                                    onPressed: () {
+                                      setState(() {
+                                        numberController.text.isEmpty
+                                            ? validatenumber = true
+                                            : validatenumber = false;
+                                      });
+                                      if (!(validatenumber)) {
+                                        FirebaseDatabase.instance
+                                            .reference()
+                                            .child("users")
+                                            .child('$key')
+                                            .update({
+                                          "mobile": numberController.text
+                                        });
+                                        Navigator.of(context).pop();
+                                      }
+                                    },
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  });
             },
           ),
           InfoCard(
             text: block != null ? block : 'loading...',
             icon: Icons.apartment,
-            onPressed: () async {
-              final phoneCall = number;
-              if (await launcher.canLaunch(phoneCall)) {
-                await launcher.launch(phoneCall);
-              } else {
-                _showDialog(
-                  context,
-                  title: 'Sorry',
-                  msg: 'please try again ',
-                );
-              }
-            },
+            onPressed: () async {},
           ),
           InfoCard(
             text: room != null ? room : 'loading...',
             icon: Icons.room,
-            onPressed: () async {
-              if (await launcher.canLaunch(name)) {
-                await launcher.launch(name);
-              } else {
-                _showDialog(
-                  context,
-                  title: 'Sorry',
-                  msg: 'please try again ',
-                );
-              }
-            },
+            onPressed: () async {},
           ),
         ],
       ),

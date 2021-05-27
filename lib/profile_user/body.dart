@@ -17,6 +17,31 @@ class _BodyState extends State<Body> {
   bool _isEdit = false;
   TextEditingController blockController = TextEditingController();
   TextEditingController roomController = TextEditingController();
+  bool validateblock = false;
+  bool validateroom = false;
+  Future<void> updatedata() async {
+    Map<String, dynamic> data = <String, dynamic>{
+      "block": blockController.text,
+      "room": roomController.text
+    };
+    // Firestore.instance
+    //     .collection("users")
+    //     .document(('${widget.email}'))
+    //     .setData({
+    //   "block": "${blockController.text}",
+    //   "room": "${roomController.text}",
+    //   });
+    // FirebaseDatabase.instance.reference().child("users").push().set({
+    //   "block": "${blockController.text}",
+    //   "room": "${roomController.text}",
+    //  });
+    FirebaseDatabase.instance
+        .reference()
+        .child("users")
+        .child('${widget.docId}')
+        .update(data);
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,14 +173,17 @@ class _BodyState extends State<Body> {
                   color: Colors.white,
                 ),
                 padding: EdgeInsets.all(15),
-                height: 320,
+                height: 300,
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: ListView(
                   //   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Text("Update Profile"),
+                        Text(
+                          "Update Profile",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         Spacer(),
                         IconButton(
                           icon: Icon(Icons.cancel),
@@ -171,11 +199,23 @@ class _BodyState extends State<Body> {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
+                            padding: const EdgeInsets.all(15.0),
                             child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  value.isEmpty
+                                      ? validateblock = true
+                                      : validateblock = false;
+                                });
+                              },
                               controller: blockController,
                               decoration: InputDecoration(
-                                helperText: "Block No",
+                                errorText: validateblock
+                                    ? "Block no can\'t be empty"
+                                    : null,
+                                border: OutlineInputBorder(),
+                                labelText: 'Block No',
+                                hintText: 'Enter Block No',
                               ),
                             ),
                           ),
@@ -186,11 +226,24 @@ class _BodyState extends State<Body> {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
+                            padding: const EdgeInsets.all(15.0),
                             child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  value.isEmpty
+                                      ? validateroom = true
+                                      : validateroom = false;
+                                });
+                              },
+                              maxLength: 10,
                               controller: roomController,
                               decoration: InputDecoration(
-                                helperText: "Room No",
+                                errorText: validateroom
+                                    ? "Room no can\'t be empty"
+                                    : null,
+                                border: OutlineInputBorder(),
+                                labelText: 'Room No',
+                                hintText: 'Enter Room No',
                               ),
                             ),
                           ),
@@ -205,16 +258,17 @@ class _BodyState extends State<Body> {
                           color: Colors.green,
                           textColor: Colors.white,
                           onPressed: () {
-                            Map<String, dynamic> data = <String, dynamic>{
-                              "block": blockController.text,
-                              "room": roomController.text
-                            };
-                            FirebaseDatabase.instance
-                                .reference()
-                                .child("users")
-                                .child('${widget.docId}')
-                                .update(data);
-                            Navigator.of(context).pop();
+                            setState(() {
+                              blockController.text.isEmpty
+                                  ? validateblock = true
+                                  : validateblock = false;
+                              roomController.text.isEmpty
+                                  ? validateroom = true
+                                  : validateroom = false;
+                            });
+                            if (!(validateblock && validateroom)) {
+                              updatedata();
+                            }
                           },
                         )
                       ],
