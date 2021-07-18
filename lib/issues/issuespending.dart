@@ -14,7 +14,7 @@ class Pending extends StatefulWidget {
 }
 
 class _PendingState extends State<Pending> with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;

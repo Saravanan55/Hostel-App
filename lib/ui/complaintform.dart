@@ -23,7 +23,7 @@ class _MyFormState extends State<MyForm> {
   bool validateDetail = false;
   bool validateCategroy = false;
   String _name, _mobile, _block, _room;
-
+  final ImagePicker picker = ImagePicker();
   @override
   void initState() {
     super.initState();
@@ -44,12 +44,12 @@ class _MyFormState extends State<MyForm> {
   bool validateNumber = true;
 
   Future getImage() async {
-    File tempImage = await ImagePicker.pickImage(
+    final tempImage = await picker.getImage(
       source: ImageSource.gallery,
       imageQuality: 40,
     );
     setState(() {
-      sampleImage = tempImage;
+      sampleImage = File(tempImage.path);
       filename = sampleImage.toString();
     });
   }
@@ -117,7 +117,7 @@ class _MyFormState extends State<MyForm> {
               SizedBox(
                 height: 5,
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: getImage,
                 child: sampleImage == null
                     ? Text('Pick an image')
@@ -126,8 +126,8 @@ class _MyFormState extends State<MyForm> {
               SizedBox(
                 height: 50,
               ),
-              RaisedButton(
-                color: Color(0xff7f84fa),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Color(0xff7f84fa)),
                 child: Text(
                   'Submit',
                   style: TextStyle(color: Colors.white, fontSize: 17),
@@ -150,7 +150,7 @@ class _MyFormState extends State<MyForm> {
                     "detail": "${infoController.text.trim()}",
                     "phone": "$_mobile",
                     "url": "${url.toString()}",
-                    "id": "${random}",
+                    "id": "$random",
                     "category": "${categoryController.text.trim()}",
                     "block": "$_block",
                     "room": "$_room",
@@ -177,8 +177,8 @@ class _MyFormState extends State<MyForm> {
             height: 200,
             width: 200,
           ),
-          RaisedButton(
-            elevation: 7.0,
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(elevation: 7.0),
             child: Text('Select another'),
             onPressed: getImage,
           ),

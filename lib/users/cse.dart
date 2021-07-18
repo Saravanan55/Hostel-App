@@ -12,7 +12,7 @@ class Csedept extends StatefulWidget {
 }
 
 class _CsedeptState extends State<Csedept> with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;

@@ -12,7 +12,7 @@ class Ecedept extends StatefulWidget {
 }
 
 class _EcedeptState extends State<Ecedept> with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;

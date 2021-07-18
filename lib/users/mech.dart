@@ -12,7 +12,7 @@ class Mechdept extends StatefulWidget {
 }
 
 class _MechdeptState extends State<Mechdept> with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;

@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class OutpassDetails extends StatefulWidget {
-  String name,
+  final String name,
       phone,
       outdate,
       indate,
@@ -14,8 +14,8 @@ class OutpassDetails extends StatefulWidget {
       block,
       room,
       status;
-  int flag;
-  String keys;
+  final int flag;
+  final String keys;
   OutpassDetails(
       this.name,
       this.phone,
@@ -47,7 +47,7 @@ class _OutpassDetailsState extends State<OutpassDetails> {
   String dText = "Done";
 
   void initState() {
-    //super.initState();
+    super.initState();
     if (this.widget.status == "Done") {
       val = true;
       statusChange = dText;

@@ -12,7 +12,7 @@ class Solved extends StatefulWidget {
 }
 
 class _SolvedState extends State<Solved> with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   Map<dynamic, dynamic> data;
   String name;
   Complaints complaint;

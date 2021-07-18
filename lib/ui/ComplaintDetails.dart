@@ -2,15 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class ComplaintDetails extends StatefulWidget {
-  String name;
-  String detail;
-  String phone;
-  String url;
-  String status;
-  String id;
-  String category;
-  int flag;
-  String keys;
+  final String name, detail, phone, url, status, id, category, keys;
+  final int flag;
   ComplaintDetails(this.name, this.detail, this.phone, this.url, this.status,
       this.id, this.category, this.flag, this.keys);
 
@@ -29,7 +22,7 @@ class _ComplaintDetailsState extends State<ComplaintDetails> {
   String dText = "Done";
 
   void initState() {
-    //super.initState();
+    super.initState();
     if (this.widget.status == "Done") {
       val = true;
       statusChange = dText;

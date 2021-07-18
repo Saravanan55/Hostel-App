@@ -15,7 +15,7 @@ class FoodItemList extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(height: 16.0),
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) {
-              String docID = snapshot.data.documents[index].documentID;
+              // String docID = snapshot.data.documents[index].documentID;
               String date = snapshot.data.documents[index].data['Date'];
               String breakfast =
                   snapshot.data.documents[index].data['Break Fast'];

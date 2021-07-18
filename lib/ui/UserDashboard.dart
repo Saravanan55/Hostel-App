@@ -20,7 +20,7 @@ class UserDashboard extends StatefulWidget {
 
 class _UserDashboardState extends State<UserDashboard>
     with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;
@@ -38,11 +38,11 @@ class _UserDashboardState extends State<UserDashboard>
             title: new Text('Are you sure?'),
             content: new Text('Do you want to exit the App'),
             actions: <Widget>[
-              new FlatButton(
+              new TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: new Text('No'),
               ),
-              new FlatButton(
+              new TextButton(
                 onPressed: () => exit(0),
                 child: new Text('Yes'),
               ),

@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
   String name, usn, role, mobile, block, room;
   bool _isSelected = false;
   bool _isHidden = true;
-  void _radio() {
+  void radio() {
     setState(() {
       _isSelected = !_isSelected;
     });
@@ -67,11 +67,11 @@ class _LoginState extends State<Login> {
             title: new Text('Are you sure?'),
             content: new Text('Do you want to exit the App'),
             actions: <Widget>[
-              new FlatButton(
+              new ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: new Text('No'),
               ),
-              new FlatButton(
+              new ElevatedButton(
                 onPressed: () => exit(0),
                 child: new Text('Yes'),
               ),
@@ -172,19 +172,20 @@ class _LoginState extends State<Login> {
                   email: emailController.text,
                   password: passwordController.text))
           .user;
-
-      var d = await Firestore.instance
+      print(user);
+      final d = await Firestore.instance
           .collection('users')
           .document(emailController.text)
           .get()
-          .then((DocumentSnapshot) async {
-        name = DocumentSnapshot.data['name'];
-        usn = DocumentSnapshot.data['usn'];
-        role = DocumentSnapshot.data['role'];
-        block = DocumentSnapshot.data['block'];
-        room = DocumentSnapshot.data['room'];
-        mobile = DocumentSnapshot.data['mobile'];
-        print("name : $name");
+          .then((documentSnapshot) async {
+        name = documentSnapshot.data['name'];
+        usn = documentSnapshot.data['usn'];
+        role = documentSnapshot.data['role'];
+        block = documentSnapshot.data['block'];
+        room = documentSnapshot.data['room'];
+        mobile = documentSnapshot.data['mobile'];
+
+        //print("$d");
         final prefs = await SharedPreferences.getInstance();
 
         prefs.setString(Constants.loggedInUserRole, role);
@@ -193,8 +194,9 @@ class _LoginState extends State<Login> {
         prefs.setString(Constants.loggedInUserMobile, mobile);
         prefs.setString(Constants.loggedInUserName, name);
         prefs.setString(Constants.isLoggedIn, 'true');
-        print(DocumentSnapshot.data.toString());
+        print(documentSnapshot.data.toString());
       });
+      print(d);
       _saving = false;
       if (role == "student")
         Navigator.pushReplacement(
@@ -235,7 +237,7 @@ class _LoginState extends State<Login> {
                     text: TextSpan(
                         text: 'H',
                         style: GoogleFonts.portLligatSans(
-                          textStyle: Theme.of(context).textTheme.display1,
+                          textStyle: Theme.of(context).textTheme.headline4,
                           fontSize: 30,
                           fontWeight: FontWeight.w700,
                           color: Color(0xffe46b10),

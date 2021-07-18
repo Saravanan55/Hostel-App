@@ -12,7 +12,7 @@ class Itdept extends StatefulWidget {
 }
 
 class _ItdeptState extends State<Itdept> with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
   String name;

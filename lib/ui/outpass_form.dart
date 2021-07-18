@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -28,7 +28,7 @@ class _OutpassFormState extends State<OutpassForm> {
   bool validateAddress = false;
   String _name, _mobile, _block, _room;
   FirebaseUser currentUser;
-
+  // final ImagePicker picker = ImagePicker();
   @override
   void initState() {
     super.initState();
@@ -53,20 +53,18 @@ class _OutpassFormState extends State<OutpassForm> {
   bool validateName = true;
   bool validateNumber = true;
 
-  Future getImage() async {
-    File tempImage = await ImagePicker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 40,
-    );
-    setState(() {
-//        if(sampleImage==null)
-//           sampleImage= File("assets/image_02.png");
-      sampleImage = tempImage;
-      filename = sampleImage.toString();
-    });
-  }
+  // Future getImage() async {
+  //   final tempImage = await picker.getImage(
+  //     source: ImageSource.gallery,
+  //     imageQuality: 40,
+  //   );
+  //   setState(() {
+  //     sampleImage = tempImage as File;
+  //     filename = sampleImage.toString();
+  //   });
+  // }
 
-  static const textStyle = TextStyle(fontSize: 15);
+  //static const textStyle = TextStyle(fontSize: 15);
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController outpassInDate = TextEditingController();
@@ -183,8 +181,8 @@ class _OutpassFormState extends State<OutpassForm> {
                 controller: outpassReason,
               ),
               SizedBox(height: 45),
-              RaisedButton(
-                color: Color(0xff7f84fa),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Color(0xff7f84fa)),
                 child: Text(
                   'Submit',
                   style: TextStyle(color: Colors.white, fontSize: 17),

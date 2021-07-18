@@ -37,15 +37,15 @@ class _ResetScreenState extends State<ResetScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              RaisedButton(
-                child:
-                    Text('Send Request', style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  auth.sendPasswordResetEmail(email: _email);
-                  Navigator.of(context).pop();
-                },
-                color: Theme.of(context).accentColor,
-              ),
+              ElevatedButton(
+                  child: Text('Send Request',
+                      style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    auth.sendPasswordResetEmail(email: _email);
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).accentColor)),
             ],
           ),
         ],

@@ -15,7 +15,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool _saving = false;
+  bool saving = false;
   File sampleImage;
   String filename;
   String random;
@@ -85,7 +85,7 @@ class _SignUpState extends State<SignUp> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Login()));
       } catch (e) {
-        _saving = false;
+        saving = false;
         setState(() {});
         print(e.message);
         Fluttertoast.showToast(
@@ -118,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                       text: TextSpan(
                           text: 'H',
                           style: GoogleFonts.portLligatSans(
-                            textStyle: Theme.of(context).textTheme.display1,
+                            textStyle: Theme.of(context).textTheme.headline4,
                             fontSize: 30,
                             fontWeight: FontWeight.w700,
                             color: Color(0xffe46b10),
@@ -431,7 +431,7 @@ class _SignUpState extends State<SignUp> {
                                     validatedept &&
                                     validateEmail &&
                                     validateUSN)) {
-                                  _saving = true;
+                                  saving = true;
                                   signUp();
                                 }
                               },

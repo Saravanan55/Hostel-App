@@ -20,7 +20,7 @@ import 'package:hostel/model/complaints.dart';
 import 'package:hostel/utils/CommonData.dart';
 
 class AdminDashboard extends StatefulWidget {
-  int loginTypeFlag;
+  //int loginTypeFlag;
 
   @override
   _AdminDashboardState createState() => _AdminDashboardState();
@@ -28,7 +28,7 @@ class AdminDashboard extends StatefulWidget {
 
 class _AdminDashboardState extends State<AdminDashboard>
     with TickerProviderStateMixin {
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   Map<dynamic, dynamic> data;
 
   Complaints complaint;
@@ -127,9 +127,9 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  static const textStyle = TextStyle(
-    fontSize: 16,
-  );
+  // static const textStyle = TextStyle(
+  //   fontSize: 16,
+  // );
   Future<bool> _onWillPop() {
     return showDialog(
           context: context,
@@ -137,11 +137,11 @@ class _AdminDashboardState extends State<AdminDashboard>
             title: new Text('Are you sure?'),
             content: new Text('Do you want to exit the App'),
             actions: <Widget>[
-              new FlatButton(
+              new TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: new Text('No'),
               ),
-              new FlatButton(
+              new TextButton(
                 onPressed: () => exit(0),
                 child: new Text('Yes'),
               ),

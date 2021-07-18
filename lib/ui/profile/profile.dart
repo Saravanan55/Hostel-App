@@ -17,7 +17,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   FirebaseUser currentUser;
-  List<Complaints> complaintList = List();
+  List<Complaints> complaintList = [];
   DatabaseReference databaseReference;
   Map<dynamic, dynamic> data;
   File sampleImage;
@@ -27,6 +27,7 @@ class _ProfileState extends State<Profile> {
   String key;
   bool validatenumber = false;
   TextEditingController numberController = TextEditingController();
+  final ImagePicker picker = ImagePicker();
   void initState() {
     super.initState();
     this.getCurrentUser();
@@ -39,14 +40,14 @@ class _ProfileState extends State<Profile> {
   }
 
   Future getImage(String key) async {
-    File tempImage = await ImagePicker.pickImage(
+    final tempImage = await picker.getImage(
       source: ImageSource.gallery,
       imageQuality: 40,
     );
     setState(() {
 //        if(sampleImage==null)
 //           sampleImage= File("assets/image_02.png");
-      sampleImage = tempImage;
+      sampleImage = File(tempImage.path);
       filename = sampleImage.toString();
     });
     final StorageReference firebaseStorageRef =
@@ -65,12 +66,12 @@ class _ProfileState extends State<Profile> {
   }
 
   void _showDialog(BuildContext context, {String title, String msg}) {
-    final Dialog = AlertDialog(
+    final dialog = AlertDialog(
       title: Text(title),
       content: Text(msg),
       actions: <Widget>[
-        RaisedButton(
-          color: Colors.teal,
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: Colors.teal),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -83,7 +84,7 @@ class _ProfileState extends State<Profile> {
         )
       ],
     );
-    showDialog(context: context, builder: (x) => Dialog);
+    showDialog(context: context, builder: (x) => dialog);
   }
 
   @override
@@ -105,7 +106,7 @@ class _ProfileState extends State<Profile> {
                     Animation<double> animation, int index) {
                   data = snapshot.value;
                   data['key'] = snapshot.key;
-                  return ProfileCard(
+                  return profileCard(
                     data['key'].toString(),
                     data['email'],
                     data['mobile'],
@@ -122,7 +123,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget ProfileCard(String key, String email, String number, String name,
+  Widget profileCard(String key, String email, String number, String name,
       String usn, String block, String room, String url) {
     return Container(
       child: Column(
@@ -154,12 +155,13 @@ class _ProfileState extends State<Profile> {
                   child: SizedBox(
                     height: 46,
                     width: 46,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: BorderSide(color: Colors.white),
-                      ),
-                      color: Color(0xFFF5F6F9),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                          backgroundColor: Color(0xFFF5F6F9),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            side: BorderSide(color: Colors.white),
+                          )),
                       onPressed: () => getImage(key),
                       child: SvgPicture.asset("assets/Camera Icon.svg"),
                     ),
@@ -267,10 +269,11 @@ class _ProfileState extends State<Profile> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  RaisedButton(
-                                    child: Text('Update'),
-                                    color: Colors.green,
-                                    textColor: Colors.white,
+                                  ElevatedButton(
+                                    child: Text('Update',
+                                        style: TextStyle(color: Colors.white)),
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.green),
                                     onPressed: () {
                                       setState(() {
                                         numberController.text.isEmpty

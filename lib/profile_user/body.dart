@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'profile_menu.dart';
 
 class Body extends StatefulWidget {
-  String docId, email, name, usn, phone, block, room, dept, url;
+  final String docId, email, name, usn, phone, block, room, dept, url;
   Body(this.docId, this.email, this.name, this.usn, this.phone, this.block,
       this.room, this.dept, this.url);
 
@@ -14,7 +14,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool _isDeleting = false;
-  bool _isEdit = false;
+  bool isEdit = false;
   TextEditingController blockController = TextEditingController();
   TextEditingController roomController = TextEditingController();
   bool validateblock = false;
@@ -46,11 +46,11 @@ class _BodyState extends State<Body> {
             ),
             onPressed: () {
               setState(() {
-                _isEdit = true;
+                isEdit = true;
               });
               userEditBottomSheet(context);
               setState(() {
-                _isEdit = false;
+                isEdit = false;
               });
             },
           ),
@@ -98,8 +98,8 @@ class _BodyState extends State<Body> {
               height: 115,
               width: 115,
               child: Stack(
+                clipBehavior: Clip.none,
                 fit: StackFit.expand,
-                overflow: Overflow.visible,
                 children: [
                   CircleAvatar(
                     radius: 50,
@@ -241,10 +241,13 @@ class _BodyState extends State<Body> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        RaisedButton(
-                          child: Text('Update'),
-                          color: Colors.green,
-                          textColor: Colors.white,
+                        ElevatedButton(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style:
+                              ElevatedButton.styleFrom(primary: Colors.green),
                           onPressed: () {
                             setState(() {
                               blockController.text.isEmpty
