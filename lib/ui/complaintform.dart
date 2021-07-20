@@ -118,6 +118,12 @@ class _MyFormState extends State<MyForm> {
                 height: 5,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  textStyle: TextStyle(fontSize: 15),
+                ),
                 onPressed: getImage,
                 child: sampleImage == null
                     ? Text('Pick an image')
@@ -133,7 +139,6 @@ class _MyFormState extends State<MyForm> {
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
                 onPressed: () async {
-                  saving = true;
                   setState(() {
                     validateName = nameController.text.isEmpty ? false : true;
                     validateDetail = infoController.text.isEmpty ? true : false;
@@ -156,9 +161,11 @@ class _MyFormState extends State<MyForm> {
                     "room": "$_room",
                     "status": "Pending"
                   };
-                  if (!validateDetail)
+                  if (!validateDetail) {
+                    saving = true;
                     database.reference().child("hostel").push().set(data);
-                  Navigator.pop(context);
+                    Navigator.pop(context);
+                  }
                 },
               ),
             ],

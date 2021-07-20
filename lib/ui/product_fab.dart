@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hostel/ui/DashboardTest.dart';
 import 'dart:math' as math;
 import 'complaintform.dart';
 import 'outpass.dart';
@@ -71,6 +72,27 @@ class _ProductFABState extends State<ProductFAB> with TickerProviderStateMixin {
                     builder: (BuildContext context) => new MyForm()));
               },
               child: Icon(Icons.edit, color: Color(0xff8096ed)),
+            ),
+          ),
+        ),
+        Container(
+          height: 70.0,
+          width: 56.0,
+          alignment: FractionalOffset.topCenter,
+          child: ScaleTransition(
+            scale: CurvedAnimation(
+                parent: _controller,
+                curve: Interval(0.0, 0.5, curve: Curves.easeOut)),
+            child: FloatingActionButton(
+              backgroundColor: Theme.of(context).cardColor,
+              heroTag: 'leave',
+              tooltip: 'Add a Complaint',
+              mini: true,
+              onPressed: () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (BuildContext context) => new DashboardTest()));
+              },
+              child: Icon(Icons.dashboard_outlined, color: Color(0xff8096ed)),
             ),
           ),
         ),

@@ -5,8 +5,10 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/ComplaintDetails.dart';
+import 'package:hostel/utils/CommonData.dart';
 import 'package:image_picker/image_picker.dart';
 import 'infocard.dart';
 
@@ -311,6 +313,20 @@ class _ProfileState extends State<Profile> {
             text: room != null ? room : 'loading...',
             icon: Icons.room,
             onPressed: () async {},
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.redAccent,
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              textStyle: TextStyle(fontSize: 20),
+            ),
+            child: Text('logout'.toUpperCase()),
+            onPressed: () {
+              CommonData.clearLoggedInUserData();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+              print('Button clicked!');
+            },
           ),
         ],
       ),

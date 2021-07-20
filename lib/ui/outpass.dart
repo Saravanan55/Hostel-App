@@ -5,10 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hostel/ui/outpass_form.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/login.dart';
 import 'package:hostel/model/complaints.dart';
-import 'package:hostel/ui/product_fab_leave.dart';
+//import 'package:hostel/ui/product_fab_leave.dart';
 import 'package:hostel/utils/CommonData.dart';
 import 'outpassDetails.dart';
 
@@ -77,7 +78,7 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        floatingActionButton: ProductFABLeave(),
+        //  floatingActionButton: ProductFABLeave(),
         appBar: AppBar(
           actions: <Widget>[
             GestureDetector(
@@ -153,6 +154,16 @@ class _OutpassState extends State<Outpass> with TickerProviderStateMixin {
                 }),
           ],
         )),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.edit),
+          backgroundColor: Colors.green,
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => OutpassForm()));
+            setState(() {});
+          },
+        ),
       ),
     );
   }
