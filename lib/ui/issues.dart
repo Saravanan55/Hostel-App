@@ -6,12 +6,12 @@ import 'package:hostel/ui/ComplaintDetails.dart';
 import 'package:hostel/ui/complaintform.dart';
 import 'package:shimmer/shimmer.dart';
 
-class IssuesTest extends StatefulWidget {
+class Issues extends StatefulWidget {
   @override
-  _IssuesTestState createState() => _IssuesTestState();
+  _IssuesState createState() => _IssuesState();
 }
 
-class _IssuesTestState extends State<IssuesTest> {
+class _IssuesState extends State<Issues> {
   List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;
@@ -52,7 +52,7 @@ class _IssuesTestState extends State<IssuesTest> {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.edit),
         backgroundColor: Colors.green,

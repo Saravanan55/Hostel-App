@@ -7,12 +7,12 @@ import 'package:hostel/model/complaints.dart';
 import 'package:hostel/ui/food_list.dart';
 import 'package:shimmer/shimmer.dart';
 
-class FoodTest extends StatefulWidget {
+class Food extends StatefulWidget {
   @override
-  _FoodTestState createState() => _FoodTestState();
+  _FoodState createState() => _FoodState();
 }
 
-class _FoodTestState extends State<FoodTest> {
+class _FoodState extends State<Food> {
   List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
   Map<dynamic, dynamic> data;

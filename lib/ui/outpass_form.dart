@@ -88,6 +88,7 @@ class _OutpassFormState extends State<OutpassForm> {
           padding: const EdgeInsets.all(14.0),
           child: ListView(
             children: <Widget>[
+              SizedBox(height: 20),
               new TextField(
                 readOnly: true,
                 onChanged: (value) {
@@ -98,11 +99,19 @@ class _OutpassFormState extends State<OutpassForm> {
                   });
                 },
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   errorText:
                       validateOutDate ? "Out Date can\'t be empty" : null,
-                  icon: const Icon(Icons.calendar_today),
+                  prefixIcon: Icon(Icons.calendar_today),
                   hintText: 'Enter the out date',
                   labelText: 'Out Date',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: Color(0xffadadad),
+                      width: 3,
+                    ),
+                  ),
                 ),
                 // keyboardType: TextInputType.datetime,
                 onTap: () async {
@@ -116,14 +125,24 @@ class _OutpassFormState extends State<OutpassForm> {
 
                 controller: outpassOutDate,
               ),
+              SizedBox(height: 10),
               ////////////////////////////////////////
               new TextField(
                 readOnly: true,
+
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   errorText: validateInDate ? "In Date can\'t be empty" : null,
-                  icon: const Icon(Icons.calendar_today),
+                  prefixIcon: const Icon(Icons.calendar_today),
                   hintText: 'Enter the in date',
                   labelText: 'In Date',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: Color(0xffadadad),
+                      width: 3,
+                    ),
+                  ),
                 ),
                 // keyboardType: TextInputType.datetime,
                 onTap: () async {
@@ -143,15 +162,24 @@ class _OutpassFormState extends State<OutpassForm> {
                 },
                 controller: outpassInDate,
               ),
+              SizedBox(height: 10),
               /////////////////////////////
               new TextField(
                 readOnly: true,
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   errorText:
                       validateDepTime ? "Departure Time can\'t be empty" : null,
-                  icon: const Icon(Icons.access_time),
+                  prefixIcon: Icon(Icons.access_time),
                   hintText: 'Enter the time of leaving',
                   labelText: 'Departure Time',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: Color(0xffadadad),
+                      width: 3,
+                    ),
+                  ),
                 ),
                 onTap: () async {
                   var time = await showTimePicker(
@@ -169,14 +197,23 @@ class _OutpassFormState extends State<OutpassForm> {
                 },
                 controller: outpassDepTimeController,
               ),
+              SizedBox(height: 10),
               /////////////////////////////////
               new TextField(
                 readOnly: true,
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   errorText: validateInTime ? "In Time can\'t be empty" : null,
-                  icon: const Icon(Icons.access_time),
+                  prefixIcon: const Icon(Icons.access_time),
                   hintText: 'Enter a expected arrival time',
                   labelText: 'In Time',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: Color(0xffadadad),
+                      width: 3,
+                    ),
+                  ),
                 ),
                 // keyboardType: TextInputType.datetime,
                 onTap: () async {
@@ -195,12 +232,21 @@ class _OutpassFormState extends State<OutpassForm> {
                 },
                 controller: outpassInTimeController,
               ),
+              SizedBox(height: 10),
               new TextField(
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   errorText: validateAddress ? "Address can\'t be empty" : null,
-                  icon: const Icon(Icons.add_location),
+                  prefixIcon: Icon(Icons.add_location),
                   hintText: 'Enter the address of visit',
                   labelText: 'Address',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: Color(0xffadadad),
+                      width: 3,
+                    ),
+                  ),
                 ),
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
@@ -212,12 +258,21 @@ class _OutpassFormState extends State<OutpassForm> {
                 },
                 controller: outpassAddressController,
               ),
+              SizedBox(height: 10),
               new TextField(
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   errorText: validateReason ? "Reason can\'t be empty" : null,
-                  icon: const Icon(Icons.description),
+                  prefixIcon: Icon(Icons.description),
                   hintText: 'Enter the Reason',
                   labelText: 'Reason',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: Color(0xffadadad),
+                      width: 3,
+                    ),
+                  ),
                 ),
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
@@ -229,57 +284,69 @@ class _OutpassFormState extends State<OutpassForm> {
                 },
                 controller: outpassReason,
               ),
-              SizedBox(height: 45),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Color(0xff7f84fa)),
-                child: Text(
-                  'Submit',
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                ),
-                onPressed: () async {
-                  setState(() {
-                    validateName = nameController.text.isEmpty ? false : true;
-                    validateNumber =
-                        phoneController.text.isEmpty ? false : true;
-                    validateOutDate =
-                        outpassOutDate.text.isEmpty ? true : false;
-                    validateInDate = outpassInDate.text.isEmpty ? true : false;
-                    validateDepTime =
-                        outpassDepTimeController.text.isEmpty ? true : false;
-                    validateInTime =
-                        outpassInTimeController.text.isEmpty ? true : false;
-                    validateAddress =
-                        outpassAddressController.text.isEmpty ? true : false;
-                    validateReason = outpassReason.text.isEmpty ? true : false;
-                  });
+              SizedBox(height: 30),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: <
+                  Widget>[
+                Container(
+                  margin: EdgeInsets.all(10.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Color(0xff7f84fa)),
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    ),
+                    onPressed: () async {
+                      setState(() {
+                        validateName =
+                            nameController.text.isEmpty ? false : true;
+                        validateNumber =
+                            phoneController.text.isEmpty ? false : true;
+                        validateOutDate =
+                            outpassOutDate.text.isEmpty ? true : false;
+                        validateInDate =
+                            outpassInDate.text.isEmpty ? true : false;
+                        validateDepTime = outpassDepTimeController.text.isEmpty
+                            ? true
+                            : false;
+                        validateInTime =
+                            outpassInTimeController.text.isEmpty ? true : false;
+                        validateAddress = outpassAddressController.text.isEmpty
+                            ? true
+                            : false;
+                        validateReason =
+                            outpassReason.text.isEmpty ? true : false;
+                      });
 
-                  Map data = {
-                    "Name": "$_name",
-                    "Email": "${currentUser.email}",
-                    "Phone": "$_mobile",
-                    "Out Date": "${outpassOutDate.text.trim()}",
-                    "In Date": "${outpassInDate.text.trim()}",
-                    "Departure Time": "${outpassDepTimeController.text.trim()}",
-                    "In Time": "${outpassInTimeController.text.trim()}",
-                    "Address": "${outpassAddressController.text.trim()}",
-                    "Reason": "${outpassReason.text.trim()}",
-                    "block": "$_block",
-                    "room": "$_room",
-                    "status": "Pending",
-                    "uid": currentUser.uid
-                  };
-                  if (!validateOutDate &&
-                      !validateInDate &&
-                      !validateInTime &&
-                      !validateDepTime &&
-                      !validateAddress &&
-                      !validateReason) {
-                    saving = true;
-                    database.reference().child("outpass").push().set(data);
-                    Navigator.pop(context);
-                  }
-                },
-              ),
+                      Map data = {
+                        "Name": "$_name",
+                        "Email": "${currentUser.email}",
+                        "Phone": "$_mobile",
+                        "Out Date": "${outpassOutDate.text.trim()}",
+                        "In Date": "${outpassInDate.text.trim()}",
+                        "Departure Time":
+                            "${outpassDepTimeController.text.trim()}",
+                        "In Time": "${outpassInTimeController.text.trim()}",
+                        "Address": "${outpassAddressController.text.trim()}",
+                        "Reason": "${outpassReason.text.trim()}",
+                        "block": "$_block",
+                        "room": "$_room",
+                        "status": "Pending",
+                        "uid": currentUser.uid
+                      };
+                      if (!validateOutDate &&
+                          !validateInDate &&
+                          !validateInTime &&
+                          !validateDepTime &&
+                          !validateAddress &&
+                          !validateReason) {
+                        saving = true;
+                        database.reference().child("outpass").push().set(data);
+                        Navigator.pop(context);
+                      }
+                    },
+                  ),
+                ),
+              ])
             ],
           ),
         ),
