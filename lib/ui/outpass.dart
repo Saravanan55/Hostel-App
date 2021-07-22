@@ -46,6 +46,17 @@ class _OutpassState extends State<Outpass> {
         automaticallyImplyLeading: false,
         backgroundColor: Color(0xff8096ed),
         title: Text('Outpass Details'),
+        // actions: <Widget>[
+        //   GestureDetector(
+        //       child: Icon(
+        //         Icons.edit,
+        //         color: Colors.white,
+        //       ),
+        //       onTap: () {
+        //         Navigator.of(context).push(
+        //             MaterialPageRoute(builder: (context) => MyHomePage()));
+        //       })
+        // ],
       ),
       body: Column(
         children: <Widget>[

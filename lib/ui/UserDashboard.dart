@@ -71,7 +71,7 @@ class _UserDashboardState extends State<UserDashboard>
               },
             ),
             backgroundColor: Color(0xff8096ed),
-            title: Text(' DashboardTest'),
+            title: Text(' Dashboard'),
           ),
           body: new Column(
             children: <Widget>[
