@@ -1,7 +1,4 @@
 import 'dart:io';
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hostel/ui/food.dart';
@@ -50,19 +47,6 @@ class _UserDashboardState extends State<UserDashboard>
         onWillPop: _onWillPop,
         child: Scaffold(
           appBar: AppBar(
-            // actions: <Widget>[
-            //   GestureDetector(
-            //     child: Icon(
-            //       Icons.logout,
-            //       color: Colors.white,
-            //     ),
-            //     onTap: () {
-            //       CommonData.clearLoggedInUserData();
-            //       Navigator.push(
-            //           context, MaterialPageRoute(builder: (context) => Login()));
-            //     },
-            //   )
-            // ],
             leading: IconButton(
               icon: Icon(Icons.account_circle),
               onPressed: () {
@@ -75,15 +59,14 @@ class _UserDashboardState extends State<UserDashboard>
           ),
           body: new Column(
             children: <Widget>[
-              // new GradientAppBar("treva"),
-              PlanetRow(),
+              CardRow(),
             ],
           ),
         ));
   }
 }
 
-class PlanetRow extends StatelessWidget {
+class CardRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

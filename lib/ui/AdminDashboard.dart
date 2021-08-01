@@ -3,12 +3,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hostel/food/add_screen.dart';
-import 'package:hostel/food/item_list.dart';
+//import 'package:hostel/food/add_screen.dart';
+import 'package:hostel/food/foodpage.dart';
+//import 'package:hostel/food/item_list.dart';
 import 'package:hostel/issues/issuespending.dart';
 import 'package:hostel/issues/issuessolved.dart';
 import 'package:hostel/outpass/approved.dart';
 import 'package:hostel/outpass/pending.dart';
+//import 'package:hostel/ui/adminDash.dart';
+import 'package:hostel/users/aids.dart';
 import 'package:hostel/users/civil.dart';
 import 'package:hostel/users/cse.dart';
 import 'package:hostel/users/ece.dart';
@@ -43,9 +46,6 @@ class _AdminDashboardState extends State<AdminDashboard>
     complaint = Complaints("", "", "", "", "");
     databaseReference = database.reference();
     databaseReference.onChildAdded.listen(onDataAdded);
-
-    tabBarController =
-        new TabController(length: 4, vsync: this, initialIndex: 0);
   }
 
   Widget shimmers() {
@@ -167,341 +167,1107 @@ class _AdminDashboardState extends State<AdminDashboard>
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Login()));
               },
-            )
+            ),
+            // SizedBox(width: 20),
+            // GestureDetector(
+            //   child: Container(
+            //     child: Icon(Icons.pending_actions),
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => AdminDash()));
+            //   },
+            // ),
           ],
           backgroundColor: Color(0xff028090),
           title: Text('Admin Dashboard'),
-          bottom: TabBar(
-            controller: tabBarController,
-            indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(width: 2.0, color: Colors.white),
-                insets: EdgeInsets.symmetric(horizontal: 0.0)),
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorWeight: 15,
-            unselectedLabelStyle: TextStyle(
-                color: Colors.black26,
-                fontSize: 15.0,
-                letterSpacing: 1.2,
-                fontWeight: FontWeight.w400),
-            unselectedLabelColor: Colors.grey.shade400,
-            labelColor: Colors.white,
-            isScrollable: true,
-            labelStyle: TextStyle(
-                fontSize: 15.0,
-                letterSpacing: 1.2,
-                fontWeight: FontWeight.w700),
-            tabs: <Widget>[
-              Tab(
-                child: Text('Issues'),
-              ),
-              Tab(
-                child: Text('Outpass'),
-              ),
-              Tab(
-                child: Text('Food'),
-              ),
-              Tab(
-                child: Text("Students"),
-              )
-            ],
-          ),
+          // bottom: TabBar(
+          //   controller: tabBarController,
+          //   indicator: UnderlineTabIndicator(
+          //       borderSide: BorderSide(width: 2.0, color: Colors.white),
+          //       insets: EdgeInsets.symmetric(horizontal: 0.0)),
+          //   indicatorSize: TabBarIndicatorSize.tab,
+          //   indicatorWeight: 15,
+          //   unselectedLabelStyle: TextStyle(
+          //       color: Colors.black26,
+          //       fontSize: 15.0,
+          //       letterSpacing: 1.2,
+          //       fontWeight: FontWeight.w400),
+          //   unselectedLabelColor: Colors.grey.shade400,
+          //   labelColor: Colors.white,
+          //   isScrollable: true,
+          //   labelStyle: TextStyle(
+          //       fontSize: 15.0,
+          //       letterSpacing: 1.2,
+          //       fontWeight: FontWeight.w700),
+          //   tabs: <Widget>[
+          //     Tab(
+          //       child: Text('Issues'),
+          //     ),
+          //     Tab(
+          //       child: Text('Outpass'),
+          //     ),
+          //     Tab(
+          //       child: Text('Food'),
+          //     ),
+          //     Tab(
+          //       child: Text("Students"),
+          //     )
+          //   ],
+          // ),
         ),
         body: Container(
-          child: TabBarView(
-            controller: tabBarController,
-            children: <Widget>[
-              issues(),
-              outpassfirebase(),
-              foodfirebase(),
-              studentlist(),
+          color: Colors.white,
+          margin: EdgeInsets.only(left: 4.0, right: 4, bottom: 0, top: 10),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Text(
+                      "Hostel Issues".toUpperCase(),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                delegate: SliverChildListDelegate(
+                  [
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Pending()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.warning,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Pending',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage("assets/image_02.png"),
+                                    fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Solved()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.check_circle,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Done',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage("assets/image_02.png"),
+                                    fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Padding(padding: EdgeInsets.all(2)),
+                    Text("OUTPASS",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              SliverGrid(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  delegate: SliverChildListDelegate([
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OutpassPending()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.warning,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Pending',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage("assets/outpassdesign.jpg"),
+                                    fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OutpassApproved()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 5.0),
+                                        child: Icon(Icons.check_circle,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Approved',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage("assets/outpassdesign.jpg"),
+                                    fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                  ])),
+              // Card(),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Text("STUDENTS",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                delegate: SliverChildListDelegate(
+                  [
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Csedept()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.people,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'CSE DEPT',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(""),
+                                    fit: BoxFit.fitWidth),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Itdept()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.people,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'IT DEPT',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(""), fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Ecedept()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.people,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'ECE DEPT',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(""), fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Civildept()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.people,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'CIVIL DEPT',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(""), fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Mechdept()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.people,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'MECH DEPT',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(""), fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AiDsdept()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 2) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.people,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'AI&DS DEPT',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(""), fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FoodPage()));
+                            },
+                            child: Container(
+                              height: 100.0,
+                              width: MediaQuery.of(context).size.width - 32.0,
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(height: 4.0),
+                                    Text("Food details".toUpperCase(),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Poppins',
+                                            fontSize: 25.0,
+                                            fontWeight: FontWeight.w600)),
+                                    Container(height: 10.0),
+                                  ]),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage("assets/fooddesign.png"),
+                                    fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 10.0,
+                                    offset: Offset(0.0, 10.0),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
+        // body: Container(
+        //   child: TabBarView(
+        //     controller: tabBarController,
+        //     children: <Widget>[
+        //       issues(),
+        //       outpassfirebase(),
+        //       foodfirebase(),
+        //       studentlist(),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
 
-  Widget studentlist() {
-    return Card(
-      child: GridView.count(
-        scrollDirection: Axis.vertical,
-        crossAxisCount: 2,
-        children: <Widget>[
-          Card(
-            color: Color(0xff0ff24b),
-            elevation: 6,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Csedept()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'CSE Student',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Card(
-            color: Color(0xff0ff24b),
-            elevation: 6,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Itdept()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'IT Student',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Card(
-            color: Color(0xff0ff24b),
-            elevation: 6,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Ecedept()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'ECE Student',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Card(
-            color: Color(0xff0ff24b),
-            elevation: 6,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Mechdept()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'MECH Student',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Card(
-            color: Color(0xff0ff24b),
-            elevation: 6,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Civildept()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'CIVIL Student',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  // Widget studentlist() {
+  //   return Card(
+  //     child: GridView.count(
+  //       scrollDirection: Axis.vertical,
+  //       crossAxisCount: 2,
+  //       children: <Widget>[
+  //         Card(
+  //           color: Color(0xff0ff24b),
+  //           elevation: 6,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(context,
+  //                   MaterialPageRoute(builder: (context) => Csedept()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'CSE Student',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Card(
+  //           color: Color(0xff0ff24b),
+  //           elevation: 6,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(
+  //                   context, MaterialPageRoute(builder: (context) => Itdept()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'IT Student',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Card(
+  //           color: Color(0xff0ff24b),
+  //           elevation: 6,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(context,
+  //                   MaterialPageRoute(builder: (context) => Ecedept()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'ECE Student',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Card(
+  //           color: Color(0xff0ff24b),
+  //           elevation: 6,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(context,
+  //                   MaterialPageRoute(builder: (context) => Mechdept()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'MECH Student',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Card(
+  //           color: Color(0xff0ff24b),
+  //           elevation: 6,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(context,
+  //                   MaterialPageRoute(builder: (context) => Civildept()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'CIVIL Student',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget foodfirebase() {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AddScreen(),
-            ),
-          );
-        },
-        backgroundColor: Color(0xff028090),
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 32,
-        ),
-      ),
-      body: SafeArea(
-        child: ItemList(),
-      ),
-    );
-  }
+  // Widget foodfirebase() {
+  //   return Scaffold(
+  //     backgroundColor: Colors.white,
+  //     floatingActionButton: FloatingActionButton(
+  //       onPressed: () {
+  //         Navigator.of(context).push(
+  //           MaterialPageRoute(
+  //             builder: (context) => AddScreen(),
+  //           ),
+  //         );
+  //       },
+  //       backgroundColor: Color(0xff028090),
+  //       child: Icon(
+  //         Icons.add,
+  //         color: Colors.white,
+  //         size: 32,
+  //       ),
+  //     ),
+  //     body: SafeArea(
+  //       child: ItemList(),
+  //     ),
+  //   );
+  // }
 
-  Widget outpassfirebase() {
-    return Card(
-      child: GridView.count(
-        scrollDirection: Axis.vertical,
-        crossAxisCount: 2,
-        children: <Widget>[
-          Card(
-            color: Color(0xfffa3434),
-            elevation: 6,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OutpassPending()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'Outpass \n Pending',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Card(
-            elevation: 6,
-            color: Color(0xff0ff24b),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OutpassApproved()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'Outpass \n Approved',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget outpassfirebase() {
+  //   return Card(
+  //     child: GridView.count(
+  //       scrollDirection: Axis.vertical,
+  //       crossAxisCount: 2,
+  //       children: <Widget>[
+  //         Card(
+  //           color: Color(0xfffa3434),
+  //           elevation: 6,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(context,
+  //                   MaterialPageRoute(builder: (context) => OutpassPending()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'Outpass \n Pending',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Card(
+  //           elevation: 6,
+  //           color: Color(0xff0ff24b),
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(context,
+  //                   MaterialPageRoute(builder: (context) => OutpassApproved()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'Outpass \n Approved',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget issues() {
-    return Card(
-      child: GridView.count(
-        scrollDirection: Axis.vertical,
-        crossAxisCount: 2,
-        children: <Widget>[
-          Card(
-            color: Color(0xfffa3434),
-            elevation: 6,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Pending()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'Issues \n Pending',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Card(
-            elevation: 6,
-            color: Color(0xff0ff24b),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Solved()));
-              },
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 18.0),
-                    Text(
-                      'Issues \n Solved',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget issues() {
+  //   return Card(
+  //     child: GridView.count(
+  //       scrollDirection: Axis.vertical,
+  //       crossAxisCount: 2,
+  //       children: <Widget>[
+  //         Card(
+  //           color: Color(0xfffa3434),
+  //           elevation: 6,
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(context,
+  //                   MaterialPageRoute(builder: (context) => Pending()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'Issues \n Pending',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Card(
+  //           elevation: 6,
+  //           color: Color(0xff0ff24b),
+  //           child: InkWell(
+  //             onTap: () {
+  //               Navigator.push(
+  //                   context, MaterialPageRoute(builder: (context) => Solved()));
+  //             },
+  //             child: Padding(
+  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   SizedBox(height: 18.0),
+  //                   Text(
+  //                     'Issues \n Solved',
+  //                     textAlign: TextAlign.center,
+  //                     style:
+  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   void onDataAdded(Event event) {
     setState(() {

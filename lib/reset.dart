@@ -45,7 +45,7 @@ class _ResetScreenState extends State<ResetScreen> {
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).accentColor)),
+                      primary: Theme.of(context).primaryColor)),
             ],
           ),
         ],

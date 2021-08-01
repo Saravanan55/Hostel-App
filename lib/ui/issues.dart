@@ -19,7 +19,6 @@ class _IssuesState extends State<Issues> {
   String userId = '';
   Complaints complaint;
   final FirebaseDatabase database = FirebaseDatabase.instance;
-  // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   DatabaseReference databaseReference;
   @override
   @override
@@ -34,10 +33,6 @@ class _IssuesState extends State<Issues> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   icon: Icon(Icons.account_circle),
-        //   onPressed: () {},
-        // ),
         automaticallyImplyLeading: false,
         backgroundColor: Color(0xff8096ed),
         title: Text('Hostel Issues'),
@@ -52,10 +47,9 @@ class _IssuesState extends State<Issues> {
           ),
         ],
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.edit),
-        backgroundColor: Colors.green,
+        child: Icon(Icons.add),
+        backgroundColor: Color(0xff8096ed),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => MyForm()));
