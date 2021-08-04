@@ -67,16 +67,21 @@ class _ProfileState extends State<Profile> {
         .update(data);
   }
 
-  Widget _buildCoverImage(Size screenSize) {
+  Widget _buildCoverImage(Size screenSize, url) {
     return Container(
       height: screenSize.height / 4,
       decoration: BoxDecoration(
-        color: Color(0xffa0a3fa),
-        // image: DecorationImage(
-        //   image: AssetImage('assets/logo (2).png'),
-        //   fit: BoxFit.cover,
-        // ),
-      ),
+          // color: Color(0xffa0a3fa),
+          // image: DecorationImage(
+          //   image: AssetImage('assets/logo (2).png'),
+          //   fit: BoxFit.cover,
+          // ),
+
+          image: new DecorationImage(
+              colorFilter: new ColorFilter.mode(
+                  Colors.black.withOpacity(0.2), BlendMode.dstATop),
+              fit: BoxFit.cover,
+              image: new NetworkImage('$url'))),
     );
   }
 
@@ -162,7 +167,7 @@ class _ProfileState extends State<Profile> {
       child: Stack(
         //  mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildCoverImage(screenSize),
+          _buildCoverImage(screenSize, url),
           SafeArea(
               child: SingleChildScrollView(
             child: Column(

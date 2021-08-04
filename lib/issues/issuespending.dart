@@ -136,6 +136,7 @@ class _PendingState extends State<Pending> with TickerProviderStateMixin {
                   data['key'] = snapshot.key;
                   print('${data['name']}');
                   return eventCard(
+                      // snapshot.value.entries.length,
                       data["name"],
                       data["detail"],
                       data['phone'],
@@ -148,8 +149,17 @@ class _PendingState extends State<Pending> with TickerProviderStateMixin {
                 })));
   }
 
-  Widget eventCard(String name, String detail, String phone, String url,
-      String status, String id, String category, int flag, String key) {
+  Widget eventCard(
+      //int length,
+      String name,
+      String detail,
+      String phone,
+      String url,
+      String status,
+      String id,
+      String category,
+      int flag,
+      String key) {
     return InkWell(
       onTap: () {
         Navigator.push(

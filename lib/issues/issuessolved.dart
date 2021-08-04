@@ -130,6 +130,7 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
                   data['key'] = snapshot.key;
                   print('${data['name']}');
                   return eventCard(
+                      // snapshot.value.toString().length,
                       data["name"],
                       data["detail"],
                       data['phone'],
@@ -142,8 +143,17 @@ class _SolvedState extends State<Solved> with TickerProviderStateMixin {
                 })));
   }
 
-  Widget eventCard(String name, String detail, String phone, String url,
-      String status, String id, String category, int flag, String key) {
+  Widget eventCard(
+      //  int length,
+      String name,
+      String detail,
+      String phone,
+      String url,
+      String status,
+      String id,
+      String category,
+      int flag,
+      String key) {
     return InkWell(
       onTap: () {
         Navigator.push(

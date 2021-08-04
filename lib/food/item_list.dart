@@ -18,6 +18,7 @@ class ItemList extends StatelessWidget {
             itemBuilder: (context, index) {
               String docID = snapshot.data.documents[index].documentID;
               String date = snapshot.data.documents[index].data['Date'];
+              // int length = snapshot.data.documents.length;
               String breakfast =
                   snapshot.data.documents[index].data['Break Fast'];
               String lunch = snapshot.data.documents[index].data['Lunch'];

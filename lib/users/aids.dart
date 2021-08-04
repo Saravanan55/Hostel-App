@@ -115,7 +115,7 @@ class _AiDsdeptState extends State<AiDsdept> with TickerProviderStateMixin {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text('CIVIL students'),
+          title: Text('AI&DS students'),
         ),
         body: Container(
             child: FirebaseAnimatedList(
@@ -123,7 +123,7 @@ class _AiDsdeptState extends State<AiDsdept> with TickerProviderStateMixin {
           query: databaseReference
               .child('users')
               .orderByChild("dept")
-              .equalTo("CIVIL"),
+              .equalTo("AI&DS"),
           itemBuilder: (BuildContext context, DataSnapshot snapshot,
               Animation<double> animation, int index) {
             data = snapshot.value;

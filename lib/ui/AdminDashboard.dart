@@ -2,15 +2,11 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-//import 'package:hostel/food/add_screen.dart';
 import 'package:hostel/food/foodpage.dart';
-//import 'package:hostel/food/item_list.dart';
 import 'package:hostel/issues/issuespending.dart';
 import 'package:hostel/issues/issuessolved.dart';
 import 'package:hostel/outpass/approved.dart';
 import 'package:hostel/outpass/pending.dart';
-//import 'package:hostel/ui/adminDash.dart';
 import 'package:hostel/users/aids.dart';
 import 'package:hostel/users/civil.dart';
 import 'package:hostel/users/cse.dart';
@@ -127,9 +123,6 @@ class _AdminDashboardState extends State<AdminDashboard>
     );
   }
 
-  // static const textStyle = TextStyle(
-  //   fontSize: 16,
-  // );
   Future<bool> _onWillPop() {
     return showDialog(
           context: context,
@@ -159,62 +152,16 @@ class _AdminDashboardState extends State<AdminDashboard>
         appBar: AppBar(
           actions: <Widget>[
             GestureDetector(
-              child: Container(
-                child: SvgPicture.asset("assets/Log out.svg"),
-              ),
+              child: Icon(Icons.logout),
               onTap: () {
                 CommonData.clearLoggedInUserData();
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Login()));
               },
             ),
-            // SizedBox(width: 20),
-            // GestureDetector(
-            //   child: Container(
-            //     child: Icon(Icons.pending_actions),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(context,
-            //         MaterialPageRoute(builder: (context) => AdminDash()));
-            //   },
-            // ),
           ],
-          backgroundColor: Color(0xff028090),
+          backgroundColor: Color(0xff8096ed),
           title: Text('Admin Dashboard'),
-          // bottom: TabBar(
-          //   controller: tabBarController,
-          //   indicator: UnderlineTabIndicator(
-          //       borderSide: BorderSide(width: 2.0, color: Colors.white),
-          //       insets: EdgeInsets.symmetric(horizontal: 0.0)),
-          //   indicatorSize: TabBarIndicatorSize.tab,
-          //   indicatorWeight: 15,
-          //   unselectedLabelStyle: TextStyle(
-          //       color: Colors.black26,
-          //       fontSize: 15.0,
-          //       letterSpacing: 1.2,
-          //       fontWeight: FontWeight.w400),
-          //   unselectedLabelColor: Colors.grey.shade400,
-          //   labelColor: Colors.white,
-          //   isScrollable: true,
-          //   labelStyle: TextStyle(
-          //       fontSize: 15.0,
-          //       letterSpacing: 1.2,
-          //       fontWeight: FontWeight.w700),
-          //   tabs: <Widget>[
-          //     Tab(
-          //       child: Text('Issues'),
-          //     ),
-          //     Tab(
-          //       child: Text('Outpass'),
-          //     ),
-          //     Tab(
-          //       child: Text('Food'),
-          //     ),
-          //     Tab(
-          //       child: Text("Students"),
-          //     )
-          //   ],
-          // ),
         ),
         body: Container(
           color: Colors.white,
@@ -226,8 +173,9 @@ class _AdminDashboardState extends State<AdminDashboard>
                   [
                     Text(
                       "Hostel Issues".toUpperCase(),
+                      textAlign: TextAlign.center,
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -375,8 +323,9 @@ class _AdminDashboardState extends State<AdminDashboard>
                   [
                     Padding(padding: EdgeInsets.all(2)),
                     Text("OUTPASS",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
@@ -477,7 +426,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                                     Expanded(
                                       flex: 8,
                                       child: Padding(
-                                        padding: EdgeInsets.only(top: 5.0),
+                                        padding: EdgeInsets.only(top: 30.0),
                                         child: Icon(Icons.check_circle,
                                             size: 30.0, color: Colors.white),
                                       ),
@@ -522,8 +471,9 @@ class _AdminDashboardState extends State<AdminDashboard>
                 delegate: SliverChildListDelegate(
                   [
                     Text("STUDENTS",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
@@ -964,6 +914,15 @@ class _AdminDashboardState extends State<AdminDashboard>
                                 ],
                               ),
                             )),
+                        // Positioned(
+                        //   top: 0,
+                        //   right: (MediaQuery.of(context).size.width / 2) - 42.0,
+                        //   //  right: -36,
+                        //   child: IconButton(
+                        //     onPressed: () {},
+                        //     icon: Icon(Icons.more_vert),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],
@@ -972,302 +931,9 @@ class _AdminDashboardState extends State<AdminDashboard>
             ],
           ),
         ),
-        // body: Container(
-        //   child: TabBarView(
-        //     controller: tabBarController,
-        //     children: <Widget>[
-        //       issues(),
-        //       outpassfirebase(),
-        //       foodfirebase(),
-        //       studentlist(),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
-
-  // Widget studentlist() {
-  //   return Card(
-  //     child: GridView.count(
-  //       scrollDirection: Axis.vertical,
-  //       crossAxisCount: 2,
-  //       children: <Widget>[
-  //         Card(
-  //           color: Color(0xff0ff24b),
-  //           elevation: 6,
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => Csedept()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'CSE Student',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         Card(
-  //           color: Color(0xff0ff24b),
-  //           elevation: 6,
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(
-  //                   context, MaterialPageRoute(builder: (context) => Itdept()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'IT Student',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         Card(
-  //           color: Color(0xff0ff24b),
-  //           elevation: 6,
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => Ecedept()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'ECE Student',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         Card(
-  //           color: Color(0xff0ff24b),
-  //           elevation: 6,
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => Mechdept()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'MECH Student',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         Card(
-  //           color: Color(0xff0ff24b),
-  //           elevation: 6,
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => Civildept()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'CIVIL Student',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget foodfirebase() {
-  //   return Scaffold(
-  //     backgroundColor: Colors.white,
-  //     floatingActionButton: FloatingActionButton(
-  //       onPressed: () {
-  //         Navigator.of(context).push(
-  //           MaterialPageRoute(
-  //             builder: (context) => AddScreen(),
-  //           ),
-  //         );
-  //       },
-  //       backgroundColor: Color(0xff028090),
-  //       child: Icon(
-  //         Icons.add,
-  //         color: Colors.white,
-  //         size: 32,
-  //       ),
-  //     ),
-  //     body: SafeArea(
-  //       child: ItemList(),
-  //     ),
-  //   );
-  // }
-
-  // Widget outpassfirebase() {
-  //   return Card(
-  //     child: GridView.count(
-  //       scrollDirection: Axis.vertical,
-  //       crossAxisCount: 2,
-  //       children: <Widget>[
-  //         Card(
-  //           color: Color(0xfffa3434),
-  //           elevation: 6,
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => OutpassPending()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'Outpass \n Pending',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         Card(
-  //           elevation: 6,
-  //           color: Color(0xff0ff24b),
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => OutpassApproved()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'Outpass \n Approved',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget issues() {
-  //   return Card(
-  //     child: GridView.count(
-  //       scrollDirection: Axis.vertical,
-  //       crossAxisCount: 2,
-  //       children: <Widget>[
-  //         Card(
-  //           color: Color(0xfffa3434),
-  //           elevation: 6,
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => Pending()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'Issues \n Pending',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //         Card(
-  //           elevation: 6,
-  //           color: Color(0xff0ff24b),
-  //           child: InkWell(
-  //             onTap: () {
-  //               Navigator.push(
-  //                   context, MaterialPageRoute(builder: (context) => Solved()));
-  //             },
-  //             child: Padding(
-  //               padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   SizedBox(height: 18.0),
-  //                   Text(
-  //                     'Issues \n Solved',
-  //                     textAlign: TextAlign.center,
-  //                     style:
-  //                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   void onDataAdded(Event event) {
     setState(() {
