@@ -150,6 +150,7 @@ class _AdminDashboardState extends State<AdminDashboard>
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           actions: <Widget>[
             GestureDetector(
               child: Icon(Icons.logout),
