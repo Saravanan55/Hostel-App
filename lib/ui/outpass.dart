@@ -23,7 +23,7 @@ class _OutpassState extends State<Outpass> {
   final FirebaseDatabase database = FirebaseDatabase.instance;
   // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   DatabaseReference databaseReference;
-  @override
+
   @override
   void initState() {
     super.initState();
@@ -196,9 +196,11 @@ class _OutpassState extends State<Outpass> {
                         Text(
                           'Status : $status',
                           style: TextStyle(
-                              color: status == "Pending"
-                                  ? Colors.red
-                                  : Colors.green),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: status == "Approved"
+                                  ? Colors.green
+                                  : Colors.red),
                         )
                       ],
                     ),

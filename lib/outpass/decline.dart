@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -8,12 +6,12 @@ import 'package:hostel/ui/outpassDetails.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:hostel/model/complaints.dart';
 
-class OutpassPending extends StatefulWidget {
+class OutpassDecline extends StatefulWidget {
   @override
-  _OutpassPendingState createState() => _OutpassPendingState();
+  _OutpassDeclineState createState() => _OutpassDeclineState();
 }
 
-class _OutpassPendingState extends State<OutpassPending>
+class _OutpassDeclineState extends State<OutpassDecline>
     with TickerProviderStateMixin {
   List<Complaints> complaintList = [];
   List<Tab> tabBarViews;
@@ -22,7 +20,6 @@ class _OutpassPendingState extends State<OutpassPending>
   Complaints complaint;
   final FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference databaseReference;
-  Query que;
 
   @override
   void initState() {
@@ -116,28 +113,21 @@ class _OutpassPendingState extends State<OutpassPending>
 
   @override
   Widget build(BuildContext context) {
-    Query que = databaseReference
-        .child('outpass')
-        .orderByChild('status')
-        .equalTo('Pending');
-    print(que);
-    inspect(que);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text('Outpass Pending'),
+          title: Text('Outpass Decline'),
         ),
         body: Container(
-            child: FirebaseAnimatedList(
+            child: new FirebaseAnimatedList(
                 defaultChild: shimmers(),
                 query: databaseReference
                     .child('outpass')
                     .orderByChild('status')
-                    .equalTo('Pending'),
-                itemBuilder: (BuildContext context, snapshot,
+                    .equalTo('Decline'),
+                itemBuilder: (BuildContext context, DataSnapshot snapshot,
                     Animation<double> animation, int index) {
                   data = snapshot.value;
-
                   data['key'] = snapshot.key;
                   print('${data['name']}');
                   return eventCardpass(

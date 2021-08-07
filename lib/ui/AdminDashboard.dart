@@ -6,6 +6,7 @@ import 'package:hostel/food/foodpage.dart';
 import 'package:hostel/issues/issuespending.dart';
 import 'package:hostel/issues/issuessolved.dart';
 import 'package:hostel/outpass/approved.dart';
+import 'package:hostel/outpass/decline.dart';
 import 'package:hostel/outpass/pending.dart';
 import 'package:hostel/users/aids.dart';
 import 'package:hostel/users/civil.dart';
@@ -319,6 +320,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                   ],
                 ),
               ),
+
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
@@ -330,9 +332,10 @@ class _AdminDashboardState extends State<AdminDashboard>
                   ],
                 ),
               ),
+              //SizedBox(height: 12),
               SliverGrid(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                      crossAxisCount: 3),
                   delegate: SliverChildListDelegate([
                     Row(
                       children: <Widget>[
@@ -345,13 +348,13 @@ class _AdminDashboardState extends State<AdminDashboard>
                             },
                             child: Container(
                               height: 115.0,
-                              width: (MediaQuery.of(context).size.width / 2) -
+                              width: (MediaQuery.of(context).size.width / 3) -
                                   32.0,
                               margin: EdgeInsets.only(
                                   left: 10.0,
                                   right: 5.0,
-                                  top: 5.0,
-                                  bottom: 5.0),
+                                  top: 15.0,
+                                  bottom: 15.0),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Column(
@@ -382,9 +385,9 @@ class _AdminDashboardState extends State<AdminDashboard>
                               ),
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/outpassdesign.jpg"),
-                                    fit: BoxFit.cover),
+                                  image: AssetImage("assets/outpassdesign.jpg"),
+                                  fit: BoxFit.cover,
+                                ),
                                 color: Color(0xFF333366),
                                 shape: BoxShape.rectangle,
                                 borderRadius: BorderRadius.circular(8.0),
@@ -411,13 +414,13 @@ class _AdminDashboardState extends State<AdminDashboard>
                             },
                             child: Container(
                               height: 115.0,
-                              width: (MediaQuery.of(context).size.width / 2) -
-                                  32.0,
+                              width: (MediaQuery.of(context).size.width / 3) -
+                                  28.0,
                               margin: EdgeInsets.only(
                                   left: 10.0,
                                   right: 5.0,
-                                  top: 5.0,
-                                  bottom: 5.0),
+                                  top: 15.0,
+                                  bottom: 15.0),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Column(
@@ -466,8 +469,76 @@ class _AdminDashboardState extends State<AdminDashboard>
                             )),
                       ],
                     ),
+                    Row(
+                      children: <Widget>[
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OutpassDecline()));
+                            },
+                            child: Container(
+                              height: 115.0,
+                              width: (MediaQuery.of(context).size.width / 3) -
+                                  32.0,
+                              margin: EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 5.0,
+                                  top: 15.0,
+                                  bottom: 15.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 8,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: 30.0),
+                                        child: Icon(Icons.highlight_off,
+                                            size: 30.0, color: Colors.white),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        'Decline',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage("assets/outpassdesign.jpg"),
+                                    fit: BoxFit.cover),
+                                color: Color(0xFF333366),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.black,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(2.0, 2.0),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
                   ])),
+
               // Card(),
+              // SizedBox(height: 12),
               SliverList(
                 delegate: SliverChildListDelegate(
                   [

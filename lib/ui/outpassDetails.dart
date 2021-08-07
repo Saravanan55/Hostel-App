@@ -41,15 +41,22 @@ final FirebaseDatabase database = FirebaseDatabase.instance;
 class _OutpassDetailsState extends State<OutpassDetails> {
   Map data;
   String message;
-  bool val;
+  bool val = false;
+  bool valD = false;
   String statusChange;
   String pText = "Pending";
-  String dText = "Done";
-
+  String aText = "Approved";
+  String dText = "Decline";
+  int idRadio = 0;
   void initState() {
     super.initState();
-    if (this.widget.status == "Done") {
+    if (this.widget.status == "Approved") {
       val = true;
+      valD = false;
+      statusChange = aText;
+    } else if (this.widget.status == "Decline") {
+      valD = true;
+      val = false;
       statusChange = dText;
     } else {
       val = false;
@@ -124,25 +131,93 @@ class _OutpassDetailsState extends State<OutpassDetails> {
                       Text(
                         'Status : $statusChange',
                         style: TextStyle(
-                            fontSize: 16,
-                            color: statusChange == "Pending"
-                                ? Colors.red
-                                : Colors.green),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: statusChange == "Approved"
+                                ? Colors.green
+                                : Colors.red),
                       ),
                       widget.flag == 0
                           ? Container()
                           : Row(
                               children: <Widget>[
+                                // Text('Approved'),
+                                // Radio(
+                                //   value: this.val,
+                                //   onChanged: (value) {
+                                //     setState(() {
+                                //       this.val = value;
+                                //       if (this.val == true)
+                                //         message = "Approved";
+                                //       else
+                                //         message = "Pending";
+                                //       statusChange = message;
+
+                                //       database
+                                //           .reference()
+                                //           .child('outpass')
+                                //           .child(widget.keys)
+                                //           .update({
+                                //         "Name": "${widget.name}",
+                                //         "Phone": "${widget.phone}",
+                                //         "Out Date": "${widget.outdate}",
+                                //         "In Date": "${widget.indate}",
+                                //         "Departure Time": "${widget.deptime}",
+                                //         "In Time": "${widget.intime}",
+                                //         "Address": "${widget.address}",
+                                //         "id": "${widget.id}",
+                                //         "block": "${widget.block}",
+                                //         "room": "${widget.room}",
+                                //         "status": "$statusChange"
+                                //       });
+                                //     });
+                                //   },
+                                //   groupValue: id,
+                                // ),
+                                // SizedBox(width: 20),
+                                // Text('Decline'),
+                                // Checkbox(
+                                //   value: this.valD,
+                                //   onChanged: (value) {
+                                //     setState(() {
+                                //       this.valD = value;
+                                //       if (this.valD == true)
+                                //         message = "Decline";
+                                //       else
+                                //         message = "Pending";
+                                //       statusChange = message;
+
+                                //       database
+                                //           .reference()
+                                //           .child('outpass')
+                                //           .child(widget.keys)
+                                //           .update({
+                                //         "Name": "${widget.name}",
+                                //         "Phone": "${widget.phone}",
+                                //         "Out Date": "${widget.outdate}",
+                                //         "In Date": "${widget.indate}",
+                                //         "Departure Time": "${widget.deptime}",
+                                //         "In Time": "${widget.intime}",
+                                //         "Address": "${widget.address}",
+                                //         "id": "${widget.id}",
+                                //         "block": "${widget.block}",
+                                //         "room": "${widget.room}",
+                                //         "status": "$statusChange"
+                                //       });
+                                //     });
+                                //   },
+                                // ),
                                 Text('Approved'),
-                                Checkbox(
-                                  value: this.val,
+                                Radio(
+                                  value: 1,
                                   onChanged: (value) {
                                     setState(() {
-                                      this.val = value;
-                                      if (this.val == true)
-                                        message = "Done";
-                                      else
-                                        message = "Pending";
+                                      // this.val = value;
+                                      idRadio = 1;
+                                      // if (this.val == true)
+                                      message = "Approved";
+                                      // else
+                                      //   message = "Pending";
                                       statusChange = message;
 
                                       database
@@ -164,6 +239,42 @@ class _OutpassDetailsState extends State<OutpassDetails> {
                                       });
                                     });
                                   },
+                                  groupValue: idRadio,
+                                ),
+                                SizedBox(width: 20),
+                                Text('Decline'),
+                                Radio(
+                                  value: 2,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      idRadio = 2;
+                                      // this.valD = value;
+                                      // if (this.valD == true)
+                                      message = "Decline";
+                                      // else
+                                      //   message = "Pending";
+                                      statusChange = message;
+
+                                      database
+                                          .reference()
+                                          .child('outpass')
+                                          .child(widget.keys)
+                                          .update({
+                                        "Name": "${widget.name}",
+                                        "Phone": "${widget.phone}",
+                                        "Out Date": "${widget.outdate}",
+                                        "In Date": "${widget.indate}",
+                                        "Departure Time": "${widget.deptime}",
+                                        "In Time": "${widget.intime}",
+                                        "Address": "${widget.address}",
+                                        "id": "${widget.id}",
+                                        "block": "${widget.block}",
+                                        "room": "${widget.room}",
+                                        "status": "$statusChange"
+                                      });
+                                    });
+                                  },
+                                  groupValue: idRadio,
                                 ),
                               ],
                             ),

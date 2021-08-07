@@ -85,7 +85,8 @@ class _ComplaintDetailsState extends State<ComplaintDetails> {
                       Text(
                         'Status : $statusChange',
                         style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                             color: statusChange == "Pending"
                                 ? Colors.red
                                 : Colors.green),

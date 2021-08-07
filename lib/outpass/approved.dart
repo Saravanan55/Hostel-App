@@ -124,7 +124,7 @@ class _OutpassApprovedState extends State<OutpassApproved>
                 query: databaseReference
                     .child('outpass')
                     .orderByChild('status')
-                    .equalTo('Done'),
+                    .equalTo('Approved'),
                 itemBuilder: (BuildContext context, DataSnapshot snapshot,
                     Animation<double> animation, int index) {
                   data = snapshot.value;
@@ -244,6 +244,8 @@ class _OutpassApprovedState extends State<OutpassApproved>
                         Text(
                           'Status : $status',
                           style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                               color: status == "Pending"
                                   ? Colors.red
                                   : Colors.green),

@@ -159,6 +159,8 @@ class _IssuesState extends State<Issues> {
                         Text(
                           'Status : $status',
                           style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                               color: status == "Pending"
                                   ? Colors.red
                                   : Colors.green),
