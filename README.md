@@ -35,7 +35,7 @@
 </tr>
 </tbody>
 </table>
-  
+  <br/>
   <table>
 <thead>
 <tr>
@@ -52,7 +52,7 @@
 </tr>
 </tbody>
 </table>
-  
+  <br/>
 <table>
 <thead>
 <tr>
@@ -69,7 +69,7 @@
 </tr>
 </tbody>
 </table>
-  
+  <br/>
   <table>
 <thead>
 <tr>
@@ -86,7 +86,7 @@
 </tr>
 </tbody>
 </table>
-  
+  <br/>
   <table>
 <thead>
 <tr>
